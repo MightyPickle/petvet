@@ -25,7 +25,7 @@ export default function UserCard({ rating, address }) {
       >
         <Typography variant="h5" component="div">
           Имя Фамилия
-          <EditIcon sx={iconStyles}>edit_profile</EditIcon>
+          <EditIcon color="primary">edit_profile</EditIcon>
         </Typography>
         <Typography variant="h6" component="h2">
           <ButtonMailTo label="Почта" mailto="mailto:no-reply@example.com" />

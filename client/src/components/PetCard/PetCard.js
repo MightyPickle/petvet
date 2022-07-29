@@ -10,13 +10,15 @@ export default function PetCard({ pet }) {
     <div>
       petCard
       <Card sx={{ minWidth: 150 }}>
-        <CardActionArea sx={{
-          height: '20rem',
-          width: '17rem',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-        }}
+        <CardActionArea
+          color="secondary"
+          sx={{
+            height: '20rem',
+            width: '17rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
         >
           {/* <CardMedia
             component="img"
@@ -28,7 +30,7 @@ export default function PetCard({ pet }) {
             alt=""
             src="https://loremflickr.com/320/240/animal"
             sx={{
-              width: 185, height: 185, m: 2, 'backround-color': '#D9D9D9',
+              width: 185, height: 185, m: 2,
             }}
           />
           <CardContent>
