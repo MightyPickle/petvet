@@ -1,17 +1,30 @@
 import {
   Avatar,
+  Button,
   Card,
-  CardActionArea, CardContent, CardMedia, Typography,
+  CardActionArea, CardActions, CardContent, Typography,
 } from '@mui/material';
 import React from 'react';
+import { useTheme } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 export default function PetCard({ pet }) {
+  const theme = useTheme();
+  const primary = theme.palette.primary.main;
+  const secondary = theme.palette.secondary.main;
+  const navigate = useNavigate();
+  const moreHandler = (link) => {
+    console.log(link);
+    navigate(link);
+  };
+
   return (
     <div>
-      petCard
-      <Card sx={{ minWidth: 150 }}>
+      <Card sx={{
+        minWidth: 150, backgroundColor: secondary, borderRadius: '9px', m: 2,
+      }}
+      >
         <CardActionArea
-          color="secondary"
           sx={{
             height: '20rem',
             width: '17rem',
@@ -20,17 +33,11 @@ export default function PetCard({ pet }) {
             justifyContent: 'center',
           }}
         >
-          {/* <CardMedia
-            component="img"
-            height="140"
-            image="https://loremflickr.com/320/240/animal"
-            alt="green iguana"
-          /> */}
           <Avatar
-            alt=""
+            alt="{pet.avatar}"
             src="https://loremflickr.com/320/240/animal"
             sx={{
-              width: 185, height: 185, m: 2,
+              width: 185, height: 185, m: 2, border: `1px solid ${primary}`,
             }}
           />
           <CardContent>
@@ -40,6 +47,19 @@ export default function PetCard({ pet }) {
             </Typography>
           </CardContent>
         </CardActionArea>
+        <CardActions>
+          {/* <Link to={`/pets/${pet.id}`} style={{ textDecoration: 'none' }}> */}
+          <Button
+            onClick={(e) => moreHandler(`/pets/${pet.id}`)}
+            size="small"
+            sx={{
+              backgroundColor: primary, color: 'black', m: 'auto', borderRadius: '9px', p: '1rem',
+            }}
+          >
+            Подробнее
+          </Button>
+          {/* </Link> */}
+        </CardActions>
       </Card>
     </div>
   );

@@ -1,10 +1,13 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import PageProfile from './pages/pageProfile/PageProfile';
 
 function App() {
   return (
     <div className="App">
-      <PageProfile />
+      <Routes>
+        <Route path="/users/patients/:id" element={<PageProfile />} />
+      </Routes>
     </div>
   );
 }

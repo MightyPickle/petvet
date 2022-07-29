@@ -8,7 +8,7 @@ export default function AllPetCards() {
   const pets = ['lol', 'hah', 'heh'];
   return (
     <Container sx={{
-      max_width: '1000px', display: 'flex', flexDirection: 'row', justifyContent: 'space-around',
+      display: 'flex', flexDirection: 'row', py: 3, justifyContent: 'space-between',
     }}
     >
       {pets && pets.map((pet) => <PetCard key={uuidv4()} pet={pet} />)}
