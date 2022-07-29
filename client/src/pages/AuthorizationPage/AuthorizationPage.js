@@ -10,6 +10,7 @@ import TabPanel from '../../components/TabPanel/TabPanel';
 import Login from '../../components/Login/Login';
 import Signup from '../../components/Signup/Signup';
 import { userLoginThunk, userSignupThunk } from '../../redux/actions/userActions';
+import ErrorModal from '../../components/ErrorModal/ErrorModal';
 
 export default function AuthorizationPage() {
   const user = useSelector((store) => store.user);
@@ -52,6 +53,7 @@ export default function AuthorizationPage() {
           <Signup submitHandler={signupHandler} />
         </TabPanel>
       </Box>
+      <ErrorModal />
     </main>
   );
 }
