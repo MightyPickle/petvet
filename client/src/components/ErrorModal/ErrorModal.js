@@ -1,16 +1,21 @@
 import {
   Box, Button, Modal, Typography, Stack,
 } from '@mui/material';
-import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { errorHideAC } from '../../redux/actions/errorAction';
 
 function ErrorModal() {
-  const [open, setOpen] = useState(true);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const { isError, errorText } = useSelector((store) => store.error);
+  const dispatch = useDispatch();
+
+  const handleClose = () => {
+    dispatch(errorHideAC());
+  };
 
   return (
     <Modal
-      open={open}
+      open={isError}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
       onClose={handleClose}
@@ -33,10 +38,10 @@ function ErrorModal() {
             margin: 'auto', width: 'max-content', fontWeight: 'bold',
           }}
         >
-          Error
+          Ошибка
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          {errorText}
         </Typography>
         <Stack direction="row-reverse" sx={{ mt: '0.7rem' }}>
           <Button variant="contained" sx={{ width: 'max-content' }} onClick={handleClose}>Close</Button>
