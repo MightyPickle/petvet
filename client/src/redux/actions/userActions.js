@@ -1,3 +1,5 @@
+import { errorShowAC } from './errorAction';
+
 const userLoginAC = (form) => ({ type: 'USER_LOG_IN', payload: form });
 
 export const userLoginThunk = (form) => async (dispatch) => {
@@ -12,8 +14,9 @@ export const userLoginThunk = (form) => async (dispatch) => {
     window.localStorage.setItem('user', JSON.stringify(user));
     return dispatch(userLoginAC(user));
   }
-  const loginError = await response.json();
-  return loginError;
+  const { errorMessage } = await response.json();
+  console.log(errorMessage);
+  return dispatch(errorShowAC(errorMessage));
 };
 
 export const userSignupThunk = (form) => async (dispatch) => {
@@ -28,6 +31,7 @@ export const userSignupThunk = (form) => async (dispatch) => {
     window.localStorage.setItem('user', JSON.stringify(user));
     return dispatch(userLoginAC(user));
   }
-  const loginError = await response.json();
-  return loginError;
+  const { errorMessage } = await response.json();
+  console.log(errorMessage);
+  return dispatch(errorShowAC(errorMessage));
 };
