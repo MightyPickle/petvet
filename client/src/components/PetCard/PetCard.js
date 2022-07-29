@@ -5,12 +5,19 @@ import {
 } from '@mui/material';
 import React from 'react';
 
-export default function petCard({ pet }) {
+export default function PetCard({ pet }) {
   return (
     <div>
       petCard
-      <Card sx={{ maxWidth: 345 }}>
-        <CardActionArea>
+      <Card sx={{ minWidth: 150 }}>
+        <CardActionArea sx={{
+          height: '20rem',
+          width: '17rem',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}
+        >
           {/* <CardMedia
             component="img"
             height="140"
@@ -21,16 +28,13 @@ export default function petCard({ pet }) {
             alt=""
             src="https://loremflickr.com/320/240/animal"
             sx={{
-              width: 250, height: 250,
+              width: 185, height: 185, m: 2, 'backround-color': '#D9D9D9',
             }}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              Lizard
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Lizards are a widespread group of squamate reptiles, with over 6,000
-              species, ranging across all continents except Antarctica
+              {/* {pet.name} */}
+              here shall be name
             </Typography>
           </CardContent>
         </CardActionArea>
