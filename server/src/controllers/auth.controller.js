@@ -63,9 +63,7 @@ const signIn = async (req, res) => {
 
 const signOut = async (req, res) => {
   req.session.destroy((error) => {
-    if (error) {
-      return res.sendStatus(500);
-    }
+    if (error) return res.status(500).json({ errorMessage: error.message });
 
     res.clearCookie('user_sid');
 
@@ -78,7 +76,6 @@ const checkAuth = async (req, res) => {
     const user = await User.findByPk(req.session.user.id);
     return res.json({ id: user.id, userName: user.userName });
   } catch (error) {
-    console.error(error);
     return res.sendStatus(500);
   }
 };
