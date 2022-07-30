@@ -4,6 +4,7 @@ const session = require('express-session');
 const cors = require('cors');
 const FileStore = require('session-file-store')(session);
 
+const docInfoRouter = require('./src/routes/docInfo.router');
 const authRouter = require('./src/routes/auth.router');
 const userRouter = require('./src/routes/users.router');
 
@@ -35,6 +36,7 @@ app.use(session(sessionConfig));
 app.use('/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 // app.use('/api/v1/pets', petRouter);
+app.use('/api/v1/users/doctors', docInfoRouter);
 
 app.listen(PORT, () => {
   console.log(`server started PORT: http://localhost:${PORT}`);
