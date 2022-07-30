@@ -47,31 +47,63 @@ function PetformStep2({ petForm, inputHandler }) {
         />
       </Box>
       <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Аллергии</Typography>
+      {petForm.allergies.length > 0 && (
       <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
-        {petForm.allergies.length > 0
-      && petForm.allergies.map((allergy, index) => (
-        <Box
-          sx={{
-            backgroundColor: '#D9D9D9',
-            width: 'max-content',
-            padding: '3px',
-            borderRadius: '4px',
-            marginRight: '5px',
-            alignItems: 'center',
-            display: 'flex',
-          }}
-          key={`${index}-${allergy}`}
-        >
-          <Typography variant="body1" sx={{ display: 'inline-block' }}>{allergy}</Typography>
-          <ClearIcon sx={{ cursor: 'pointer' }} onClick={() => inputHandler.removeFromArray('allergies', index)} />
-        </Box>
-      ))}
+        {petForm.allergies.map((allergy, index) => (
+          <Box
+            sx={{
+              backgroundColor: '#D9D9D9',
+              width: 'max-content',
+              padding: '3px',
+              borderRadius: '4px',
+              marginRight: '5px',
+              alignItems: 'center',
+              display: 'flex',
+            }}
+            key={`${index}-${allergy}`}
+          >
+            <Typography variant="body1" sx={{ display: 'inline-block' }}>{allergy}</Typography>
+            <ClearIcon sx={{ cursor: 'pointer' }} onClick={() => inputHandler.removeFromArray('allergies', index)} />
+          </Box>
+        ))}
       </Box>
+      )}
       <TextField
         id="petallergies"
         label="Аллергия"
         variant="standard"
         name="allergies"
+        type="text"
+        onKeyDown={inputHandler.arrayInputHandler}
+      />
+
+      <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Хронические болезни</Typography>
+      {petForm.chronic_diseases.length > 0 && (
+      <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+        {petForm.chronic_diseases.map((disease, index) => (
+          <Box
+            sx={{
+              backgroundColor: '#D9D9D9',
+              width: 'max-content',
+              padding: '3px',
+              borderRadius: '4px',
+              marginRight: '5px',
+              alignItems: 'center',
+              display: 'flex',
+            }}
+            key={`${index}-${disease}`}
+          >
+            <Typography variant="body1" sx={{ display: 'inline-block' }}>{disease}</Typography>
+            <ClearIcon sx={{ cursor: 'pointer' }} onClick={() => inputHandler.removeFromArray('chronic_diseases', index)} />
+          </Box>
+        ))}
+      </Box>
+      )}
+      <TextField
+        id="petallergies"
+        label="Болезнь"
+        variant="standard"
+        name="chronic_diseases"
         type="text"
         onKeyDown={inputHandler.arrayInputHandler}
       />
