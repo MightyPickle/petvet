@@ -1,6 +1,6 @@
 import { errorShowAC } from './errorAction';
 
-const userLoginAC = (form) => ({ type: 'USER_LOG_IN', payload: form });
+export const userLoginAC = (form) => ({ type: 'USER_LOG_IN', payload: form });
 
 export const userLoginThunk = (form) => async (dispatch) => {
   const response = await fetch('http://localhost:3010/auth/signin', {

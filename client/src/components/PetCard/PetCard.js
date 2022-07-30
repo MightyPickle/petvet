@@ -12,18 +12,21 @@ export default function PetCard({ pet }) {
   const theme = useTheme();
   const primary = theme.palette.primary.main;
   const secondary = theme.palette.secondary.main;
+  const neutral = theme.palette.neutral.main;
+
   const navigate = useNavigate();
-  const moreHandler = (link) => {
+  const navigateMoreHandler = (link) => {
     navigate(link);
   };
 
   return (
     <div>
       <Card sx={{
-        minWidth: 150, backgroundColor: secondary, borderRadius: '9px', m: 2,
+        minWidth: 150, backgroundColor: neutral, borderRadius: '9px', m: 2,
       }}
       >
         <CardActionArea
+          onClick={(e) => navigateMoreHandler(`/pets/${pet.id}`)}
           sx={{
             height: '20rem',
             width: '17rem',
@@ -49,7 +52,7 @@ export default function PetCard({ pet }) {
         <CardActions>
           {/* <Link to={`/pets/${pet.id}`} style={{ textDecoration: 'none' }}> */}
           <Button
-            onClick={(e) => moreHandler(`/pets/${pet.id}`)}
+            onClick={(e) => navigateMoreHandler(`/pets/${pet.id}`)}
             size="small"
             sx={{
               backgroundColor: primary, color: 'black', m: 'auto', borderRadius: '9px', p: '1rem',
