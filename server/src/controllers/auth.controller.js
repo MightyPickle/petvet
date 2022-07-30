@@ -2,63 +2,68 @@ const bcrypt = require('bcrypt');
 const { User } = require('../../db/models');
 
 const signUp = async (req, res) => {
-  const { userName, password, email } = req.body;
-  console.log(req.body);
+  const {
+    first_name, last_name, email, phone, password, user_group,
+  } = req.body;
 
-  const hashedPass = await bcrypt.hash(password, 10);
-
-  if (userName && password && email) {
-    try {
-      const newUser = await User.create({
-        name: userName,
-        password: hashedPass,
-        email,
-      });
-      req.session.user = {
-        id: newUser.id,
-        name: newUser.name,
-      };
-      return res.json({ id: newUser.id, userName: newUser.name });
-    } catch (error) {
-      console.error(error);
-      return res.sendStatus(500);
-    }
+  if (first_name === '' && last_name === '' && email === '' && phone === '' && password === '' && user_group === '') {
+    return res.status(400).json({ errorMessage: 'Fill in all fields' });
   }
-
-  return res.sendStatus(400);
+  try {
+    const hashedPass = await bcrypt.hash(password, 10);
+    const [newUser, created] = await User.findOrCreate({
+      where: { email },
+      defaults: {
+        first_name,
+        last_name,
+        password: hashedPass,
+        phone,
+        user_group,
+      },
+    });
+    if (!created) return res.status(400).json({ errorMessage: 'User with this email already exists' });
+    req.session.user = {
+      id: newUser.id,
+      user_group: newUser.user_group,
+    };
+    return res.json({
+      id: newUser.id, first_name, last_name, email, phone, user_group,
+    });
+  } catch (error) {
+    return res.status(500).json({ errorMessage: error.message });
+  }
 };
 
 const signIn = async (req, res) => {
-  const { password, email } = req.body;
+  const { password, email: loginEmail } = req.body;
 
-  if (password && email) {
-    try {
-      const currentUser = await User.findOne({ where: { email } });
-      const checkPass = await bcrypt.compare(password, currentUser.password);
-      if (currentUser && checkPass) {
-        req.session.user = {
-          id: currentUser.id,
-          name: currentUser.name,
-        };
-        console.log({ id: currentUser.id, userName: currentUser.name });
-        return res.json({ id: currentUser.id, userName: currentUser.name });
-      }
-      return res.sendStatus(401);
-    } catch (error) {
-      console.error(error);
-      return res.sendStatus(500);
-    }
+  if (password === '' || loginEmail === '') return res.status(400).json({ errorMessage: 'Заполните все данные' });
+  try {
+    const currentUser = await User.findOne({ where: { email: loginEmail } });
+    if (!currentUser) return res.status(401).json({ errorMessage: 'Пользователь не найден' });
+    const checkPass = await bcrypt.compare(password, currentUser.password);
+    if (!checkPass) return res.status(401).json({ errorMessage: 'Неверный пароль' });
+
+    req.session.user = {
+      id: currentUser.id,
+      user_group: currentUser.user_group,
+    };
+
+    const {
+      id, first_name, last_name, email, phone, user_group,
+    } = currentUser;
+
+    return res.json({
+      id, first_name, last_name, email, phone, user_group,
+    });
+  } catch (error) {
+    return res.status(500).json({ errorMessage: 'Ошибка сервера' });
   }
-
-  return res.sendStatus(400);
 };
 
 const signOut = async (req, res) => {
   req.session.destroy((error) => {
-    if (error) {
-      console.error(error);
-      return res.sendStatus(500);
-    }
+    if (error) return res.status(500).json({ errorMessage: error.message });
 
     res.clearCookie('user_sid');
 
@@ -71,7 +76,6 @@ const checkAuth = async (req, res) => {
     const user = await User.findByPk(req.session.user.id);
     return res.json({ id: user.id, userName: user.userName });
   } catch (error) {
-    console.error(error);
     return res.sendStatus(500);
   }
 };
