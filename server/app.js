@@ -4,6 +4,7 @@ const session = require('express-session');
 const cors = require('cors');
 const FileStore = require('session-file-store')(session);
 
+const docInfoRouter = require('./src/routes/docInfo.router');
 const authRouter = require('./src/routes/auth.router');
 
 const app = express();
@@ -32,6 +33,7 @@ app.use(express.json());
 app.use(session(sessionConfig));
 
 app.use('/auth', authRouter);
+app.use('/api/v1/users/doctors/:id', docInfoRouter);
 
 app.listen(PORT, () => {
   console.log(`server started PORT: http://localhost:${PORT}`);
