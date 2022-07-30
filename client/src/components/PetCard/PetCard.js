@@ -14,7 +14,6 @@ export default function PetCard({ pet }) {
   const secondary = theme.palette.secondary.main;
   const navigate = useNavigate();
   const moreHandler = (link) => {
-    console.log(link);
     navigate(link);
   };
 
@@ -35,7 +34,7 @@ export default function PetCard({ pet }) {
         >
           <Avatar
             alt="{pet.avatar}"
-            src="https://loremflickr.com/320/240/animal"
+            src="https://loremflickr.com/320/240/dog"
             sx={{
               width: 185, height: 185, m: 2, border: `1px solid ${primary}`,
             }}

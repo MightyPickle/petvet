@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import CardContent from '@mui/material/CardContent';
 import {
-  Avatar, Typography, Card, Rating, Input,
+  Avatar, Typography, Card, Rating, Input, TextField, Container,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import DoneIcon from '@mui/icons-material/Done';
 import { useTheme } from '@emotion/react';
 import ButtonMailTo from '../ButtonMailTo/ButtonMailTo';
 import ButtonPhoneTo from '../ButtonPhoneTo/ButtonPhoneTo';
 
 export default function UserCard({ rating, address }) {
-  const iconStyles = { mx: 2 };
+  const iconStyles = { mx: 2, alignSelf: 'bottom' };
   const [value, setValue] = useState();// не уверена что делает эта херрня, но что-то про рейтинг
   const [edit, setEdit] = useState({
     name: false,
@@ -37,16 +38,22 @@ export default function UserCard({ rating, address }) {
         ml: 4, display: 'flex', flexDirection: 'column', justifyContent: 'center',
       }}
       >
-        {edit ? (
-          <Typography variant="h5" component="div">
-            <Input defaultValue="Имя Фамилия" />
-          </Typography>
+        {edit.name ? (
+          <div style={{ display: 'flex', alignItems: 'end' }}>
+            <Typography variant="h5" component="div">
+              <TextField variant="standard" defaultValue="Имя Фамилия" />
+            </Typography>
+            <DoneIcon color="neutral" sx={iconStyles} />
+          </div>
         )
           : (
-            <Typography variant="h5" component="div">
-              Имя Фамилия
+            <div style={{ display: 'flex', alignItems: 'baseline' }}>
+              <Typography variant="h5" component="div">
+                Имя Фамилия
+                {/* {user.name} */}
+              </Typography>
               <EditIcon color="primary" sx={iconStyles} onClick={(e) => editButtonHandler(e)}>edit_profile</EditIcon>
-            </Typography>
+            </div>
           )}
 
         <Typography variant="h6" component="h2">
