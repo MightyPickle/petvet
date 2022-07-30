@@ -1,0 +1,47 @@
+// api/v1/pets/:id
+
+// {
+// 	id: int,
+// 	name: string,
+// 	specie: string,
+// 	breed: string,
+// 	sex: int,
+// 	birthday: date,
+// 	weight: double,
+// 	color: string,
+// 	sterilized: boolean,
+// 	sterilized_date: date,
+// 	Chronic_diseases: [
+// 		{
+// 			id: int,
+// 			disease: string,
+// 		}
+// 	],
+// 	Allergies: [
+// 		{
+// 			id: int,
+// 			allergy_name: string,
+// 		}
+// 	],
+// 	Vaccinations: [
+// 		{
+// 			id: int,
+// 			drug_name: string,
+// 			drug_date: date,
+// 		}
+// 	]
+// 	Visits: [
+// 		{
+// 			id: int,
+// 			doc_id: {
+// 				id: int,
+// 				first_name: string,
+// 				last_name: string,	
+// 			},
+// 			visit_date: date,
+// 			description: string,
+// 			diagnose: string,
+// 			treatment: string,
+// 		}
+// 	]
+// }
