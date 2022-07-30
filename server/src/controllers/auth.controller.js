@@ -63,9 +63,7 @@ const signIn = async (req, res) => {
 
 const signOut = async (req, res) => {
   req.session.destroy((error) => {
-    if (error) {
-      return res.sendStatus(500);
-    }
+    if (error) return res.status(500).json({ errorMessage: error.message });
 
     res.clearCookie('user_sid');
 

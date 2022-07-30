@@ -10,11 +10,11 @@ import theme from './utils/theme/theme';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <Provider store={store}>
-  <BrowserRouter>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
-  </BrowserRouter>,
-  // {/* </Provider>, */}
+  <Provider store={store}>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </BrowserRouter>
+  </Provider>,
 );
