@@ -3,47 +3,47 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Avatar, Rating } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import Stars from '../Stars/Stars';
+import { getInfoCardThunk } from '../../redux/actions/infoCardAction';
 
 export default function BasicCard() {
-  const value = 5;
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const info = useSelector((store) => store.info);
+  React.useEffect(() => {
+    dispatch(getInfoCardThunk(id));
+  }, []);
+  console.log(info);
   return (
-    <Card sx={{ width: 500, display: 'flex', margin: 1 }}>
+    <Card sx={{
+      width: 600, height: 200, display: 'flex', borderRadius: '19px',
+    }}
+    >
       <Avatar
         alt="Remy Sharp"
         src=""
         sx={{
-          width: 100, height: 100, mt: 3, ml: 1.5,
+          width: 120, height: 120, mt: 3, ml: 2, mb: 3,
         }}
       />
-      <CardContent>
-        <Typography variant="h5" component="div">
-          Имя Фамилия
+      <CardContent sx={{ mt: 2.5 }}>
+        <Typography variant="h6" component="div">
+          {info.last_name}
+          {' '}
+          {info.first_name}
         </Typography>
         <Typography
-          variant="h6"
+          variant="h7"
           component="div"
           sx={{ mt: 0.5 }}
         >
-          Телефон
+          {info.phone}
         </Typography>
-        <Typography variant="h6" component="div">
-          Адрес клиники
+        <Typography variant="h8" component="div">
+          {info.Doc_info.clinic_address}
         </Typography>
-        {/* <Typography component="legend">Рейтинг1</Typography>
-        <div>
-          <Rating
-            name="simple-controlled"
-            value={value}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
-          />
-          <Typography component="legend">Рейтинг2</Typography>
-          <Rating name="read-only" value={value} readOnly />
-          <Typography component="legend">Рейтинг3</Typography>
-          <Rating name="no-value" value={null} />
-        </div> */}
       </CardContent>
     </Card>
   );

@@ -6,12 +6,19 @@ function ButtonOne() {
   return (
     <div className="buttons" style={{ display: flexbox }}>
       <div>
-        <Button style={{ backgroundColor: '#fecd45', color: 'black', borderRadius: '9px' }} variant="contained">Записаться</Button>
+        <Button
+          style={{
+            backgroundColor: '#fecd45', color: 'black', borderRadius: '9px', position: 'static',
+          }}
+          variant="contained"
+        >
+          Записаться
+        </Button>
       </div>
       <div>
         <Button
           style={{
-            backgroundColor: 'GrayText', color: 'black', borderRadius: '9px', marginTop: '1rem',
+            backgroundColor: 'GrayText', color: 'black', borderRadius: '9px', marginTop: '1rem', position: 'static',
           }}
           variant="contained"
         >

@@ -8,7 +8,7 @@ function App() {
   return (
     <Routes>
       <Route path="/auth" element={<AuthorizationPage />} />
-      <Route path="/api/v1/users/doctors/:id" element={<DoctorPublic />} />
+      <Route path="/doctors/:id" element={<DoctorPublic />} />
       <Route path="/docfind" element={<DocFind />} />
     </Routes>
   );
