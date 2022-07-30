@@ -29,5 +29,6 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': 0,
     'no-console': 0,
     'default-param-last': 0,
+    'react/jsx-props-no-spreading': 0,
   },
 };
