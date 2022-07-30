@@ -11,10 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsToMany(models.User, {
-        through: 'Users_Pets',
-        foreignKey: 'pet_id',
-      });
+      this.belongsTo(models.User, { foreignKey: 'owner_id' });
       this.hasMany(models.Vaccination, { foreignKey: 'pet_id' });
       this.hasMany(models.Chronic_disease, { foreignKey: 'pet_id' });
       this.hasMany(models.Allergy, { foreignKey: 'pet_id' });
@@ -32,6 +29,8 @@ module.exports = (sequelize, DataTypes) => {
     color: DataTypes.STRING,
     sterilized: DataTypes.BOOLEAN,
     sterilized_date: DataTypes.DATE,
+    owner_id: DataTypes.INTEGER,
+
   }, {
     sequelize,
     modelName: 'Pet',
