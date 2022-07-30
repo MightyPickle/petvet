@@ -6,7 +6,6 @@ import { getPetsThunk } from '../../redux/actions/petsAction';
 import PagePatientProfile from './patientProfile/PagePatientProfile';
 
 export default function PageProfile() {
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const rating = null; // заглушка!!!
   const address = null; // заглушка!!!
