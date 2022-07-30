@@ -70,7 +70,7 @@ export default function UserCard({ rating, address }) {
               />
             </Typography> */}
             <FormControl variant="standard">
-              <Input id="component-simple" value={editInput.name} onChange={(e) => setEditInput({ ...editInput, name: e.target.value })} />
+              <Input id="component-simple" defaultValue={`${user.first_name} ${user.last_name}`} />
               {console.log(editInput)}
             </FormControl>
 
@@ -102,17 +102,34 @@ export default function UserCard({ rating, address }) {
               Почта
             </Typography>
             <Typography variant="h6" component="h2" sx={dataStyles}>
-              <ButtonMailTo label="no-reply@example.com" mailto="mailto:no-reply@example.com" />
+              <ButtonMailTo label={user.email} mailto={`mailto:${user.email}`} />
             </Typography>
 
             <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'email')}>edit_profile</EditIcon>
           </div>
         )}
 
-        <Typography variant="h6" component="h2">
-          <ButtonPhoneTo label="Телефон" tel="tel:+00000000000" />
-          <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'phone')}>edit_profile</EditIcon>
-        </Typography>
+        {edit.phone ? (
+          <div style={{ display: 'flex', alignItems: 'end' }}>
+            <Typography variant="h6" component="h2">
+              Телефон
+            </Typography>
+            <Typography variant="h5" component="div" sx={dataStyles}>
+              <TextField variant="standard" defaultValue={user.phone} />
+            </Typography>
+            <DoneIcon color="secondary" sx={iconStyles} onClick={(e) => doneButtonHandler(e, 'phone')} />
+          </div>
+        ) : (
+          <div style={{ display: 'flex', alignItems: 'baseline' }}>
+            <Typography variant="h6" component="h2">
+              Телефон
+            </Typography>
+            <Typography variant="h6" component="h2" sx={dataStyles}>
+              <ButtonPhoneTo label={user.phone} tel={`tel:${user.phone}`} />
+            </Typography>
+            <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'phone')}>edit_profile</EditIcon>
+          </div>
+        )}
 
         {address && (
         <Typography variant="h6" component="h2">

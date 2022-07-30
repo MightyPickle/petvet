@@ -1,9 +1,8 @@
 const { Router } = require('express');
-const patientController = require('../controllers/patient.controller');
+const petsController = require('../controllers/pets.controller');
 
 const userRouter = Router();
 
-userRouter.get('patients/:id', patientController);
-userRouter.get('doctors/:id', patientController.getPatient);
+userRouter.get('/patients/pets', petsController.getAllPets);
 
 module.exports = userRouter;

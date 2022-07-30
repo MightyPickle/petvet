@@ -44,13 +44,11 @@ export default function PetCard({ pet }) {
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {/* {pet.name} */}
-              here shall be name
+              {pet.name}
             </Typography>
           </CardContent>
         </CardActionArea>
         <CardActions>
-          {/* <Link to={`/pets/${pet.id}`} style={{ textDecoration: 'none' }}> */}
           <Button
             onClick={(e) => navigateMoreHandler(`/pets/${pet.id}`)}
             size="small"
@@ -60,7 +58,6 @@ export default function PetCard({ pet }) {
           >
             Подробнее
           </Button>
-          {/* </Link> */}
         </CardActions>
       </Card>
     </div>

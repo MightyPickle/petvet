@@ -34,7 +34,7 @@ app.use(session(sessionConfig));
 
 app.use('/auth', authRouter);
 app.use('/api/v1/users', userRouter);
-app.use('/api/v1/pets', petRouter);
+// app.use('/api/v1/pets', petRouter);
 
 app.listen(PORT, () => {
   console.log(`server started PORT: http://localhost:${PORT}`);

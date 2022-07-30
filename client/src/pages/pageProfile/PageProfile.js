@@ -2,13 +2,12 @@ import { Container } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import UserCard from '../../components/UserCard/UserCard';
+import { getPetsThunk } from '../../redux/actions/petsAction';
 import PagePatientProfile from './patientProfile/PagePatientProfile';
 
 export default function PageProfile() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  useEffect(() => {
-  }, []);
   const rating = null; // заглушка!!!
   const address = null; // заглушка!!!
   return (
