@@ -9,6 +9,7 @@ import AuthorizationPage from './pages/AuthorizationPage/AuthorizationPage';
 import Navbar from './components/Navbar/Navbar';
 import PageProfile from './pages/pageProfile/PageProfile';
 import { userLoginAC } from './redux/actions/userActions';
+import PetfromPage from './pages/PetformPage/PetfromPage';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       <Routes>
         <Route path="/auth" element={<AuthorizationPage />} />
         <Route path="/users/patients/:id" element={<PageProfile />} />
+        <Route path="/pets/new" element={<PetfromPage />} />
         <Route path="/api/v1/visits/" element={<PagesDoctorVisits />} />
       </Routes>
     </>
