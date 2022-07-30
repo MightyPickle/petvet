@@ -78,7 +78,6 @@ const checkAuth = async (req, res) => {
     const user = await User.findByPk(req.session.user.id);
     return res.json({ id: user.id, userName: user.userName });
   } catch (error) {
-    console.error(error);
     return res.sendStatus(500);
   }
 };

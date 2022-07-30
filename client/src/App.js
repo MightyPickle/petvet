@@ -3,6 +3,7 @@ import './App.css';
 
 import { Routes, Route } from 'react-router-dom';
 import AuthorizationPage from './pages/AuthorizationPage/AuthorizationPage';
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
   return (
