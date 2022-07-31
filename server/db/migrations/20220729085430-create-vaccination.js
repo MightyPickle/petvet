@@ -15,6 +15,10 @@ module.exports = {
           key: 'id',
         },
       },
+      description: {
+        allowNull: false,
+        type: Sequelize.TEXT,
+      },
       drug_name: {
         allowNull: false,
         type: Sequelize.TEXT,

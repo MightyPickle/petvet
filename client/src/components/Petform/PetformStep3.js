@@ -23,7 +23,7 @@ function PetformStep3({ petForm, inputHandler }) {
   const submitHanlder = (e) => {
     e.preventDefault();
     if (vac.description === '' || vac.drug_date === '' || vac.drug_name === '') return;
-    inputHandler.objectHandler('vaccinations', vac);
+    inputHandler.objectInputHandler('vaccinations', vac);
     setVac({
       description: '',
       drug_name: '',

@@ -7,6 +7,7 @@ const FileStore = require('session-file-store')(session);
 const docInfoRouter = require('./src/routes/docInfo.router');
 const authRouter = require('./src/routes/auth.router');
 const userRouter = require('./src/routes/users.router');
+const petsRouter = require('./src/routes/pet.router');
 
 const app = express();
 const PORT = process.env.PORT || 3010;
@@ -35,7 +36,6 @@ app.use(session(sessionConfig));
 
 app.use('/auth', authRouter);
 app.use('/api/v1/users', userRouter);
-// app.use('/api/v1/pets', petRouter);
 app.use('/api/v1/users/doctors', docInfoRouter);
 
 app.listen(PORT, () => {

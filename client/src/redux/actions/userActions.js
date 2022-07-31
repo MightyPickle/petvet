@@ -16,7 +16,6 @@ export const userLoginThunk = (form) => async (dispatch) => {
     return dispatch(userLoginAC(user));
   }
   const { errorMessage } = await response.json();
-  console.log(errorMessage);
   return dispatch(errorShowAC(errorMessage));
 };
 
@@ -33,12 +32,10 @@ export const userSignupThunk = (form) => async (dispatch) => {
     return dispatch(userLoginAC(user));
   }
   const { errorMessage } = await response.json();
-  console.log(errorMessage);
   return dispatch(errorShowAC(errorMessage));
 };
 
 export const userLogoutThunk = () => async (dispatch) => {
-  console.log('tut');
   const response = await fetch('http://localhost:3010/auth/signout', {
     method: 'GET',
     credentials: 'include',
