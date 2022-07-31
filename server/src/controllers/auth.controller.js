@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
-const { User } = require('../../db/models');
+const {
+  User, Price_list, Doc_info, Category, Profile,
+} = require('../../db/models');
 
 const signUp = async (req, res) => {
   const {
@@ -13,6 +15,7 @@ const signUp = async (req, res) => {
     const hashedPass = await bcrypt.hash(password, 10);
     const [newUser, created] = await User.findOrCreate({
       where: { email },
+      include: [Doc_info, Price_list, Category, Profile],
       defaults: {
         first_name,
         last_name,
@@ -22,13 +25,18 @@ const signUp = async (req, res) => {
       },
     });
     if (!created) return res.status(400).json({ errorMessage: 'User with this email already exists' });
+
     req.session.user = {
       id: newUser.id,
       user_group: newUser.user_group,
     };
-    return res.json({
-      id: newUser.id, first_name, last_name, email, phone, user_group,
-    });
+
+    const userWithoutPass = JSON.parse(JSON.stringify(newUser));
+    delete userWithoutPass.password;
+    delete userWithoutPass.createdAt;
+    delete userWithoutPass.updatedAt;
+
+    return res.json(userWithoutPass);
   } catch (error) {
     return res.status(500).json({ errorMessage: error.message });
   }
@@ -39,7 +47,12 @@ const signIn = async (req, res) => {
 
   if (password === '' || loginEmail === '') return res.status(400).json({ errorMessage: 'Заполните все данные' });
   try {
-    const currentUser = await User.findOne({ where: { email: loginEmail } });
+    const currentUser = await User.findOne(
+      {
+        where: { email: loginEmail },
+        include: [Doc_info, Price_list, Category, Profile],
+      },
+    );
     if (!currentUser) return res.status(401).json({ errorMessage: 'Пользователь не найден' });
     const checkPass = await bcrypt.compare(password, currentUser.password);
     if (!checkPass) return res.status(401).json({ errorMessage: 'Неверный пароль' });
@@ -49,15 +62,14 @@ const signIn = async (req, res) => {
       user_group: currentUser.user_group,
     };
 
-    const {
-      id, first_name, last_name, email, phone, user_group,
-    } = currentUser;
+    const userWithoutPass = JSON.parse(JSON.stringify(currentUser));
+    delete userWithoutPass.password;
+    delete userWithoutPass.createdAt;
+    delete userWithoutPass.updatedAt;
 
-    return res.json({
-      id, first_name, last_name, email, phone, user_group,
-    });
+    return res.json(userWithoutPass);
   } catch (error) {
-    return res.status(500).json({ errorMessage: 'Ошибка сервера' });
+    return res.status(500).json({ errorMessage: error.message });
   }
 };
 

@@ -20,7 +20,7 @@ export default function AuthorizationPage() {
 
   useEffect(() => {
     if (user.first_name) {
-      navigate('/');
+      navigate('/profile');
     }
   });
 

@@ -48,7 +48,7 @@ export default function UserCard({ rating, address }) {
         alt=""
         src="https://i.pravatar.cc/200"
         sx={{
-          width: 250, height: 250, border: `1px solid ${primary}`,
+          width: '12rem', height: '12rem', border: `1px solid ${primary}`,
         }}
       />
       <CardContent sx={{
