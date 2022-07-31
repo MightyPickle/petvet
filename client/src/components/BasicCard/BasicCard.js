@@ -8,24 +8,17 @@ import { useParams } from 'react-router-dom';
 import Stars from '../Stars/Stars';
 import { getInfoCardThunk } from '../../redux/actions/infoCardAction';
 
-export default function BasicCard() {
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  const info = useSelector((store) => store.info);
-  React.useEffect(() => {
-    dispatch(getInfoCardThunk(id));
-  }, []);
-  console.log(info);
+export default function BasicCard({ info }) {
   return (
     <Card sx={{
-      width: 600, height: 200, display: 'flex', borderRadius: '19px',
+      maxWidth: 700, maxHeight: 400, display: 'flex', borderRadius: '19px',
     }}
     >
       <Avatar
         alt="Remy Sharp"
-        src=""
+        src="https://klike.net/uploads/posts/2019-07/1564314090_3.jpg"
         sx={{
-          width: 120, height: 120, mt: 3, ml: 2, mb: 3,
+          minWidth: 150, minHeight: 150, mt: 3, ml: 2, mb: 3,
         }}
       />
       <CardContent sx={{ mt: 2.5 }}>
@@ -42,7 +35,7 @@ export default function BasicCard() {
           {info.phone}
         </Typography>
         <Typography variant="h8" component="div">
-          {info.Doc_info.clinic_address}
+          {info.Doc_info?.clinic_address}
         </Typography>
       </CardContent>
     </Card>

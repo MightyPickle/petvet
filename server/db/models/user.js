@@ -22,10 +22,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'doc_id',
       });
       this.hasOne(models.Doc_info, { foreignKey: 'doc_id' });
-      this.belongsToMany(models.Category, {
-        through: 'Users_Pets',
-        foreignKey: 'user_id',
-      });
       this.hasMany(models.Doc_schedule, { foreignKey: 'doc_id' });
       this.hasMany(models.Doc_schedule, { foreignKey: 'user_id' });
       this.hasMany(models.Visit, { foreignKey: 'doc_id' });

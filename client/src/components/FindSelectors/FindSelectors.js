@@ -43,7 +43,7 @@ export default function FindSelectors() {
 
   return (
     <Box sx={{
-      minWidth: 400, minHeight: 500, border: '1px solid grey', borderRadius: '19px', backgroundColor: 'grey', ml: 10,
+      minWidth: 500, minHeight: 600, border: '1px solid grey', borderRadius: '19px', backgroundColor: 'grey', ml: 10,
     }}
     >
       <Stack spacing={1} sx={{ width: 300, m: 'auto' }}>

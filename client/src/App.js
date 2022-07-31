@@ -30,7 +30,7 @@ function App() {
         <Route path="/pets/new" element={<PetfromPage />} />
         <Route path="/api/v1/visits/" element={<PagesDoctorVisits />} />
         <Route path="/doctors/:id" element={<DoctorPublic />} />
-        <Route path="/docfind" element={<DocFind />} />
+        <Route path="/vets" element={<DocFind />} />
       </Routes>
     </>
   );
