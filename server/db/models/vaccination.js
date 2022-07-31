@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Vaccination.init({
     pet_id: DataTypes.INTEGER,
+    description: DataTypes.TEXT,
     drug_name: DataTypes.TEXT,
     drug_date: DataTypes.DATE,
   }, {
