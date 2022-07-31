@@ -1,8 +1,7 @@
 import { Container } from '@mui/material';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import UserCard from '../../components/UserCard/UserCard';
-import { getPetsThunk } from '../../redux/actions/petsAction';
 import PagePatientProfile from './patientProfile/PagePatientProfile';
 
 export default function PageProfile() {

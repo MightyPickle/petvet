@@ -5,7 +5,6 @@ export const getPetsThunk = () => async (dispatch) => {
     credentials: 'include',
   });
   if (response.ok) {
-    console.log('response ok', response);
     const data = await response.json();
     console.log(data);
     dispatch(getPetsAC(data));

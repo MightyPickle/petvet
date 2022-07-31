@@ -25,7 +25,6 @@ export default function UserCard({ rating, address }) {
     email: false,
     phone: false,
   });
-  console.log(user.first_name);
 
   const theme = useTheme();
   const primary = theme.palette.primary.main;
@@ -37,11 +36,7 @@ export default function UserCard({ rating, address }) {
     // updates user.name state
     setEdit({ ...edit, [field]: false });
   };
-  const keyDown = (e, field) => {
-    if (e.key === 'Enter') {
-      doneButtonHandler(e, field);
-    }
-  };
+
   const dataStyles = { ml: '1rem' };
 
   return (
@@ -57,7 +52,7 @@ export default function UserCard({ rating, address }) {
         }}
       />
       <CardContent sx={{
-        ml: 4, display: 'flex', flexDirection: 'column', justifyContent: 'center',
+        p: '1.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center',
       }}
       >
         {edit.name ? (
@@ -71,7 +66,6 @@ export default function UserCard({ rating, address }) {
             </Typography> */}
             <FormControl variant="standard">
               <Input id="component-simple" defaultValue={`${user.first_name} ${user.last_name}`} />
-              {console.log(editInput)}
             </FormControl>
 
             <DoneIcon color="secondary" sx={iconStyles} onClick={(e) => doneButtonHandler(e, 'name')} />
