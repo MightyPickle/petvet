@@ -45,6 +45,7 @@ function PetfromPage() {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+
   const simpelInputHandler = (e) => {
     setPetForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -58,7 +59,7 @@ function PetfromPage() {
     }
   };
 
-  const objectHandler = (property, obj) => {
+  const objectInputHandler = (property, obj) => {
     setPetForm(
       (prev) => ({ ...prev, [property]: [...prev[property], obj] }),
     );
@@ -76,7 +77,7 @@ function PetfromPage() {
   };
 
   const inputHandlers = {
-    simpelInputHandler, arrayInputHandler, removeFromArray, objectHandler,
+    simpelInputHandler, arrayInputHandler, removeFromArray, objectInputHandler,
   };
 
   console.log(petForm);
