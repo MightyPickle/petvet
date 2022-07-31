@@ -2,6 +2,7 @@ import { Container } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import UserCard from '../../components/UserCard/UserCard';
+import PageDocProfile from './docProfile/PageDocProfile';
 import PagePatientProfile from './patientProfile/PagePatientProfile';
 
 export default function PageProfile() {
@@ -18,12 +19,12 @@ export default function PageProfile() {
         <>
           <UserCard />
           <PagePatientProfile />
-        </>
+        </> 
       )
         : (
           <>
             <UserCard rating={rating} address={address} />
-            {/* <PageDoctorProfile /> */}
+            <PageDocProfile />
           </>
         )}
 
