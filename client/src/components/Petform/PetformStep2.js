@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   TextField, Box, FormControl, InputLabel, Select, MenuItem, Typography,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
 function PetformStep2({ petForm, inputHandler }) {
+  const [focus, setFocused] = useState(false);
+  const onFocus = () => setFocused(true);
+  const onBlur = () => setFocused(false);
+
   return (
     <Box sx={{
       display: 'flex',
@@ -39,7 +43,9 @@ function PetformStep2({ petForm, inputHandler }) {
           label="Дата стерелизации"
           variant="standard"
           name="sterilized_date"
-          type="date"
+          onFocus={onFocus}
+          onBlur={onBlur}
+          type={focus ? 'date' : 'text'}
           value={petForm.sterilized_date}
           onChange={inputHandler.simpelInputHandler}
           sx={{ width: '48%' }}
