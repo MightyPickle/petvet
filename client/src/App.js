@@ -26,7 +26,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/auth" element={<AuthorizationPage />} />
-        <Route path="/users/patients/:id" element={<PageProfile />} />
+        <Route path="/profile" element={<PageProfile />} />
         <Route path="/pets/new" element={<PetfromPage />} />
         <Route path="/api/v1/visits/" element={<PagesDoctorVisits />} />
         <Route path="/doctors/:id" element={<DoctorPublic />} />

@@ -34,7 +34,7 @@ app.use(express.json());
 app.use(session(sessionConfig));
 
 app.use('/auth', authRouter);
-app.use('/api/v1/pets', petsRouter);
+app.use('/api/v1/users', userRouter);
 app.use('/api/v1/users/doctors', docInfoRouter);
 
 app.listen(PORT, () => {
