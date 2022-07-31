@@ -5,6 +5,7 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import ErrorModal from '../../components/ErrorModal/ErrorModal';
 
 import PetformSetp1 from '../../components/Petform/PetformSetp1';
@@ -12,11 +13,13 @@ import PetformSetp2 from '../../components/Petform/PetformStep2';
 import PetformStep3 from '../../components/Petform/PetformStep3';
 import { errorShowAC } from '../../redux/actions/errorAction';
 import pageOneValidation from '../../utils/petFormValidation';
+import postPetForm from '../../utils/postPetform';
 
 const steps = ['Основная информация', 'Хронические болезни и аллергии', 'Прививки и обработки'];
 
 function PetfromPage() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
   const [petForm, setPetForm] = useState({
     name: '',
@@ -33,13 +36,17 @@ function PetfromPage() {
     vaccinations: [],
   });
 
-  const handleNext = () => {
-    if (activeStep === steps.length - 1) return;
+  const handleNext = async () => {
+    if (activeStep === steps.length - 1) {
+      const result = postPetForm(petForm);
+      return result ? navigate('/profile') : null;
+    }
     if (activeStep === 0 && !pageOneValidation(petForm)) {
       dispatch(errorShowAC('Заполните все поля на этом этапе'));
-      return;
+      return null;
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    return null;
   };
 
   const handleBack = () => {
@@ -79,8 +86,6 @@ function PetfromPage() {
   const inputHandlers = {
     simpelInputHandler, arrayInputHandler, removeFromArray, objectInputHandler,
   };
-
-  console.log(petForm);
 
   return (
     <>
