@@ -12,8 +12,8 @@ import PetformSetp1 from '../../components/Petform/PetformSetp1';
 import PetformSetp2 from '../../components/Petform/PetformStep2';
 import PetformStep3 from '../../components/Petform/PetformStep3';
 import { errorShowAC } from '../../redux/actions/errorAction';
+import { addPetThunk } from '../../redux/actions/petActions';
 import pageOneValidation from '../../utils/petFormValidation';
-import postPetForm from '../../utils/postPetform';
 
 const steps = ['Основная информация', 'Хронические болезни и аллергии', 'Прививки и обработки'];
 
@@ -38,8 +38,10 @@ function PetfromPage() {
 
   const handleNext = async () => {
     if (activeStep === steps.length - 1) {
-      const result = postPetForm(petForm);
-      return result ? navigate('/profile') : null;
+      dispatch(addPetThunk(petForm));
+    }
+    if (activeStep === steps.length) {
+      navigate('/profile');
     }
     if (activeStep === 0 && !pageOneValidation(petForm)) {
       dispatch(errorShowAC('Заполните все поля на этом этапе'));
@@ -101,6 +103,14 @@ function PetfromPage() {
           {activeStep === 0 && <PetformSetp1 petForm={petForm} inputHandler={simpelInputHandler} />}
           {activeStep === 1 && <PetformSetp2 petForm={petForm} inputHandler={inputHandlers} />}
           {activeStep === 2 && <PetformStep3 petForm={petForm} inputHandler={inputHandlers} />}
+          {activeStep === 3 && (
+          <Typography sx={{
+            width: 'max-content', m: 'auto', mt: 2, mb: 1,
+          }}
+          >
+            All steps completed - you&apos;re finished
+          </Typography>
+          )}
         </Box>
         <Box sx={{ width: '80%', margin: 'auto' }}>
           <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
@@ -115,7 +125,7 @@ function PetfromPage() {
             <Box sx={{ flex: '1 1 auto' }} />
 
             <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+              {activeStep === steps.length ? 'Finish' : 'Next'}
             </Button>
           </Box>
         </Box>
