@@ -18,11 +18,15 @@ export default function FindSelectors() {
   const [doctors, setDoctors] = useState([]);
   const [selectCategory, setSelectCategory] = useState(null);
   const [selectProfile, setSelectProfile] = useState(null);
+  const [vetinfo, setVetinfo] = useState({});
+
   async function getData(one, two) {
     const response = await fetch(`http://localhost:3010/api/v1/doctors?profile=${one.name}&category=${two.name}`);
     const data = await response.json();
-    console.log(data);
-    return data;
+    // console.log(data);
+    if (selectCategory && selectProfile) {
+      setVetinfo(data);
+    }
   }
   useEffect(() => {
     fetch('http://localhost:3010/api/v1/doctors/profiles')
@@ -34,9 +38,15 @@ export default function FindSelectors() {
       .then((response) => response.json())
       .then((results) => setCategories(results));
   }, []);
-  if (selectCategory && selectProfile) {
-    const result = getData(selectProfile, selectCategory);
-  }
+  //   getData(selectProfile, selectCategory);
+  // }
+  useEffect(() => {
+    if (selectCategory && selectProfile) {
+      getData(selectProfile, selectCategory);
+    }
+  }, [selectProfile, selectCategory]);
+  // useEffect(() => console.log(vetinfo));
+  console.log(vetinfo);
   const defaultProfiles = {
     options: profiles,
     getOptionLabel: (option) => option.name,
