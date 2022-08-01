@@ -16,7 +16,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          doc_id: 2,
+          doc_id: 3,
           user_id: 1,
           pet_id: 1,
           visit_date: new Date(),
