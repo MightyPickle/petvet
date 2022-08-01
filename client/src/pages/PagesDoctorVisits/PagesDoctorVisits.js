@@ -2,6 +2,8 @@ import { Box, Button, Container } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import AddAllegryModal from '../../components/AddAllegryModal/AddAllegryModal';
+import AddChronicModal from '../../components/AddChronicModal/AddChronicModal';
 import DoctorVisitsButtons from '../../components/DoctorVisitsButtons/DoctorVisitsButtons';
 import HistoryVisits from '../../components/HistoryVisits/HistoryVisits';
 import NewVisitFormComponent from '../../components/NewVisitFormComponent/NewVisitFormComponent';
@@ -9,8 +11,16 @@ import QuestComponent from '../../components/QuestComponent/QuestComponent';
 import { getPetThunk } from '../../redux/actions/petActions';
 
 export default function PagesDoctorVisits() {
+  const dispatch = useDispatch();
   const user = JSON.parse(window.localStorage.getItem('user'));
   console.log(user, 'user<<<<<');
+  const { id } = useParams();
+
+  useEffect(() => {
+    console.log('IN USE EFFECT!!');
+    dispatch(getPetThunk(id));
+  }, []);
+
   const addVisitThunk = async (form) => {
     const response = await fetch('http://localhost:3010/api/v1/visits', {
       method: 'POST',
@@ -19,9 +29,6 @@ export default function PagesDoctorVisits() {
       body: JSON.stringify(form),
     });
   };
-
-  const dispatch = useDispatch();
-  const { id } = useParams();
 
   const btnStyles = {
     color: 'black',
@@ -90,34 +97,53 @@ export default function PagesDoctorVisits() {
       </Button>
     ),
   ];
+  const [openChronic, setOpenChronic] = React.useState(false);
+  const handleOpenChronic = () => setOpenChronic(true);
+  const handleCloseChronic = () => setOpenChronic(false);
 
-  // const resetStylesBtn = () => {
-  //   buttons.map((el) => (el.props.style = btnStyles));
-  // };
-
-  useEffect(() => {
-    dispatch(getPetThunk(id));
-  }, []);
-
+  const [openAllergy, setOpenAllergy] = React.useState(false);
+  const handleOpenAllergy = () => setOpenAllergy(true);
+  const handleCloseAllergy = () => setOpenAllergy(false);
   const pet = useSelector((store) => store.pet);
+
+  const [chronic, setChronic] = useState([]);
+  const handleAddChronic = (newAdd) => setChronic([...chronic, newAdd]);
+  const [allergy, setAllergy] = useState([]);
+  const handleAddAllergy = (newAdd) => setAllergy(...allergy, newAdd);
 
   return (
     <Container sx={{ display: 'flex', marginTop: '1rem' }}>
-      {pet && (
+      {pet.length > 0 && (
         <>
-          {visible.quest && <QuestComponent name="quest" pet={pet} />}
-          {visible.history && <HistoryVisits name="history" pet={pet} />}
+          {visible.quest && <QuestComponent name="quest" pet={pet[0]} />}
+          {visible.history && <HistoryVisits name="history" pet={pet[0]} />}
           {visible.newVisit && (
             <NewVisitFormComponent
               name="newVisit"
-              pet={pet}
+              pet={pet[0]}
+              handleOpenAllergy={handleOpenAllergy}
+              handleOpenChronic={handleOpenChronic}
               submitHandler={addVisitThunk}
+              chronic={chronic}
+              allergy={allergy}
             />
           )}
           <DoctorVisitsButtons
             buttons={buttons}
             btnStyles={btnStyles}
             visibleButtonHandler={visibleButtonHandler}
+          />
+          <AddAllegryModal
+            handleOpen={handleOpenAllergy}
+            handleClose={handleCloseAllergy}
+            handleAddAllergy={handleAddAllergy}
+            open={openAllergy}
+          />
+          <AddChronicModal
+            handleOpen={handleOpenChronic}
+            handleClose={handleCloseChronic}
+            handleAddChronic={handleAddChronic}
+            open={openChronic}
           />
         </>
       )}
