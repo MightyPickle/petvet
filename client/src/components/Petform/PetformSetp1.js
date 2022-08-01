@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   TextField, Box, FormControl, InputLabel, Select, MenuItem,
 } from '@mui/material';
 
 function PetformSetp1({ petForm, inputHandler }) {
+  const [focus, setFocused] = useState(false);
+  const onFocus = () => setFocused(true);
+  const onBlur = () => setFocused(false);
+
   return (
     <Box sx={{
       display: 'flex',
@@ -48,11 +52,13 @@ function PetformSetp1({ petForm, inputHandler }) {
         />
       </Box>
       <TextField
+        onFocus={onFocus}
+        onBlur={onBlur}
+        type={focus ? 'date' : 'text'}
         id="petbday"
         label="Дата рождения"
         variant="standard"
         name="birthday"
-        type="date"
         value={petForm.birthday}
         onChange={inputHandler}
       />

@@ -12,13 +12,18 @@ function PetformStep3({ petForm, inputHandler }) {
     drug_date: '',
   });
 
+  const [focus, setFocused] = useState(false);
+  const onFocus = () => setFocused(true);
+  const onBlur = () => setFocused(false);
+
   const vacHandler = (e) => {
     setVac((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const submitHanlder = (e) => {
     e.preventDefault();
-    inputHandler.objectHandler('vaccinations', vac);
+    if (vac.description === '' || vac.drug_date === '' || vac.drug_name === '') return;
+    inputHandler.objectInputHandler('vaccinations', vac);
     setVac({
       description: '',
       drug_name: '',
@@ -79,13 +84,15 @@ function PetformStep3({ petForm, inputHandler }) {
             name="drug_date"
             label="Когда?"
             variant="standard"
-            type="date"
+            onFocus={onFocus}
+            onBlur={onBlur}
+            type={focus ? 'date' : 'text'}
             value={vac.drug_date}
             onChange={vacHandler}
             sx={{ width: '100%' }}
           />
         </div>
-        <Button type="submit">Добаить</Button>
+        <Button type="submit" sx={{ marginTop: '0.7rem', marginLeft: 'auto' }}>Добавить</Button>
       </form>
     </Box>
   );

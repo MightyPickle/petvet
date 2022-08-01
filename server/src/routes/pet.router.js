@@ -1,10 +1,12 @@
-// const { Router } = require('express');
-// const petController = require('../controllers/pet.controller');
-// const checkAuth = require('../middlewares/checkAuth');
+const { Router } = require('express');
+const petController = require('../controllers/pet.controller');
 
-// const usersRouter = Router();
+const petsRouter = Router();
 
-// usersRouter.route('/:id')
-//   .get(checkAuth, petController.getPet);
+petsRouter.route('/')
+  .post(petController.addNewPet);
 
-// module.exports = usersRouter;
+petsRouter.route('/:id')
+  .get(petController.getPet);
+
+module.exports = petsRouter;

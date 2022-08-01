@@ -1,7 +1,9 @@
 /* eslint-disable object-curly-newline */
 import React from 'react';
-import { Box, Chip, Grid, Paper, Typography } from '@mui/material';
+import { Avatar, Box, Chip, Grid, Paper, Typography } from '@mui/material';
 import styled from '@emotion/styled';
+import { useTheme } from '@emotion/react';
+import { useSelector } from 'react-redux';
 
 // const Item = styled(Paper)(({ theme }) => ({
 //   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -11,40 +13,10 @@ import styled from '@emotion/styled';
 //   color: theme.palette.text.secondary,
 // }));
 
-export default function QuestComponent() {
-  //   const pet = useSelector((store) => store.pet);
-  const pet = {
-    id: 1,
-    name: 'Bobik',
-    specie: 'dog',
-    breed: 'like',
-    sex: 1,
-    birthday: new Date(),
-    weight: 2.44,
-    color: 'black',
-    sterilized: true,
-    sterilized_date: new Date(),
-    Chronic_diseases: [
-      {
-        id: 1,
-        disease: 'nasmork',
-      },
-    ],
-    Allergies: [
-      {
-        id: 1,
-        allergy_name: 'fish allergy',
-      },
-      {
-        id: 2,
-        allergy_name: 'milk allergy',
-      },
-      {
-        id: 3,
-        allergy_name: 'sun allergy',
-      },
-    ],
-  };
+export default function QuestComponent({ pet }) {
+  const theme = useTheme();
+  const primary = theme.palette.primary.main;
+
   return (
     <Box
       className="container"
@@ -57,6 +29,24 @@ export default function QuestComponent() {
         flexWrap: 'wrap',
       }}
     >
+      {/* с позиционировать аватар и имя */}
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography variant="h6" component="span" sx={{ fontWeight: 'bold' }}>
+          Имя:
+          {` ${pet.name}`}
+        </Typography>
+        <Avatar
+          alt="{pet.avatar}"
+          src="https://loremflickr.com/320/240/animal"
+          sx={{
+            width: 185,
+            height: 185,
+            m: 2,
+            border: `1px solid ${primary}`,
+          }}
+        />
+      </Box>
+
       <Grid
         style={{ marginTop: '1rem', marginLeft: '1rem' }}
         container
@@ -64,14 +54,8 @@ export default function QuestComponent() {
       >
         <Grid item xs={12}>
           <Typography variant="h6" component="span" sx={{ fontWeight: 'bold' }}>
-            Имя:
-            {` ${pet.name}`}
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography variant="h6" component="span" sx={{ fontWeight: 'bold' }}>
             Дата рождения:
-            {` ${pet.birthday.toLocaleDateString()}`}
+            {` ${new Date(pet.birthday).toLocaleDateString()}`}
           </Typography>
         </Grid>
         <Grid item xs={6}>
@@ -118,7 +102,7 @@ export default function QuestComponent() {
               sx={{ fontWeight: 'bold' }}
             >
               Дата:
-              {` ${pet.sterilized_date.toLocaleDateString()}`}
+              {` ${new Date(pet.sterilized_date).toLocaleDateString()}`}
             </Typography>
           </Grid>
         ) : null}
@@ -134,7 +118,7 @@ export default function QuestComponent() {
           <Typography variant="h6" component="span" sx={{ fontWeight: 'bold' }}>
             Аллергии:
             {pet.Allergies.map((el) => (
-              <Chip sx={{ mx: '1rem' }} key={el.id} label={el.allergy_name} />
+              <Chip sx={{ mx: '3px' }} key={el.id} label={el.allergy_name} />
             ))}
           </Typography>
         </Grid>

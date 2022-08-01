@@ -15,12 +15,11 @@ module.exports = {
           key: 'id',
         },
       },
-      exeprience: {
+      experience: {
         type: Sequelize.TEXT,
       },
       clinic_address: {
         type: Sequelize.TEXT,
-        allowNull: false,
       },
       createdAt: {
         allowNull: false,

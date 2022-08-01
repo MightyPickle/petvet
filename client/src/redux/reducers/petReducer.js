@@ -1,8 +1,10 @@
-const petReducer = (state = null, action) => {
+const petReducer = (state = [], action) => {
   const { type, payload } = action;
   switch (type) {
-    case 'GET_PET':
-      return payload;
+    case 'PET_GET_ALL':
+      return [payload];
+    case 'PET_ADD':
+      return [...state, payload];
     default:
       return state;
   }

@@ -1,11 +1,11 @@
 import { Container } from '@mui/material';
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import UserCard from '../../components/UserCard/UserCard';
 import PagePatientProfile from './patientProfile/PagePatientProfile';
 
 export default function PageProfile() {
-  const location = useLocation();
+  const user = useSelector((state) => state.user);
   const rating = null; // заглушка!!!
   const address = null; // заглушка!!!
   return (
@@ -14,7 +14,7 @@ export default function PageProfile() {
         max_width: '1000px', py: 3,
       }}
     >
-      {location.pathname.includes('patients') ? (
+      {user.user_group === 2 ? (
         <>
           <UserCard />
           <PagePatientProfile />

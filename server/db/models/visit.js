@@ -1,6 +1,4 @@
-const {
-  Model,
-} = require('sequelize');
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Visit extends Model {
@@ -11,22 +9,25 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.belongsTo(models.User, { foreignKey: 'doc_id' });
-      this.belongsTo(models.User, { foreignKey: 'user_id' });
+      this.belongsTo(models.User, { foreignKey: 'doc_id', as: 'doctor' });
+      this.belongsTo(models.User, { foreignKey: 'user_id', as: 'patient' });
       this.belongsTo(models.Pet, { foreignKey: 'pet_id' });
     }
   }
-  Visit.init({
-    doc_id: DataTypes.INTEGER,
-    user_id: DataTypes.INTEGER,
-    pet_id: DataTypes.INTEGER,
-    visit_date: DataTypes.DATE,
-    description: DataTypes.TEXT,
-    diagnose: DataTypes.TEXT,
-    treatment: DataTypes.TEXT,
-  }, {
-    sequelize,
-    modelName: 'Visit',
-  });
+  Visit.init(
+    {
+      doc_id: DataTypes.INTEGER,
+      user_id: DataTypes.INTEGER,
+      pet_id: DataTypes.INTEGER,
+      visit_date: DataTypes.DATE,
+      description: DataTypes.TEXT,
+      diagnose: DataTypes.TEXT,
+      treatment: DataTypes.TEXT,
+    },
+    {
+      sequelize,
+      modelName: 'Visit',
+    }
+  );
   return Visit;
 };
