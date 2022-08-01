@@ -3,6 +3,7 @@ import errorReducer from './errorReducer';
 import infoCardReduser from './infoCardReducer';
 import userReducer from './userReducer';
 import petReducer from './petReducer';
+import scheduleReducer from './scheduleReducer';
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   error: errorReducer,
   vetinfo: infoCardReduser,
   pet: petReducer,
+  schedule: scheduleReducer,
 });
 
 export default rootReducer;
