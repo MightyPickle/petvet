@@ -22,12 +22,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'doc_id',
       });
       this.hasOne(models.Doc_info, { foreignKey: 'doc_id' });
-      this.belongsToMany(models.Category, {
-        through: 'Users_Pets',
-        foreignKey: 'user_id',
-      });
-      this.hasMany(models.Doc_schedule, { foreignKey: 'doc_id' });
-      this.hasMany(models.Doc_schedule, { foreignKey: 'user_id' });
+      this.hasMany(models.Pet, { foreignKey: 'owner_id' });
+      this.hasMany(models.Doc_schedule, { foreignKey: 'doc_id', as: 'doctor' });
+      this.hasMany(models.Doc_schedule, { foreignKey: 'user_id', as: 'patient' });
       this.hasMany(models.Visit, { foreignKey: 'doc_id' });
       this.hasMany(models.Visit, { foreignKey: 'user_id' });
     }

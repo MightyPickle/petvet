@@ -7,7 +7,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        group_name: 'Владелец питомца',
+        group_name: 'Владелец животного',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
