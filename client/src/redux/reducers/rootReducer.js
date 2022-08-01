@@ -7,7 +7,7 @@ import petReducer from './petReducer';
 const rootReducer = combineReducers({
   user: userReducer,
   error: errorReducer,
-  info: infoCardReduser,
+  vetinfo: infoCardReduser,
   pet: petReducer,
 });
 

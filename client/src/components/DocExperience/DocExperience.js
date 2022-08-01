@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 
-function DocExperience({ info }) {
+function DocExperience({ vetinfo }) {
   return (
     <Box sx={{
       border: '2px solid grey', maxWidth: 700, minHeight: 150, margin: 1, borderRadius: '19px', bgcolor: 'text.disabled',
@@ -23,7 +23,7 @@ function DocExperience({ info }) {
         color="text.secondary"
         gutterBottom
       >
-        {info.Doc_info?.exeprience}
+        {vetinfo.Doc_info?.exeprience}
       </Typography>
     </Box>
   );

@@ -1,23 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Stack from '@mui/material/Stack';
 import { Box } from '@mui/system';
 import Typography from '@mui/material/Typography';
 
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const animals = [
-  { title: 'Аквариумная рыбка', class: 'животное' },
-  { title: 'Кошка', class: 'животное' },
-  { title: 'Собака', class: 'животное' },
-  { title: 'Хомячок', class: 'животное' },
-];
-const specialization = [
-  { title: 'Хирург', class: 'врач' },
-  { title: 'Терапевт', class: 'врач' },
-  { title: 'Эндокринолог', class: 'врач' },
-  { title: 'Уролог', class: 'врач' },
-];
 const city = [
   { title: 'Москва', class: 'врач' },
   { title: 'Санкт-Петербург', class: 'врач' },
@@ -26,20 +13,42 @@ const city = [
 ];
 
 export default function FindSelectors() {
-  const defaultAnimals = {
-    options: animals,
-    getOptionLabel: (option) => option.title,
+  const [profiles, setProfiles] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [doctors, setDoctors] = useState([]);
+  const [selectCategory, setSelectCategory] = useState(null);
+  const [selectProfile, setSelectProfile] = useState(null);
+  async function getData(one, two) {
+    const response = await fetch(`http://localhost:3003/api/v1/doctors?profile=${one.name}&category=${two.name}`);
+    const data = await response.json();
+    console.log(data);
+    return data;
+  }
+  useEffect(() => {
+    fetch('http://localhost:3003/api/v1/doctor/profiles')
+      .then((response) => response.json())
+      .then((results) => setProfiles(results));
+  }, []);
+  useEffect(() => {
+    fetch('http://localhost:3003/api/v1/doctor/categories')
+      .then((response) => response.json())
+      .then((results) => setCategories(results));
+  }, []);
+  if (selectCategory && selectProfile) {
+    const result = getData(selectProfile, selectCategory);
+  }
+  const defaultProfiles = {
+    options: profiles,
+    getOptionLabel: (option) => option.name,
   };
-  const defaultSpecialization = {
-    options: specialization,
-    getOptionLabel: (option) => option.title,
+  const defaultCategories = {
+    options: categories,
+    getOptionLabel: (option) => option.name,
   };
   const defaultCity = {
     options: city,
     getOptionLabel: (option) => option.title,
   };
-
-  const [value, setValue] = React.useState(null);
 
   return (
     <Box sx={{
@@ -52,9 +61,13 @@ export default function FindSelectors() {
         </Typography>
         <Autocomplete
           sx={{ mt: 2 }}
-          {...defaultAnimals}
-          id="disable-close-on-select"
-          disableCloseOnSelect
+          {...defaultProfiles}
+          id="controlled-demo"
+          clearOnEscape
+          value={selectProfile}
+          onChange={(event, newValue) => {
+            setSelectProfile(newValue);
+          }}
           renderInput={(params) => (
             <TextField
               sx={{
@@ -66,13 +79,15 @@ export default function FindSelectors() {
             />
           )}
         />
-        {/* <Typography sx={{ mt: 10, fontWeight: 'bold' }}>
-          Специализация
-        </Typography> */}
         <Autocomplete
-          {...defaultSpecialization}
-          id="disable-close-on-select"
-          disableCloseOnSelect
+          {...defaultCategories}
+          id="controlled-demo"
+          name="category"
+          value={selectCategory}
+          onChange={(event, newValue) => {
+            setSelectCategory(newValue);
+          }}
+          clearOnEscape
           renderInput={(params) => (
             <TextField
               sx={{ mb: 5, backgroundColor: 'white', borderRadius: '10px' }}
@@ -82,13 +97,10 @@ export default function FindSelectors() {
             />
           )}
         />
-        {/* <Typography sx={{ mt: 10, fontWeight: 'bold' }}>
-          Город
-        </Typography> */}
         <Autocomplete
           {...defaultCity}
-          id="disable-close-on-select"
-          disableCloseOnSelect
+          id="clear-on-escape"
+          clearOnEscape
           renderInput={(params) => (
             <TextField
               sx={{ mb: 5, backgroundColor: 'white', borderRadius: '10px' }}

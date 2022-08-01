@@ -20,18 +20,18 @@ const Item = styled(Box)(({ theme }) => ({
 function DoctorPublic() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const info = useSelector((store) => store.info);
+  const vetinfo = useSelector((store) => store.vetinfo);
   React.useEffect(() => {
     dispatch(getInfoCardThunk(id));
   }, []);
-  console.log(info);
+  console.log(vetinfo);
   return (
     <Grid container spacing={2} sx={{ marginTop: '1.5rem' }}>
       <Grid item xs={8}>
         <Item>
-          <BasicCard info={info} />
-          <DocProfSpecialization info={info} />
-          <DocExperience info={info} />
+          <BasicCard vetinfo={vetinfo} />
+          <DocProfSpecialization vetinfo={vetinfo} />
+          <DocExperience vetinfo={vetinfo} />
         </Item>
       </Grid>
       <Grid item xs={4}>

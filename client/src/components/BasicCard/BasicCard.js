@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import Stars from '../Stars/Stars';
 import { getInfoCardThunk } from '../../redux/actions/infoCardAction';
 
-export default function BasicCard({ info }) {
+export default function BasicCard({ vetinfo }) {
   return (
     <Card sx={{
       maxWidth: 700, maxHeight: 400, display: 'flex', borderRadius: '19px',
@@ -23,19 +23,19 @@ export default function BasicCard({ info }) {
       />
       <CardContent sx={{ mt: 2.5 }}>
         <Typography variant="h6" component="div">
-          {info.last_name}
+          {vetinfo.last_name}
           {' '}
-          {info.first_name}
+          {vetinfo.first_name}
         </Typography>
         <Typography
           variant="h7"
           component="div"
           sx={{ mt: 0.5 }}
         >
-          {info.phone}
+          {vetinfo.phone}
         </Typography>
         <Typography variant="h8" component="div">
-          {info.Doc_info?.clinic_address}
+          {vetinfo.Doc_info?.clinic_address}
         </Typography>
       </CardContent>
     </Card>
