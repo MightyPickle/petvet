@@ -9,7 +9,6 @@ const {
 router.route('/')
   .get(async (req, res) => {
     const { profile, category } = req.query;
-    console.log(req.query);
     try {
       const result = await User.findAll({
         where:
