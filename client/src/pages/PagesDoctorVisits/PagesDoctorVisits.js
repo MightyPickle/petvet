@@ -13,13 +13,7 @@ import { getPetThunk } from '../../redux/actions/petActions';
 export default function PagesDoctorVisits() {
   const dispatch = useDispatch();
   const user = JSON.parse(window.localStorage.getItem('user'));
-  console.log(user, 'user<<<<<');
-  const { id } = useParams();
-
-  useEffect(() => {
-    console.log('IN USE EFFECT!!');
-    dispatch(getPetThunk(id));
-  }, []);
+  const petPatient = useSelector((store) => store.pet);
 
   const addVisitThunk = async (form) => {
     const response = await fetch('http://localhost:3010/api/v1/visits', {
@@ -104,7 +98,6 @@ export default function PagesDoctorVisits() {
   const [openAllergy, setOpenAllergy] = React.useState(false);
   const handleOpenAllergy = () => setOpenAllergy(true);
   const handleCloseAllergy = () => setOpenAllergy(false);
-  const pet = useSelector((store) => store.pet);
 
   const [chronic, setChronic] = useState([]);
   const handleAddChronic = (newAdd) => setChronic([...chronic, newAdd]);
@@ -113,14 +106,14 @@ export default function PagesDoctorVisits() {
 
   return (
     <Container sx={{ display: 'flex', marginTop: '1rem' }}>
-      {pet.length > 0 && (
+      {petPatient.length > 0 && (
         <>
-          {visible.quest && <QuestComponent name="quest" pet={pet[0]} />}
-          {visible.history && <HistoryVisits name="history" pet={pet[0]} />}
+          {visible.quest && <QuestComponent name="quest" pet={petPatient[0]} />}
+          {visible.history && <HistoryVisits name="history" pet={petPatient[0]} />}
           {visible.newVisit && (
             <NewVisitFormComponent
               name="newVisit"
-              pet={pet[0]}
+              pet={petPatient[0]}
               handleOpenAllergy={handleOpenAllergy}
               handleOpenChronic={handleOpenChronic}
               submitHandler={addVisitThunk}
