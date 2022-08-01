@@ -26,7 +26,7 @@ function DocExperience({ vetinfo }) {
         color="text.secondary"
         gutterBottom
       >
-        {vetinfo.Doc_info?.exeprience}
+        {vetinfo.Doc_info?.experience}
       </Typography>
     </Box>
   );

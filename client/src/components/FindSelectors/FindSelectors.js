@@ -19,18 +19,18 @@ export default function FindSelectors() {
   const [selectCategory, setSelectCategory] = useState(null);
   const [selectProfile, setSelectProfile] = useState(null);
   async function getData(one, two) {
-    const response = await fetch(`http://localhost:3003/api/v1/doctors?profile=${one.name}&category=${two.name}`);
+    const response = await fetch(`http://localhost:3010/api/v1/doctors?profile=${one.name}&category=${two.name}`);
     const data = await response.json();
     console.log(data);
     return data;
   }
   useEffect(() => {
-    fetch('http://localhost:3003/api/v1/doctor/profiles')
+    fetch('http://localhost:3010/api/v1/doctor/profiles')
       .then((response) => response.json())
       .then((results) => setProfiles(results));
   }, []);
   useEffect(() => {
-    fetch('http://localhost:3003/api/v1/doctor/categories')
+    fetch('http://localhost:3010/api/v1/doctor/categories')
       .then((response) => response.json())
       .then((results) => setCategories(results));
   }, []);
