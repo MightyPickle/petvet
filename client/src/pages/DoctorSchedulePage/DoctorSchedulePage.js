@@ -21,6 +21,8 @@ function DoctorSchedulePage() {
 
   const [schedule, setSchedule] = useState([]);
 
+  console.log(schedule);
+
   useEffect(() => {
     fetchDocVisits(doctor.id)
       .then((res) => {
@@ -37,7 +39,7 @@ function DoctorSchedulePage() {
       {schedule.length > 0 && schedule.map((el) => (
         <Box sx={{ width: '100%', height: 'max-content', padding: '1rem' }}>
           <Typography variant="h5">
-            {`${el.User.first_name} ${el.User.last_name}`}
+            {`${el.patient.first_name} ${el.patient.last_name}`}
           </Typography>
           <Typography variant="h6">
             {`${el.Pet.name} ${el.Pet.specie}`}

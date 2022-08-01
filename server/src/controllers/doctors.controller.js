@@ -4,14 +4,14 @@ const {
 } = require('../../db/models');
 
 const getDocSchedule = async (req, res) => {
-  const { docId } = req.params;
+  const { id: docId } = req.params;
   const todayDate = new Date();
-  const dateFilter = new Date(todayDate.getFullYear, todayDate.getMonth, todayDate.getDate);
+  const dateFilter = new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate());
   try {
-    const schedule = Doc_schedule.findAll({
+    const schedule = await Doc_schedule.findAll({
       where:
         {
-          doc_id: docId,
+          doc_id: Number.parseInt(docId, 10),
           date_of_receipt: { [Op.gte]: dateFilter },
         },
       include: [
@@ -26,6 +26,7 @@ const getDocSchedule = async (req, res) => {
         },
       ],
     });
+    console.log(schedule);
     return res.json(schedule);
   } catch (error) {
     return res.status(500).json({ errorMessage: error.message });
