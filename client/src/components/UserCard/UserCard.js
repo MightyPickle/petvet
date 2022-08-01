@@ -13,11 +13,11 @@ import ButtonPhoneTo from '../ButtonPhoneTo/ButtonPhoneTo';
 export default function UserCard({ rating, address }) {
   const user = useSelector((state) => state.user);
   const iconStyles = { mx: 2, alignSelf: 'bottom' };
-  const [value, setValue] = useState();// не уверена что делает эта херрня, но что-то про рейтинг
   const [edit, setEdit] = useState({
     name: false,
     email: false,
     phone: false,
+    address: false,
   });
 
   const [editInput, setEditInput] = useState({
@@ -125,21 +125,27 @@ export default function UserCard({ rating, address }) {
           </div>
         )}
 
-        {address && (
-        <Typography variant="h6" component="h2">
-          Адрес клиники
-          <EditIcon sx={iconStyles} color="primary">edit_profile</EditIcon>
-        </Typography>
-        )}
-        {rating && (
-        <div>
-          <Typography component="legend">Рейтинг1</Typography>
-          <Rating
-            name="simple-controlled"
-            value={value}
-          />
-
-        </div>
+        {address ? (
+          <div style={{ display: 'flex', alignItems: 'baseline' }}>
+            <Typography variant="h6" component="h2">
+              Адрес клиники
+            </Typography>
+            <Typography variant="h6" component="h2" sx={dataStyles}>
+              {address}
+            </Typography>
+            <EditIcon sx={iconStyles} color="primary">edit_profile</EditIcon>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', alignItems: 'baseline' }}>
+            <Typography variant="h6" component="h2">
+              Адрес клиники
+            </Typography>
+            <Typography variant="h6" component="h2" sx={dataStyles}>
+              {/* make a link */}
+              Введите адрес
+            </Typography>
+            <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'address')}>edit_profile</EditIcon>
+          </div>
         )}
       </CardContent>
     </Card>
