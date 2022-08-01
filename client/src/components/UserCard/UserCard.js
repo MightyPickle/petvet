@@ -10,7 +10,9 @@ import { useSelector } from 'react-redux';
 import ButtonMailTo from '../ButtonMailTo/ButtonMailTo';
 import ButtonPhoneTo from '../ButtonPhoneTo/ButtonPhoneTo';
 
-export default function UserCard({ rating, address, guest, user }) {
+export default function UserCard({
+  rating, address, guest, user,
+}) {
   const iconStyles = { mx: 2, alignSelf: 'bottom' };
   const [edit, setEdit] = useState({
     name: false,
@@ -126,29 +128,17 @@ export default function UserCard({ rating, address, guest, user }) {
           </div>
         )}
 
-        {address ? (
+        {address && (
           <div style={{ display: 'flex', alignItems: 'baseline' }}>
             <Typography variant="h6" component="h2">
               Адрес клиники
             </Typography>
             <Typography variant="h6" component="h2" sx={dataStyles}>
-              {address}
+              {address || 'Введите адрес клиники' }
             </Typography>
             <EditIcon sx={iconStyles} color="primary">edit_profile</EditIcon>
           </div>
-        ) : (
-          <div style={{ display: 'flex', alignItems: 'baseline' }}>
-            <Typography variant="h6" component="h2">
-              Адрес клиники
-            </Typography>
-            <Typography variant="h6" component="h2" sx={dataStyles}>
-              {/* make a link */}
-              Введите адрес
-            </Typography>
-            {!guest
-            && <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'address')}>edit_profile</EditIcon>}
-          </div>
-        )}
+        ) }
       </CardContent>
     </Card>
   );
