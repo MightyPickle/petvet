@@ -28,9 +28,11 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/auth" element={<AuthorizationPage />} />
+        <Route path="/users/patients/:id" element={<PageProfile />} />
+        <Route path="/pets/new" element={<PetfromPage />} />
+        <Route path="/visits/:id" element={<PagesDoctorVisits />} />
         <Route path="/profile" element={<PrivateRoute condition={!user?.first_name} conditionRoute="/auth"><PageProfile /></PrivateRoute>} />
         <Route path="/pets/new" element={<PrivateRoute condition={user?.user_group !== 2} conditionRoute="/auth"><PetfromPage /></PrivateRoute>} />
-        <Route path="/api/v1/visits/" element={<PagesDoctorVisits />} />
         <Route path="/doctors/:id" element={<DoctorPublic />} />
         <Route path="/vets" element={<DocFind />} />
       </Routes>
