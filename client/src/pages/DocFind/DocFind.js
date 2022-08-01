@@ -11,13 +11,7 @@ function DocFind() {
       <Box sx={{ ml: 10 }}>
         <SearchInput />
         <Box sx={{ mt: 10 }}>
-          {/* <BasicCard /> */}
-        </Box>
-        <Box sx={{ mt: 2 }}>
-          {/* <BasicCard /> */}
-        </Box>
-        <Box sx={{ mt: 2 }}>
-          {/* <BasicCard /> */}
+          {/* <BasicCard vetinfo={vetinfo} /> */}
         </Box>
       </Box>
     </Box>
