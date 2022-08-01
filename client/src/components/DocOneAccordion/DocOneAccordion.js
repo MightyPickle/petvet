@@ -6,6 +6,8 @@ import React, { useEffect, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@emotion/react';
 import { useDispatch } from 'react-redux';
+import docInputController from '../../utils/docInputController';
+import { docUpdateAC, docUpdateThunk } from '../../redux/actions/userActions';
 
 export default function DocOneAccordion({ type, content }) {
   // for accordion
@@ -38,7 +40,9 @@ export default function DocOneAccordion({ type, content }) {
   };
   const saveButtonHandler = (e) => {
     // updates user.type state
-    const data = { type, input };
+    console.log(docInputController(type, input));
+    dispatch(docUpdateThunk(docInputController(type, input)));
+
     setEdit({ ...edit, [type]: false });
   };
 

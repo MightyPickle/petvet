@@ -10,7 +10,7 @@ const authRouter = require('./src/routes/auth.router');
 const visitRouter = require('./src/routes/visit.router');
 
 const userRouter = require('./src/routes/users.router');
-const petsRouter = require('./src/routes/pet.router');
+const { doctorRouter } = require('./src/routes/doctor.router');
 
 const app = express();
 const PORT = process.env.PORT || 3010;
@@ -42,6 +42,7 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/users/doctors', docInfoRouter);
 app.use('/api/v1/pets', petInfoRouter);
 app.use('/api/v1/visits', visitRouter);
+app.use('/api/v1/doctors', doctorRouter);
 
 app.listen(PORT, () => {
   console.log(`server started PORT: http://localhost:${PORT}`);
