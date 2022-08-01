@@ -28,7 +28,7 @@ function App() {
         <Route path="/auth" element={<AuthorizationPage />} />
         <Route path="/users/patients/:id" element={<PageProfile />} />
         <Route path="/pets/new" element={<PetfromPage />} />
-        <Route path="/api/v1/visits/" element={<PagesDoctorVisits />} />
+        <Route path="/visits/:id" element={<PagesDoctorVisits />} />
         <Route path="/doctors/:id" element={<DoctorPublic />} />
         <Route path="/docfind" element={<DocFind />} />
       </Routes>
