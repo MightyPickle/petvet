@@ -5,6 +5,7 @@ import Container from '@mui/material/Container';
 import { Box, Button, Typography } from '@mui/material';
 import { errorShowAC } from '../../redux/actions/errorAction';
 import { getPetThunk } from '../../redux/actions/petActions';
+import { scheduleAddCurrentAC } from '../../redux/actions/scheduleAction';
 
 const fetchDocVisits = async (id) => {
   const response = await fetch(`http://localhost:3010/api/v1/doctors/${id}/schedule`);
@@ -36,8 +37,9 @@ function DoctorSchedulePage() {
       .catch((error) => dispatch(errorShowAC(error)));
   }, []);
 
-  const startVisithandler = async (id) => {
-    await dispatch(getPetThunk(id));
+  const startVisithandler = async (petId, scheduleObj) => {
+    await dispatch(getPetThunk(petId));
+    await dispatch(scheduleAddCurrentAC(scheduleObj));
     navigate('/visits/new');
   };
 
@@ -66,7 +68,9 @@ function DoctorSchedulePage() {
             </Typography>
           </Box>
           <Box>
-            <Button onClick={() => { startVisithandler(el.Pet.id); }}>Начать прием</Button>
+            <Button onClick={() => { startVisithandler(el.Pet.id, el); }}>
+              Начать прием
+            </Button>
           </Box>
         </Box>
       ))}
