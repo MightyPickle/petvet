@@ -4,7 +4,7 @@ export const userLoginAC = (form) => ({ type: 'USER_LOG_IN', payload: form });
 export const userLogoutAC = () => ({ type: 'USER_LOG_OUT' });
 
 export const userLoginThunk = (form) => async (dispatch) => {
-  const response = await fetch('http://localhost:3010/auth/signin', {
+  const response = await fetch('http://localhost:3010/api/v1/users/signin', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -20,7 +20,7 @@ export const userLoginThunk = (form) => async (dispatch) => {
 };
 
 export const userSignupThunk = (form) => async (dispatch) => {
-  const response = await fetch('http://localhost:3010/auth/signup', {
+  const response = await fetch('http://localhost:3010/api/v1/users/signup', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -36,7 +36,7 @@ export const userSignupThunk = (form) => async (dispatch) => {
 };
 
 export const userLogoutThunk = () => async (dispatch) => {
-  const response = await fetch('http://localhost:3010/auth/signout', {
+  const response = await fetch('http://localhost:3010/api/v1/users/signout', {
     method: 'GET',
     credentials: 'include',
   });
