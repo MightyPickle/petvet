@@ -16,9 +16,14 @@ function Navbar() {
         <div style={{ padding: '5px', marginRight: '5px' }}>
           <img src="/LOGO5.png" alt="logo" style={{ width: '4rem', height: '4rem' }} />
         </div>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          <NavLink to="/vets" style={{ textDecoration: 'none', color: 'inherit' }}>Поиск ветеринара</NavLink>
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1, width: 'max-content' }}>
+          <NavLink to="/vets" style={{ textDecoration: 'none', color: 'inherit', width: 'inherit' }}>Поиск ветеринара</NavLink>
         </Typography>
+        {user?.user_group === 1 && (
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <NavLink to="/schedule" style={{ textDecoration: 'none', color: 'inherit' }}>Приемы</NavLink>
+        </Typography>
+        ) }
         {user.first_name
           ? (
             <>

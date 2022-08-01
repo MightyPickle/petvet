@@ -1,21 +1,21 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('Allergies', [
+    await queryInterface.bulkInsert('Docs_Profiles', [
       {
-        pet_id: 1,
-        allergy_name: 'Аллергия на рыбу',
+        doc_id: 2,
+        profile_id: 1,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        pet_id: 1,
-        allergy_name: 'Аллергия на молоко',
+        doc_id: 2,
+        profile_id: 2,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        pet_id: 1,
-        allergy_name: 'Аллергия на солнце',
+        doc_id: 2,
+        profile_id: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -23,6 +23,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Allergies', null, {});
+    await queryInterface.bulkDelete('Docs_Profiles', null, {});
   },
 };
