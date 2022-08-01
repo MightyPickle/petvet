@@ -48,3 +48,20 @@ export const userLogoutThunk = () => async (dispatch) => {
   console.log(errorMessage);
   return dispatch(errorShowAC(errorMessage));
 };
+
+export const docUpdateAC = (payload) => ({ type: 'DOC_UPDATE', payload });
+
+export const docUpdateThunk = (payload) => async (dispatch) => {
+  const { type, input } = payload;
+  console.log(input);
+  const response = await fetch('http://localhost:3010/api/v1/doctors', {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ type, data: input }),
+  });
+  if (response.ok) {
+    const data = await response.json();
+    docUpdateAC({ type, data });
+  }
+};

@@ -48,6 +48,7 @@ app.use('/api/v1/doctors', docFindRouter); // fix
 app.use('/api/v1/pets', petInfoRouter);
 app.use('/api/v1/doctors', doctorRouter); // fix
 app.use('/api/v1/visits', visitRouter);
+app.use('/api/v1/doctors', doctorRouter);
 
 app.listen(PORT, () => {
   console.log(`server started PORT: http://localhost:${PORT}`);
