@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 import ButtonMailTo from '../ButtonMailTo/ButtonMailTo';
 import ButtonPhoneTo from '../ButtonPhoneTo/ButtonPhoneTo';
 
-export default function UserCard({ rating, address }) {
+export default function UserCard({ rating, address, guest }) {
   const user = useSelector((state) => state.user);
   const iconStyles = { mx: 2, alignSelf: 'bottom' };
   const [edit, setEdit] = useState({
@@ -76,7 +76,8 @@ export default function UserCard({ rating, address }) {
               <Typography variant="h5" component="div">
                 {`${user.first_name} ${user.last_name}`}
               </Typography>
-              <EditIcon color="primary" sx={iconStyles} onClick={(e) => editButtonHandler(e, 'name')}>edit_profile</EditIcon>
+              {!guest
+              && <EditIcon color="primary" sx={iconStyles} onClick={(e) => editButtonHandler(e, 'name')}>edit_profile</EditIcon>}
             </div>
           )}
 
@@ -98,8 +99,8 @@ export default function UserCard({ rating, address }) {
             <Typography variant="h6" component="h2" sx={dataStyles}>
               <ButtonMailTo label={user.email} mailto={`mailto:${user.email}`} />
             </Typography>
-
-            <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'email')}>edit_profile</EditIcon>
+            {!guest
+            && <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'email')}>edit_profile</EditIcon>}
           </div>
         )}
 
@@ -121,7 +122,8 @@ export default function UserCard({ rating, address }) {
             <Typography variant="h6" component="h2" sx={dataStyles}>
               <ButtonPhoneTo label={user.phone} tel={`tel:${user.phone}`} />
             </Typography>
-            <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'phone')}>edit_profile</EditIcon>
+            {!guest
+            && <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'phone')}>edit_profile</EditIcon>}
           </div>
         )}
 
@@ -144,7 +146,8 @@ export default function UserCard({ rating, address }) {
               {/* make a link */}
               Введите адрес
             </Typography>
-            <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'address')}>edit_profile</EditIcon>
+            {!guest
+            && <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'address')}>edit_profile</EditIcon>}
           </div>
         )}
       </CardContent>

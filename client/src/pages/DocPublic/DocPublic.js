@@ -5,6 +5,7 @@ import BasicCard from '../../components/BasicCard/BasicCard';
 import ButtonOne from '../../components/ButtonOne/ButtonOne';
 import DocExperience from '../../components/DocExperience/DocExperience';
 import DocProfSpecialization from '../../components/DocProfSpecialization/DocProfSpecialization';
+import UserCard from '../../components/UserCard/UserCard';
 
 const Item = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -19,7 +20,7 @@ function DoctorPublic() {
     <Grid container spacing={2}>
       <Grid item xs={8}>
         <Item>
-          <BasicCard />
+          <UserCard guest />
           <DocProfSpecialization />
           <DocExperience />
 
