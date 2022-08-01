@@ -1,11 +1,14 @@
 import {
   Accordion,
-  AccordionActions, AccordionDetails, AccordionSummary, Button, Divider, TextField, Typography,
+  AccordionActions, AccordionDetails, AccordionSummary, Button, Chip, Divider,
+  TextField, Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@emotion/react';
 import { useDispatch } from 'react-redux';
+import { fontSize } from '@mui/system';
+import sx from '@mui/system/sx';
 import docInputController from '../../utils/docInputController';
 import { docUpdateAC, docUpdateThunk } from '../../redux/actions/userActions';
 
@@ -15,6 +18,7 @@ export default function DocOneAccordion({ type, content }) {
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
   // colors
   const theme = useTheme();
   const primary = theme.palette.primary.main;
@@ -51,8 +55,10 @@ export default function DocOneAccordion({ type, content }) {
       // className="MuiAccordion"
       expanded={expanded === type}
       onChange={handleChange(type)}
-      sx={{
-        backgroundColor: neutral, p: 2, m: '.5rem', borderRadius: '9px', border: 0,
+      sx={!expanded ? {
+        backgroundColor: 'white', p: 2, m: '.5rem', borderRadius: '9px',
+      } : {
+        backgroundColor: 'white', p: 2, m: '.5rem', borderRadius: '9px', border: `.5px solid ${primary}`,
       }}
     >
       <AccordionSummary
@@ -75,7 +81,16 @@ export default function DocOneAccordion({ type, content }) {
             display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2,
           }}
           >
-            <TextField id="outlined-basic" variant="outlined" name={type} value={input} sx={{ width: '100%', backgroundColor: 'white' }} onChange={(e) => setInput(e.target.value)} />
+            <TextField
+              id="outlined-basic"
+              variant="outlined"
+              name={type}
+              value={input}
+              sx={{
+                width: '100%', backgroundColor: 'white', border: `.5px solid ${secondary}`, borderRadius: '5px',
+              }}
+              onChange={(e) => setInput(e.target.value)}
+            />
           </AccordionDetails>
           <AccordionActions>
             <Button
@@ -84,7 +99,6 @@ export default function DocOneAccordion({ type, content }) {
               sx={{
                 backgroundColor: neutral,
                 color: 'black',
-                border: `.5px solid ${secondary}`,
                 borderRadius: '9px',
                 p: '0.5rem',
                 ml: 2,
@@ -111,7 +125,9 @@ export default function DocOneAccordion({ type, content }) {
         }}
         >
           <Typography>
-            {content || 'Информация отсутствует'}
+            {Array.isArray(content)
+              ? (content.map((el) => <Chip key={el} sx={{ ml: 1, fontSize: '1rem', backgroundColor: neutral }} label={el} />))
+              : (content || 'Информация отсутствует')}
           </Typography>
           <AccordionActions>
             <Button

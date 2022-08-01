@@ -45,8 +45,10 @@ export default function DocPriceAccordion({ type, content }) {
     <Accordion
       expanded={expanded === type}
       onChange={handleChange(type)}
-      sx={{
-        backgroundColor: neutral, p: 2, m: '.5rem', borderRadius: '9px', border: 0,
+      sx={!expanded ? {
+        backgroundColor: 'white', p: 2, m: '.5rem', borderRadius: '9px',
+      } : {
+        backgroundColor: 'white', p: 2, m: '.5rem', borderRadius: '9px', border: `.5px solid ${primary}`,
       }}
     >
       <AccordionSummary
@@ -101,10 +103,15 @@ export default function DocPriceAccordion({ type, content }) {
         }}
         >
           {content ? (
-            <TableContainer component={Paper} sx={{ width: '85%', maxHeight: '30vh', borderRadius: '9px' }}>
+            <TableContainer
+              component={Paper}
+              sx={{
+                width: '85%', maxHeight: '30vh', borderRadius: '9px', backgroundColor: neutral,
+              }}
+            >
               <Table stickyHeader sx={{ minWidth: 500 }} aria-label="simple table">
                 <TableHead>
-                  <TableRow>
+                  <TableRow sx={{ backgroundColor: neutral }}>
                     <TableCell>Услуга</TableCell>
                     <TableCell align="right">Цена</TableCell>
                   </TableRow>

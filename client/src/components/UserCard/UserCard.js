@@ -11,7 +11,7 @@ import ButtonMailTo from '../ButtonMailTo/ButtonMailTo';
 import ButtonPhoneTo from '../ButtonPhoneTo/ButtonPhoneTo';
 
 export default function UserCard({
-  rating, address, guest, user,
+  rating, guest, user,
 }) {
   const iconStyles = { mx: 2, alignSelf: 'bottom' };
   const [edit, setEdit] = useState({
@@ -88,7 +88,7 @@ export default function UserCard({
               Почта
             </Typography>
             <Typography variant="h5" component="div" sx={dataStyles}>
-              <TextField variant="standard" defaultValue="no-reply@example.com" />
+              <TextField variant="standard" defaultValue={user.email} />
             </Typography>
             <DoneIcon color="secondary" sx={iconStyles} onClick={(e) => doneButtonHandler(e, 'email')} />
           </div>
@@ -128,17 +128,17 @@ export default function UserCard({
           </div>
         )}
 
-        {address && (
+        {user.user_group === 1 && (
           <div style={{ display: 'flex', alignItems: 'baseline' }}>
             <Typography variant="h6" component="h2">
               Адрес клиники
             </Typography>
             <Typography variant="h6" component="h2" sx={dataStyles}>
-              {address || 'Введите адрес клиники' }
+              {user.Doc_info?.clinic_address || 'Введите адрес'}
             </Typography>
             <EditIcon sx={iconStyles} color="primary">edit_profile</EditIcon>
           </div>
-        ) }
+        )}
       </CardContent>
     </Card>
   );
