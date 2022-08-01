@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   // pets: petsReducer,
   error: errorReducer,
-  info: infoCardReduser,
+  vetinfo: infoCardReduser,
   pet: petReducer,
 });
 

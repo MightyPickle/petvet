@@ -8,16 +8,16 @@ function DocFind() {
   return (
     <Box sx={{ display: 'flex', mt: 10 }}>
       <FindSelectors />
-      <Box sx={{ ml: 25 }}>
+      <Box sx={{ ml: 10 }}>
         <SearchInput />
         <Box sx={{ mt: 10 }}>
-          <BasicCard />
+          {/* <BasicCard /> */}
         </Box>
         <Box sx={{ mt: 2 }}>
-          <BasicCard />
+          {/* <BasicCard /> */}
         </Box>
         <Box sx={{ mt: 2 }}>
-          <BasicCard />
+          {/* <BasicCard /> */}
         </Box>
       </Box>
     </Box>

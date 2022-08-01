@@ -3,32 +3,32 @@ const express = require('express');
 const router = express.Router();
 
 const {
-  User, Doc_info, Profile, Category, Price_list,
+  User, Doc_info, Profile, Category,
 } = require('../../db/models');
 
-router.route('/:id')
+router.route('/')
   .get(async (req, res) => {
+    const { profile, category } = req.query;
+    console.log(req.query);
     try {
-      const result = await User.findOne({
+      const result = await User.findAll({
         where:
-          { id: req.params.id },
+          { user_group: 1 },
         attributes: ['first_name', 'last_name', 'phone', 'email'],
         include: [
           {
             model: Doc_info,
-            attributes: ['clinic_address', 'experience'],
-          },
-          {
-            model: Price_list,
-            attributes: ['service', 'price'],
+            attributes: ['clinic_address', 'exeprience'],
           },
           {
             model: Profile,
             attributes: ['name'],
+            where: { name: profile },
           },
           {
             model: Category,
             attributes: ['name'],
+            where: { name: category },
           },
         ],
       });

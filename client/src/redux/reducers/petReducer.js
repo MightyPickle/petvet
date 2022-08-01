@@ -3,6 +3,8 @@ const petReducer = (state = [], action) => {
   switch (type) {
     case 'PET_GET_ALL':
       return [payload];
+    case 'PET_GET_ONE':
+      return [payload];
     case 'PET_ADD':
       return [...state, payload];
     default:

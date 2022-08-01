@@ -10,19 +10,18 @@ export default function PageProfile() {
   const rating = null; // заглушка!!!
   return (
     <Container
-      sx={{
-        max_width: '1000px', py: 3,
-      }}
+      sx={{ max_width: '1000px', py: 3 }}
     >
+
       {user.user_group === 2 && (
         <>
-          <UserCard />
+          <UserCard user={user} />
           <PagePatientProfile />
         </>
       )}
       {user.user_group === 1 && (
         <>
-          <UserCard address={user.Doc_info?.clinic_address} />
+          <UserCard address={user.Doc_info?.clinic_address} user={user} />
           <PageDocProfile />
         </>
       )}

@@ -1,8 +1,19 @@
-import { Button, TextField } from '@mui/material';
+/* eslint-disable object-curly-newline */
+import { Button, Chip, TextField, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import ClearIcon from '@mui/icons-material/Clear';
 
-export default function NewVisitFormComponent({ pet, submitHandler }) {
+export default function NewVisitFormComponent({
+  pet,
+  submitHandler,
+  handleOpenAllergy,
+  handleOpenChronic,
+  allergy,
+  chronic,
+  handleDelete,
+}) {
   const user = JSON.parse(window.localStorage.getItem('user'));
   const [form, setForm] = useState({
     doc_id: user.id,
@@ -66,7 +77,37 @@ export default function NewVisitFormComponent({ pet, submitHandler }) {
           onChange={inputHandler}
           required
         />
-        <Button variant="contained" sx={{ marginTop: '1rem' }} type="submit">
+        <Typography
+          variant="p"
+          component="span"
+          sx={{ fontWeight: 'bold', display: 'block' }}
+        >
+          Аллергии:
+          {allergy.map((el) => (
+            <Chip sx={{ mx: '3px' }} key={el.id} label={el} />
+          ))}
+          <Button variant="text" onClick={handleOpenAllergy}>
+            <AddBoxIcon />
+          </Button>
+        </Typography>
+        <Typography
+          variant="p"
+          component="span"
+          sx={{ fontWeight: 'bold', display: 'block' }}
+        >
+          Хронические болезни:
+          {chronic.map((el) => (
+            <Chip sx={{ mx: '3px' }} key={el} label={el} />
+          ))}
+          <Button variant="text" onClick={handleOpenChronic}>
+            <AddBoxIcon />
+          </Button>
+        </Typography>
+        <Button
+          variant="contained"
+          sx={{ marginTop: '1rem', display: 'block' }}
+          type="submit"
+        >
           Завершить
         </Button>
       </form>
