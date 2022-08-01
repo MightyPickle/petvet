@@ -1,10 +1,12 @@
 const { Router } = require('express');
 const petController = require('../controllers/pet.controller');
-// const checkAuth = require('../middlewares/checkAuth');
 
-const petRouter = Router();
+const petsRouter = Router();
 
-petRouter.route('/:id')
+petsRouter.route('/')
+  .post(petController.addNewPet);
+
+petsRouter.route('/:id')
   .get(petController.getPet);
 
-module.exports = petRouter;
+module.exports = petsRouter;
