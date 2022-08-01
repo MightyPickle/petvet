@@ -6,7 +6,7 @@ const petsRouter = Router();
 petsRouter.route('/')
   .post(petController.addNewPet);
 
-// petsRouter.route('/:id')
-//   .get(petController.getPet);
+petsRouter.route('/:id')
+  .get(petController.getPet);
 
 module.exports = petsRouter;
