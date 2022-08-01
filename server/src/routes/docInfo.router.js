@@ -16,7 +16,7 @@ router.route('/:id')
         include: [
           {
             model: Doc_info,
-            attributes: ['clinic_address', 'exeprience'],
+            attributes: ['clinic_address', 'experience'],
           },
           {
             model: Price_list,
