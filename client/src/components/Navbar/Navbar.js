@@ -3,11 +3,12 @@ import {
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { userLogoutThunk } from '../../redux/actions/userActions';
 
 function Navbar() {
   const user = useSelector((store) => store.user);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   return (
     <AppBar position="static">
@@ -29,7 +30,10 @@ function Navbar() {
               <Button color="inherit"><NavLink to="profile" style={{ textDecoration: 'none', color: 'inherit' }}>Личный кабинет</NavLink></Button>
               <Button
                 color="inherit"
-                onClick={() => dispatch(userLogoutThunk())}
+                onClick={async () => {
+                  await dispatch(userLogoutThunk());
+                  navigate('/auth');
+                }}
               >
                 Выйти
 

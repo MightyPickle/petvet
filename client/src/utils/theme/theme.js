@@ -6,7 +6,6 @@ const theme = createTheme({
     secondary: { main: '#2568FB' },
     neutral: { main: '#D9D9D9' },
   },
-
 });
 
 export default theme;

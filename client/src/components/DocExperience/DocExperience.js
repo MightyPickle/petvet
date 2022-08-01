@@ -3,11 +3,14 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
+import { useTheme } from '@emotion/react';
 
 function DocExperience({ vetinfo }) {
+  const theme = useTheme();
+  const neutral = theme.palette.neutral.main;
   return (
     <Box sx={{
-      border: '2px solid grey', maxWidth: 700, minHeight: 150, margin: 1, borderRadius: '19px', bgcolor: 'text.disabled',
+      maxWidth: 700, minHeight: 150, margin: 1, borderRadius: '19px', bgcolor: neutral, p: 2,
     }}
     >
       <Typography sx={{
@@ -23,7 +26,7 @@ function DocExperience({ vetinfo }) {
         color="text.secondary"
         gutterBottom
       >
-        {vetinfo.Doc_info?.exeprience}
+        {vetinfo.Doc_info?.experience}
       </Typography>
     </Box>
   );

@@ -10,14 +10,13 @@ import { useSelector } from 'react-redux';
 import ButtonMailTo from '../ButtonMailTo/ButtonMailTo';
 import ButtonPhoneTo from '../ButtonPhoneTo/ButtonPhoneTo';
 
-export default function UserCard({ rating, address }) {
-  const user = useSelector((state) => state.user);
+export default function UserCard({ rating, address, guest, user }) {
   const iconStyles = { mx: 2, alignSelf: 'bottom' };
-  const [value, setValue] = useState();// не уверена что делает эта херрня, но что-то про рейтинг
   const [edit, setEdit] = useState({
     name: false,
     email: false,
     phone: false,
+    address: false,
   });
 
   const [editInput, setEditInput] = useState({
@@ -76,7 +75,8 @@ export default function UserCard({ rating, address }) {
               <Typography variant="h5" component="div">
                 {`${user.first_name} ${user.last_name}`}
               </Typography>
-              <EditIcon color="primary" sx={iconStyles} onClick={(e) => editButtonHandler(e, 'name')}>edit_profile</EditIcon>
+              {!guest
+              && <EditIcon color="primary" sx={iconStyles} onClick={(e) => editButtonHandler(e, 'name')}>edit_profile</EditIcon>}
             </div>
           )}
 
@@ -98,8 +98,8 @@ export default function UserCard({ rating, address }) {
             <Typography variant="h6" component="h2" sx={dataStyles}>
               <ButtonMailTo label={user.email} mailto={`mailto:${user.email}`} />
             </Typography>
-
-            <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'email')}>edit_profile</EditIcon>
+            {!guest
+            && <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'email')}>edit_profile</EditIcon>}
           </div>
         )}
 
@@ -121,25 +121,33 @@ export default function UserCard({ rating, address }) {
             <Typography variant="h6" component="h2" sx={dataStyles}>
               <ButtonPhoneTo label={user.phone} tel={`tel:${user.phone}`} />
             </Typography>
-            <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'phone')}>edit_profile</EditIcon>
+            {!guest
+            && <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'phone')}>edit_profile</EditIcon>}
           </div>
         )}
 
-        {address && (
-        <Typography variant="h6" component="h2">
-          Адрес клиники
-          <EditIcon sx={iconStyles} color="primary">edit_profile</EditIcon>
-        </Typography>
-        )}
-        {rating && (
-        <div>
-          <Typography component="legend">Рейтинг1</Typography>
-          <Rating
-            name="simple-controlled"
-            value={value}
-          />
-
-        </div>
+        {address ? (
+          <div style={{ display: 'flex', alignItems: 'baseline' }}>
+            <Typography variant="h6" component="h2">
+              Адрес клиники
+            </Typography>
+            <Typography variant="h6" component="h2" sx={dataStyles}>
+              {address}
+            </Typography>
+            <EditIcon sx={iconStyles} color="primary">edit_profile</EditIcon>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', alignItems: 'baseline' }}>
+            <Typography variant="h6" component="h2">
+              Адрес клиники
+            </Typography>
+            <Typography variant="h6" component="h2" sx={dataStyles}>
+              {/* make a link */}
+              Введите адрес
+            </Typography>
+            {!guest
+            && <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'address')}>edit_profile</EditIcon>}
+          </div>
         )}
       </CardContent>
     </Card>

@@ -29,12 +29,12 @@ export default function FindSelectors() {
     }
   }
   useEffect(() => {
-    fetch('http://localhost:3010/api/v1/doctor/profiles')
+    fetch('http://localhost:3010/api/v1/doctors/profiles')
       .then((response) => response.json())
       .then((results) => setProfiles(results));
   }, []);
   useEffect(() => {
-    fetch('http://localhost:3010/api/v1/doctor/categories')
+    fetch('http://localhost:3010/api/v1/doctors/categories')
       .then((response) => response.json())
       .then((results) => setCategories(results));
   }, []);

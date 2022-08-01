@@ -1,8 +1,11 @@
 const { Router } = require('express');
-const petsController = require('../controllers/pets.controller');
+const usersController = require('../controllers/users.controller');
 
 const userRouter = Router();
 
-userRouter.get('/patients/pets', petsController.getAllPets);
+// userRouter.get('/doctor')
+userRouter.post('/signup', usersController.signUp);
+userRouter.post('/signin', usersController.signIn);
+userRouter.get('/signout', usersController.signOut);
 
 module.exports = userRouter;

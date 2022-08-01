@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom';
 export default function PetCard({ pet }) {
   const theme = useTheme();
   const primary = theme.palette.primary.main;
-  const secondary = theme.palette.secondary.main;
   const neutral = theme.palette.neutral.main;
 
   const navigate = useNavigate();

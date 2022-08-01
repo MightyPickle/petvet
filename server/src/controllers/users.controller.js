@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const {
-  User, Price_list, Doc_info, Category, Profile,
+  User, Price_list, Doc_info, Category, Profile, Pet,
 } = require('../../db/models');
 
 const signUp = async (req, res) => {
@@ -15,7 +15,7 @@ const signUp = async (req, res) => {
     const hashedPass = await bcrypt.hash(password, 10);
     const [newUser, created] = await User.findOrCreate({
       where: { email },
-      include: [Doc_info, Price_list, Category, Profile],
+      include: [Doc_info, Price_list, Category, Profile, Pet],
       defaults: {
         first_name,
         last_name,
@@ -50,7 +50,7 @@ const signIn = async (req, res) => {
     const currentUser = await User.findOne(
       {
         where: { email: loginEmail },
-        include: [Doc_info, Price_list, Category, Profile],
+        include: [Doc_info, Price_list, Category, Profile, Pet],
       },
     );
     if (!currentUser) return res.status(401).json({ errorMessage: 'Пользователь не найден' });

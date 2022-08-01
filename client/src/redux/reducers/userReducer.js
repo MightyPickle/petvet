@@ -5,6 +5,13 @@ const userReducer = (state = {}, action) => {
       return { ...payload };
     case 'USER_LOG_OUT':
       return {};
+    case 'DOC_UPDATE':
+      if (payload.type === 'experience') {
+        console.log(payload);
+        return { ...state, Doc_info: { ...state.Doc_info, [payload.type]: payload.input } };
+      }
+      return { ...state, [payload.type]: payload.input };
+
     default:
       return state;
   }
