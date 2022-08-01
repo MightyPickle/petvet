@@ -1,32 +1,26 @@
 import {
-  Accordion,
-  AccordionActions, AccordionDetails, AccordionSummary, Button, Divider, TextField, Typography,
+  Accordion, AccordionActions, AccordionDetails,
+  AccordionSummary, Button, Divider, Paper, Table,
+  TableBody, TableCell, TableContainer, TableHead, TableRow,
+  TextField, Typography,
 } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@emotion/react';
-import { useDispatch } from 'react-redux';
+import { borderRadius } from '@mui/system';
 
-export default function DocOneAccordion({ type, content }) {
-  // for accordion
+export default function DocPriceAccordion({ type, content }) {
   const [expanded, setExpanded] = useState(false);
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-  // colors
+    // colors
   const theme = useTheme();
   const primary = theme.palette.primary.main;
   const secondary = theme.palette.secondary.main;
   const neutral = theme.palette.neutral.main;
 
-  // input control
-  const [input, setInput] = useState('');
-  useEffect(() => {
-    setInput(content || '');
-  }, []);
-
   // edit state control
-  const dispatch = useDispatch();
   const [edit, setEdit] = useState({
     [type]: false,
   });
@@ -38,13 +32,17 @@ export default function DocOneAccordion({ type, content }) {
   };
   const saveButtonHandler = (e) => {
     // updates user.type state
-    const data = { type, input };
     setEdit({ ...edit, [type]: false });
   };
 
+  const rows = [
+    { id: 1, service: 'lol', price: 3000 },
+    { id: 2, service: 'lpppl', price: 2000 },
+    { id: 1, service: 'lol', price: 3000 },
+  ];
+
   return (
     <Accordion
-      // className="MuiAccordion"
       expanded={expanded === type}
       onChange={handleChange(type)}
       sx={{
@@ -58,20 +56,17 @@ export default function DocOneAccordion({ type, content }) {
         sx={{ height: '5rem' }}
       >
         <Typography sx={{ width: '33%', flexShrink: 0 }}>
-          {type === 'experience' ? 'Описание'
-            : type === 'price_list' ? 'Прайс-лист'
-              : type === 'profiles' ? 'Кого лечу?'
-                : 'Специализация'}
+          Прайс-лист
         </Typography>
       </AccordionSummary>
       <Divider />
       {edit[type] ? (
         <>
           <AccordionDetails sx={{
-            display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2,
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           }}
           >
-            <TextField id="outlined-basic" variant="outlined" name={type} value={input} sx={{ width: '100%', backgroundColor: 'white' }} onChange={(e) => setInput(e.target.value)} />
+            <TextField id="outlined-basic" variant="outlined" value={content || ''} sx={{ width: '100%', backgroundColor: 'white' }} />
           </AccordionDetails>
           <AccordionActions>
             <Button
@@ -101,14 +96,35 @@ export default function DocOneAccordion({ type, content }) {
         </>
 
       ) : (
-
         <AccordionDetails sx={{
-          display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2,
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2, maxHeight: '30vh',
         }}
         >
-          <Typography>
-            {content || 'Информация отсутствует'}
-          </Typography>
+          {content ? (
+            <TableContainer component={Paper} sx={{ width: '85%', maxHeight: '30vh', borderRadius: '9px' }}>
+              <Table stickyHeader sx={{ minWidth: 500 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Услуга</TableCell>
+                    <TableCell align="right">Цена</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {content.map((row) => (
+                    <TableRow
+                      key={row.id}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row.service}
+                      </TableCell>
+                      <TableCell align="right">{row.price}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          ) : 'Информация отсутствует'}
           <AccordionActions>
             <Button
               onClick={editButtonHandler}

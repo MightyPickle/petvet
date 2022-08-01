@@ -5,6 +5,8 @@ const userReducer = (state = {}, action) => {
       return { ...payload };
     case 'USER_LOG_OUT':
       return {};
+    case 'DOC_UPDATE':
+      return { ...state, [payload.type]: payload.data };
     default:
       return state;
   }
