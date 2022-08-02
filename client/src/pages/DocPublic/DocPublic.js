@@ -26,7 +26,7 @@ function DoctorPublic() {
   React.useEffect(() => {
     dispatch(getInfoCardThunk(id));
   }, []);
-  console.log(vetinfo);
+  // console.log(vetinfo);
   return (
     <Container
       sx={{ max_width: '1000px', py: 3 }}
@@ -35,7 +35,6 @@ function DoctorPublic() {
         <Grid item xs={8}>
           <Item>
             <UserCard guest user={vetinfo} />
-            {/* <BasicCard vetinfo={vetinfo} /> */}
             <DocProfSpecialization vetinfo={vetinfo} />
             <DocExperience vetinfo={vetinfo} />
           </Item>

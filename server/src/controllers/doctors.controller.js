@@ -34,27 +34,54 @@ const getDocSchedule = async (req, res) => {
 };
 
 const getAllDocs = async (req, res) => {
-  const { profile, category } = req.query;
-  console.log(req.query);
+  const { profile, category, doctorname } = req.query;
+
+  const [partOne, partTwo] = doctorname.split(' ');
+
+  const queryFilter = {
+    category: {},
+    profile: {},
+    doctorname: {},
+  };
+
+  if (profile !== 'undefined') queryFilter.profile.name = profile;
+  if (category !== 'undefined') queryFilter.category.name = category;
+  if (doctorname !== 'undefined' && doctorname) {
+    queryFilter.doctorname = {
+      [Op.or]: [
+        { first_name: { [Op.like]: `%${partOne.split('')[0].toUpperCase()}${partOne.split('').slice(1).join('').toLowerCase()}%` } },
+        { last_name: { [Op.like]: `%${partOne.split('')[0].toUpperCase()}${partOne.split('').slice(1).join('').toLowerCase()}%` } },
+        { first_name: { [Op.like]: `%${partTwo?.split('')[0]?.toUpperCase()}${partTwo?.split('')?.slice(1)?.join('')?.toLowerCase()}%` } },
+        { last_name: { [Op.like]: `%${partTwo?.split('')[0]?.toUpperCase()}${partTwo?.split('')?.slice(1)?.join('')?.toLowerCase()}%` } },
+      ],
+    };
+  }
+
   try {
     const result = await User.findAll({
       where:
-        { user_group: 1 },
+        {
+          user_group: 1,
+          ...queryFilter.doctorname,
+        },
       attributes: ['first_name', 'last_name', 'phone', 'email'],
       include: [
         {
           model: Doc_info,
           attributes: ['clinic_address', 'experience'],
+          required: false,
+
         },
         {
           model: Profile,
           attributes: ['name'],
-          where: { name: profile },
+          where: queryFilter.profile,
+          required: false,
         },
         {
           model: Category,
           attributes: ['name'],
-          where: { name: category },
+          where: queryFilter.category,
         },
       ],
     });
