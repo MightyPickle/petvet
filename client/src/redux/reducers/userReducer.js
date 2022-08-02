@@ -15,11 +15,14 @@ const userReducer = (state = {}, action) => {
         console.log(cleanType);
         return { ...state, [cleanType]: [...state[cleanType], payload.input] };
       }
-      if (payload.type === ('Categories_remove' || 'Profiles_remove')) {
+      if (payload.type === 'Categories_remove' || payload.type === 'Profiles_remove') {
         const cleanType = payload.type.replace('_remove', '');
         return { ...state, [cleanType]: state[cleanType].filter((el) => el.id !== payload.input) };
       }
       return { ...state, [payload.type]: payload.input };
+    case 'PET_ADD':
+      return { ...state, Pets: [...state.Pets, payload] };
+
     default:
       return state;
   }

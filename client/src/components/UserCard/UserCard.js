@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 import React, { useState } from 'react';
 import CardContent from '@mui/material/CardContent';
 import {

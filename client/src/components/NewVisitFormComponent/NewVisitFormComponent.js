@@ -4,17 +4,21 @@ import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ClearIcon from '@mui/icons-material/Clear';
+import { useNavigate } from 'react-router-dom';
 
 export default function NewVisitFormComponent({
   pet,
   submitHandler,
   handleOpenAllergy,
   handleOpenChronic,
+  handleOpenVac,
   allergy,
   chronic,
+  vaccine,
   handleDelete,
 }) {
   const user = JSON.parse(window.localStorage.getItem('user'));
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     doc_id: user.id,
     user_id: pet.owner_id,
@@ -25,7 +29,6 @@ export default function NewVisitFormComponent({
   });
   const inputHandler = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(form);
   };
   return (
     <Box
@@ -45,6 +48,7 @@ export default function NewVisitFormComponent({
         onSubmit={(e) => {
           e.preventDefault();
           submitHandler(form);
+          navigate('/schedule');
         }}
       >
         <TextField
@@ -83,8 +87,8 @@ export default function NewVisitFormComponent({
           sx={{ fontWeight: 'bold', display: 'block' }}
         >
           Аллергии:
-          {allergy.map((el) => (
-            <Chip sx={{ mx: '3px' }} key={el.id} label={el} />
+          {allergy.map((el, index) => (
+            <Chip sx={{ mx: '3px' }} key={index} label={el.input1} />
           ))}
           <Button variant="text" onClick={handleOpenAllergy}>
             <AddBoxIcon />
@@ -96,10 +100,23 @@ export default function NewVisitFormComponent({
           sx={{ fontWeight: 'bold', display: 'block' }}
         >
           Хронические болезни:
-          {chronic.map((el) => (
-            <Chip sx={{ mx: '3px' }} key={el} label={el} />
+          {chronic.map((el, index) => (
+            <Chip sx={{ mx: '3px' }} key={index} label={el.input1} />
           ))}
           <Button variant="text" onClick={handleOpenChronic}>
+            <AddBoxIcon />
+          </Button>
+        </Typography>
+        <Typography
+          variant="p"
+          component="span"
+          sx={{ fontWeight: 'bold', display: 'block' }}
+        >
+          Вакцинация:
+          {vaccine.map((el, index) => (
+            <Chip sx={{ mx: '3px' }} key={index} label={el.input2} />
+          ))}
+          <Button variant="text" onClick={handleOpenVac}>
             <AddBoxIcon />
           </Button>
         </Typography>

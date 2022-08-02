@@ -7,7 +7,6 @@ export const addPetAC = (data) => ({ type: 'PET_ADD', payload: data });
 export const getPetThunk = (id) => async (dispatch) => {
   const response = await fetch(`http://localhost:3010/api/v1/pets/${id}`);
   const data = await response.json();
-  console.log(data, '<<<<<<<<<, data');
   dispatch(getOnePetAC(data));
 };
 

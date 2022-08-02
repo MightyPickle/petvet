@@ -52,38 +52,44 @@ function DoctorSchedulePage() {
     <Container sx={{ padding: '1rem', display: 'flex' }}>
       <ActionBarComponent date={date} setDate={setDate} busyDays={busyDays} />
       <Container>
-        {schedule.length > 0 && schedule.map((el, index) => (
-          <Box
-            key={index}
-            sx={{
-              height: 'max-content',
-              padding: '1rem',
-              border: '1px solid rgba(0,0,0,0.3)',
-              borderRadius: '10px',
-              marginBottom: '0.7rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Box>
-              <Typography variant="h5">
-                {`${el.patient.first_name} ${el.patient.last_name} `}
-              </Typography>
-              <Typography variant="h6">
-                {`${el.Pet.name} ${el.Pet.specie}`}
-              </Typography>
+        {schedule.length > 0
+          && schedule.map(
+            (el, index) => !el.is_close && (
+            <Box
+              key={index}
+              sx={{
+                height: 'max-content',
+                padding: '1rem',
+                border: '1px solid rgba(0,0,0,0.3)',
+                borderRadius: '10px',
+                marginBottom: '0.7rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
+              <Box>
+                <Typography variant="h5">
+                  {`${el.patient.first_name} ${el.patient.last_name}`}
+                </Typography>
+                <Typography variant="h6">
+                  {`${el.Pet.name} ${el.Pet.specie}`}
+                </Typography>
+              </Box>
+              <Box>
+                <Button
+                  onClick={() => {
+                    startVisithandler(el.Pet.id, el);
+                  }}
+                >
+                  Начать прием
+                </Button>
+              </Box>
             </Box>
-            <Box>
-              <Button onClick={() => { startVisithandler(el.Pet.id, el); }}>
-                Начать прием
-              </Button>
-            </Box>
-          </Box>
-        ))}
+            ),
+          )}
       </Container>
     </Container>
-
   );
 }
 

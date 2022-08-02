@@ -2,27 +2,17 @@ import { Box, Button, Container } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import AddAllegryModal from '../../components/AddAllegryModal/AddAllegryModal';
-import AddChronicModal from '../../components/AddChronicModal/AddChronicModal';
+import AddModal from '../../components/AddModal/AddModal';
 import DoctorVisitsButtons from '../../components/DoctorVisitsButtons/DoctorVisitsButtons';
 import HistoryVisits from '../../components/HistoryVisits/HistoryVisits';
 import NewVisitFormComponent from '../../components/NewVisitFormComponent/NewVisitFormComponent';
 import QuestComponent from '../../components/QuestComponent/QuestComponent';
-import { getPetThunk } from '../../redux/actions/petActions';
 
 export default function PagesDoctorVisits() {
   const dispatch = useDispatch();
   const user = JSON.parse(window.localStorage.getItem('user'));
   const petPatient = useSelector((store) => store.pet);
-
-  const addVisitThunk = async (form) => {
-    const response = await fetch('http://localhost:3010/api/v1/visits', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify(form),
-    });
-  };
+  const scheduleInfo = useSelector((store) => store.schedule);
 
   const btnStyles = {
     color: 'black',
@@ -48,7 +38,6 @@ export default function PagesDoctorVisits() {
       newVisit: false,
       [e.target.name]: true,
     });
-    console.log('EDIT BUTTONS!!', [e.target.name]);
   };
 
   const buttons = [
@@ -99,26 +88,90 @@ export default function PagesDoctorVisits() {
   const handleOpenAllergy = () => setOpenAllergy(true);
   const handleCloseAllergy = () => setOpenAllergy(false);
 
+  const [openVac, setOpenVac] = React.useState(false);
+  const handleOpenVac = () => setOpenVac(true);
+  const handleCloseVac = () => setOpenVac(false);
+
   const [chronic, setChronic] = useState([]);
   const handleAddChronic = (newAdd) => setChronic([...chronic, newAdd]);
   const [allergy, setAllergy] = useState([]);
-  const handleAddAllergy = (newAdd) => setAllergy(...allergy, newAdd);
+  const handleAddAllergy = (newAdd) => setAllergy([...allergy, newAdd]);
+  const [vaccine, setVaccine] = useState([]);
+  const handleAddVaccine = (newAdd) => setVaccine([...vaccine, newAdd]);
+  // console.log(chronic, '<<< хронич ');
 
+  const endVisitFetch = async (form) => {
+    const visitData = await fetch('http://localhost:3010/api/v1/visits', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(form),
+    });
+    if (chronic.length > 0) {
+      const newChronicData = await fetch(
+        'http://localhost:3010/api/v1/chronic',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(chronic),
+        },
+      );
+    }
+    if (allergy.length > 0) {
+      const newChronicData = await fetch(
+        'http://localhost:3010/api/v1/allergy',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(allergy),
+        },
+      );
+    }
+    if (vaccine.length > 0) {
+      const newChronicData = await fetch(
+        'http://localhost:3010/api/v1/vaccine',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(vaccine),
+        },
+      );
+    }
+    const closeSchedules = await fetch(
+      'http://localhost:3010/api/v1/schedule/',
+      {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ id: scheduleInfo.id }),
+      },
+    );
+  };
+  // console.log(allergy, '<<<<allergy');
+  // console.log(chronic, '<<<< chronic');
+  // console.log(vaccine, '<<<< vaccine');
   return (
     <Container sx={{ display: 'flex', marginTop: '1rem' }}>
       {petPatient.length > 0 && (
         <>
           {visible.quest && <QuestComponent name="quest" pet={petPatient[0]} />}
-          {visible.history && <HistoryVisits name="history" pet={petPatient[0]} />}
+          {visible.history && (
+            <HistoryVisits name="history" pet={petPatient[0]} />
+          )}
           {visible.newVisit && (
             <NewVisitFormComponent
               name="newVisit"
               pet={petPatient[0]}
               handleOpenAllergy={handleOpenAllergy}
               handleOpenChronic={handleOpenChronic}
-              submitHandler={addVisitThunk}
-              chronic={chronic}
+              handleOpenVac={handleOpenVac}
+              submitHandler={endVisitFetch}
               allergy={allergy}
+              chronic={chronic}
+              vaccine={vaccine}
             />
           )}
           <DoctorVisitsButtons
@@ -126,17 +179,29 @@ export default function PagesDoctorVisits() {
             btnStyles={btnStyles}
             visibleButtonHandler={visibleButtonHandler}
           />
-          <AddAllegryModal
+          <AddModal
+            scheduleInfo={scheduleInfo}
+            type="allergy"
             handleOpen={handleOpenAllergy}
             handleClose={handleCloseAllergy}
-            handleAddAllergy={handleAddAllergy}
+            handleAdd={handleAddAllergy}
             open={openAllergy}
           />
-          <AddChronicModal
+          <AddModal
+            scheduleInfo={scheduleInfo}
+            type="chronic"
             handleOpen={handleOpenChronic}
             handleClose={handleCloseChronic}
-            handleAddChronic={handleAddChronic}
+            handleAdd={handleAddChronic}
             open={openChronic}
+          />
+          <AddModal
+            scheduleInfo={scheduleInfo}
+            type="vaccine"
+            handleOpen={handleOpenVac}
+            handleClose={handleCloseVac}
+            handleAdd={handleAddVaccine}
+            open={openVac}
           />
         </>
       )}
