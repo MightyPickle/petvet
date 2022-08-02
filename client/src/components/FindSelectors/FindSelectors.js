@@ -27,8 +27,6 @@ export default function FindSelectors({ setVetinfo, getData }) {
       .then((results) => setCategories(results));
   }, []);
 
-  useEffect(() => { console.log('tick'); }, [selectProfile]);
-
   const defaultProfiles = {
     options: profiles,
     getOptionLabel: (option) => option.name,
