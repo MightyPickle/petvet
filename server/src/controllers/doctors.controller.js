@@ -67,7 +67,7 @@ const getAllDocs = async (req, res) => {
         {
           user_group: 1,
         },
-      attributes: ['first_name', 'last_name', 'phone', 'email'],
+      attributes: ['id', 'first_name', 'last_name', 'phone', 'email'],
       include: [
         {
           model: Doc_info,
@@ -120,7 +120,7 @@ const getDocByName = async (req, res) => {
           user_group: 1,
           ...queryFilter.doctorname,
         },
-      attributes: ['first_name', 'last_name', 'phone', 'email'],
+      attributes: ['id', 'first_name', 'last_name', 'phone', 'email'],
       include: [
         {
           model: Doc_info,
