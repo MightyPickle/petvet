@@ -13,6 +13,10 @@ const petInfoRouter = require('./src/routes/pet.router');
 const visitRouter = require('./src/routes/visit.router');
 const userRouter = require('./src/routes/users.router');
 const doctorRouter = require('./src/routes/doctors.router');
+const allergyRouter = require('./src/routes/allergy.router');
+const chronicRouter = require('./src/routes/chronic.router');
+const vaccineRouter = require('./src/routes/vaccine.router');
+const scheduleRouter = require('./src/routes/schedule.router');
 
 const app = express();
 const PORT = process.env.PORT || 3010;
@@ -43,12 +47,16 @@ app.use('/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/users/doctors', docInfoRouter); // fix
 app.use('/api/v1/doctor/profiles', profilesRouter);
-app.use('/api/v1/doctor/categories', categoriesRouter); 
+app.use('/api/v1/doctor/categories', categoriesRouter);
 app.use('/api/v1/doctors', docFindRouter); // fix
 app.use('/api/v1/pets', petInfoRouter);
 app.use('/api/v1/doctors', doctorRouter); // fix
 app.use('/api/v1/visits', visitRouter);
 app.use('/api/v1/doctors', doctorRouter);
+app.use('/api/v1/allergy', allergyRouter);
+app.use('/api/v1/chronic', chronicRouter);
+app.use('/api/v1/vaccine', vaccineRouter);
+app.use('/api/v1/schedule', scheduleRouter);
 
 app.listen(PORT, () => {
   console.log(`server started PORT: http://localhost:${PORT}`);

@@ -8,7 +8,9 @@ import { getPetThunk } from '../../redux/actions/petActions';
 import { scheduleAddCurrentAC } from '../../redux/actions/scheduleAction';
 
 const fetchDocVisits = async (id) => {
-  const response = await fetch(`http://localhost:3010/api/v1/doctors/${id}/schedule`);
+  const response = await fetch(
+    `http://localhost:3010/api/v1/doctors/${id}/schedule`,
+  );
   if (response.ok) {
     const schedule = await response.json();
     return { success: true, schedule };
@@ -45,35 +47,42 @@ function DoctorSchedulePage() {
 
   return (
     <Container sx={{ padding: '1rem' }}>
-      {schedule.length > 0 && schedule.map((el, index) => (
-        <Box
-          key={index}
-          sx={{
-            height: 'max-content',
-            padding: '1rem',
-            border: '1px solid rgba(0,0,0,0.3)',
-            borderRadius: '10px',
-            marginBottom: '0.7rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Box>
-            <Typography variant="h5">
-              {`${el.patient.first_name} ${el.patient.last_name}`}
-            </Typography>
-            <Typography variant="h6">
-              {`${el.Pet.name} ${el.Pet.specie}`}
-            </Typography>
+      {schedule.length > 0
+        && schedule.map(
+          (el, index) => !el.is_close && (
+          <Box
+            key={index}
+            sx={{
+              height: 'max-content',
+              padding: '1rem',
+              border: '1px solid rgba(0,0,0,0.3)',
+              borderRadius: '10px',
+              marginBottom: '0.7rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Box>
+              <Typography variant="h5">
+                {`${el.patient.first_name} ${el.patient.last_name}`}
+              </Typography>
+              <Typography variant="h6">
+                {`${el.Pet.name} ${el.Pet.specie}`}
+              </Typography>
+            </Box>
+            <Box>
+              <Button
+                onClick={() => {
+                  startVisithandler(el.Pet.id, el);
+                }}
+              >
+                Начать прием
+              </Button>
+            </Box>
           </Box>
-          <Box>
-            <Button onClick={() => { startVisithandler(el.Pet.id, el); }}>
-              Начать прием
-            </Button>
-          </Box>
-        </Box>
-      ))}
+          ),
+        )}
     </Container>
   );
 }

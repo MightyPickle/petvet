@@ -16,17 +16,22 @@ const style = {
   p: 4,
 };
 
-export default function AddChronicModal({
+export default function AddModal({
+  type,
   handleOpen,
   handleClose,
   open,
-  handleAddChronic,
+  handleAdd,
+  scheduleInfo,
 }) {
-  console.log(open, '<<<< OPEN!');
-  const [form, setForm] = React.useState('');
+  const [form, setForm] = React.useState({
+    input1: '',
+    input2: '',
+    doc_id: scheduleInfo.doc_id,
+    pet_id: scheduleInfo.pet_id,
+  });
   const inputHandler = (e) => {
-    setForm(e.target.value);
-    console.log(form);
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   return (
     <div>
@@ -38,24 +43,46 @@ export default function AddChronicModal({
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Добавление новой хронической болезни:
+            Добавление новой
+            {type === 'chronic' && ' хронической болезни'}
+            {type === 'allergy' && ' алергии'}
+            {type === 'vaccine' && ' вакцинации'}
           </Typography>
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              handleAddChronic(form);
+              handleAdd(form);
+              handleClose();
+              setForm({
+                input1: '',
+                input2: '',
+                doc_id: scheduleInfo.doc_id,
+                pet_id: scheduleInfo.pet_id,
+              });
             }}
           >
             <TextField
-              label="Название хронической болезни"
+              label="Введите название"
               variant="standard"
               sx={{ width: '100%' }}
-              name="allergy"
+              name="input1"
               type="text"
-              value={form}
+              value={form.input1}
               onChange={inputHandler}
               required
             />
+            {type === 'vaccine' && (
+              <TextField
+                label="Введите название препарата"
+                variant="standard"
+                sx={{ width: '100%' }}
+                name="input2"
+                type="text"
+                value={form.input2}
+                onChange={inputHandler}
+                required
+              />
+            )}
             <Button
               variant="contained"
               sx={{ marginTop: '1rem', display: 'block' }}
