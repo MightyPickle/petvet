@@ -10,9 +10,9 @@ const getDocSchedule = async (req, res) => {
     Number.parseInt(year, 10),
     Number.parseInt(month, 10),
     Number.parseInt(date, 10),
-    1,
-    1,
+    0,
   );
+
   const endDate = new Date(
     startDate.getFullYear(),
     startDate.getMonth(),
@@ -41,8 +41,14 @@ const getDocSchedule = async (req, res) => {
         },
       ],
     });
-    console.log(schedule);
-    return res.json(schedule);
+    const daysWithVisits = await Doc_schedule.findAll({
+      where: {
+        doc_id: Number.parseInt(docId, 10),
+        date_of_receipt: { [Op.gte]: new Date() },
+      },
+      attributes: ['date_of_receipt'],
+    });
+    return res.json({ schedule, daysWithVisits });
   } catch (error) {
     return res.status(500).json({ errorMessage: error.message });
   }
