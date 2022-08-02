@@ -1,4 +1,5 @@
 const docInputController = (type, input) => {
+  console.log(input);
   switch (type) {
     case 'experience':
       return { type: 'experience', input };

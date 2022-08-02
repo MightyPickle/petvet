@@ -6,11 +6,11 @@ import { Box, Button, Typography } from '@mui/material';
 import { errorShowAC } from '../../redux/actions/errorAction';
 import { getPetThunk } from '../../redux/actions/petActions';
 import { scheduleAddCurrentAC } from '../../redux/actions/scheduleAction';
+import ActionBarComponent from '../../components/Calendar/Calendar';
 
-const fetchDocVisits = async (id) => {
-  const response = await fetch(
-    `http://localhost:3010/api/v1/doctors/${id}/schedule`,
-  );
+const fetchDocVisits = async (id, date) => {
+  console.log(date.toString());
+  const response = await fetch(`http://localhost:3010/api/v1/doctors/${id}/schedule/?year=${date.getFullYear()}&month=${date.getMonth()}&date=${date.getDate()}`);
   if (response.ok) {
     const schedule = await response.json();
     return { success: true, schedule };
@@ -26,9 +26,10 @@ function DoctorSchedulePage() {
   const navigate = useNavigate();
 
   const [schedule, setSchedule] = useState([]);
+  const [date, setDate] = useState(new Date());
 
   useEffect(() => {
-    fetchDocVisits(doctor.id)
+    fetchDocVisits(doctor.id, date)
       .then((res) => {
         if (res.success) {
           setSchedule(res.schedule);
@@ -37,7 +38,7 @@ function DoctorSchedulePage() {
         }
       })
       .catch((error) => dispatch(errorShowAC(error)));
-  }, []);
+  }, [date]);
 
   const startVisithandler = async (petId, scheduleObj) => {
     await dispatch(getPetThunk(petId));
@@ -72,11 +73,7 @@ function DoctorSchedulePage() {
               </Typography>
             </Box>
             <Box>
-              <Button
-                onClick={() => {
-                  startVisithandler(el.Pet.id, el);
-                }}
-              >
+              <Button onClick={() => { startVisithandler(el.Pet.id, el); }}>
                 Начать прием
               </Button>
             </Box>
@@ -84,6 +81,7 @@ function DoctorSchedulePage() {
           ),
         )}
     </Container>
+
   );
 }
 

@@ -12,39 +12,31 @@ const city = [
   { title: 'Самара', class: 'врач' },
 ];
 
-export default function FindSelectors() {
+export default function FindSelectors({ setVetinfo, getData }) {
   const [profiles, setProfiles] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [doctors, setDoctors] = useState([]);
   const [selectCategory, setSelectCategory] = useState(null);
   const [selectProfile, setSelectProfile] = useState(null);
-  async function getData(one, two) {
-    const response = await fetch(`http://localhost:3010/api/v1/doctors?profile=${one.name}&category=${two.name}`);
-    const data = await response.json();
-    console.log(data);
-    return data;
-  }
+
   useEffect(() => {
-    fetch('http://localhost:3010/api/v1/doctor/profiles')
+    fetch('http://localhost:3010/api/v1/doctors/profiles')
       .then((response) => response.json())
       .then((results) => setProfiles(results));
-  }, []);
-  useEffect(() => {
-    fetch('http://localhost:3010/api/v1/doctor/categories')
+    fetch('http://localhost:3010/api/v1/doctors/categories')
       .then((response) => response.json())
       .then((results) => setCategories(results));
   }, []);
-  if (selectCategory && selectProfile) {
-    const result = getData(selectProfile, selectCategory);
-  }
+
   const defaultProfiles = {
     options: profiles,
     getOptionLabel: (option) => option.name,
   };
+
   const defaultCategories = {
     options: categories,
     getOptionLabel: (option) => option.name,
   };
+
   const defaultCity = {
     options: city,
     getOptionLabel: (option) => option.title,
@@ -65,8 +57,11 @@ export default function FindSelectors() {
           id="controlled-demo"
           clearOnEscape
           value={selectProfile}
-          onChange={(event, newValue) => {
-            setSelectProfile(newValue);
+          onChange={async (event, newValue) => {
+            setSelectProfile((prev) => {
+              getData(newValue, selectCategory);
+              return newValue;
+            });
           }}
           renderInput={(params) => (
             <TextField
@@ -85,7 +80,10 @@ export default function FindSelectors() {
           name="category"
           value={selectCategory}
           onChange={(event, newValue) => {
-            setSelectCategory(newValue);
+            setSelectCategory(() => {
+              getData(selectProfile, newValue);
+              return newValue;
+            });
           }}
           clearOnEscape
           renderInput={(params) => (

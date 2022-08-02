@@ -45,15 +45,17 @@ export default function DocPriceAccordion({ type, content }) {
     <Accordion
       expanded={expanded === type}
       onChange={handleChange(type)}
-      sx={{
-        backgroundColor: neutral, p: 2, m: '.5rem', borderRadius: '9px', border: 0,
+      sx={!expanded ? {
+        backgroundColor: neutral, p: 2, m: '.5rem', borderRadius: '9px',
+      } : {
+        backgroundColor: 'white', p: 2, m: '.5rem', borderRadius: '9px', border: `.5px solid ${primary}`,
       }}
     >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1bh-content"
         id="panel1bh-header"
-        sx={{ height: '5rem' }}
+        sx={{ height: '4rem' }}
       >
         <Typography sx={{ width: '33%', flexShrink: 0 }}>
           Прайс-лист
@@ -101,10 +103,15 @@ export default function DocPriceAccordion({ type, content }) {
         }}
         >
           {content ? (
-            <TableContainer component={Paper} sx={{ width: '85%', maxHeight: '30vh', borderRadius: '9px' }}>
+            <TableContainer
+              component={Paper}
+              sx={{
+                width: '85%', maxHeight: '30vh', borderRadius: '9px', backgroundColor: neutral,
+              }}
+            >
               <Table stickyHeader sx={{ minWidth: 500 }} aria-label="simple table">
                 <TableHead>
-                  <TableRow>
+                  <TableRow sx={{ backgroundColor: neutral }}>
                     <TableCell>Услуга</TableCell>
                     <TableCell align="right">Цена</TableCell>
                   </TableRow>

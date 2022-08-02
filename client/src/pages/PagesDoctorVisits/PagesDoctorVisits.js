@@ -65,7 +65,7 @@ export default function PagesDoctorVisits() {
     >
       История
     </Button>,
-    user.user_group === 1 && (
+    user?.user_group === 1 && (
       <Button
         onClick={visibleButtonHandler}
         name="newVisit"

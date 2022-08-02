@@ -1,17 +1,21 @@
 import {
   Accordion,
   AccordionActions, AccordionDetails, AccordionSummary, Box, Button, Chip, Divider,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField, Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@emotion/react';
 import { useDispatch } from 'react-redux';
-import sx from '@mui/system/sx';
+import ClearIcon from '@mui/icons-material/Clear';
 import docInputController from '../../utils/docInputController';
-import { docUpdateAC, docUpdateThunk } from '../../redux/actions/userActions';
+import { docUpdateThunk } from '../../redux/actions/userActions';
 
-export default function DocOneAccordion({ type, content }) {
+export default function DocChipsAccordion({ type, content, options }) {
   // for accordion
   const [expanded, setExpanded] = useState(false);
   const handleChange = (panel) => (event, isExpanded) => {
@@ -26,9 +30,6 @@ export default function DocOneAccordion({ type, content }) {
 
   // input control
   const [input, setInput] = useState('');
-  useEffect(() => {
-    setInput(content || '');
-  }, []);
 
   // edit state control
   const dispatch = useDispatch();
@@ -44,14 +45,24 @@ export default function DocOneAccordion({ type, content }) {
   const saveButtonHandler = (e) => {
     // updates user.type state
     // console.log(docInputController(type, input));
-    dispatch(docUpdateThunk(docInputController(type, input)));
+    console.log(input);
+    dispatch(docUpdateThunk({ type: `${type}_add`, input: input.id }));
 
     setEdit({ ...edit, [type]: false });
+  };
+  const removeHandler = (el) => {
+    console.log(content);
+    console.log(el);
+    dispatch(docUpdateThunk({ type: `${type}_remove`, input: el.id }));
+
+    // // eslint-disable-next-line no-param-reassign
+    // content = content.filter((e) => e !== el);
+    // console.log(content);
   };
 
   return (
     <Accordion
-      // className="MuiAccordion"
+        // className="MuiAccordion"
       expanded={expanded === type}
       onChange={handleChange(type)}
       sx={!expanded ? {
@@ -68,8 +79,8 @@ export default function DocOneAccordion({ type, content }) {
       >
         <Typography sx={{ width: '33%', flexShrink: 0 }}>
           {type === 'experience' ? 'Описание'
-            : type === 'price_list' ? 'Прайс-лист'
-              : type === 'profiles' ? 'Кого лечу?'
+            : type === 'Price_list' ? 'Прайс-лист'
+              : type === 'Profiles' ? 'Кого лечу?'
                 : 'Специализация'}
         </Typography>
       </AccordionSummary>
@@ -80,16 +91,23 @@ export default function DocOneAccordion({ type, content }) {
             display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2,
           }}
           >
-            <TextField
-              id="outlined-basic"
-              variant="outlined"
-              name={type}
-              value={input}
-              sx={{
-                width: '100%', backgroundColor: 'white', border: `.5px solid ${secondary}`, borderRadius: '5px',
-              }}
-              onChange={(e) => setInput(e.target.value)}
-            />
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <Select
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                displayEmpty
+                inputProps={{ 'aria-label': 'Without label' }}
+              >
+                {options?.map((el) => (
+                  <MenuItem key={el.id} value={el}>
+                    {el.name}
+                  </MenuItem>
+                )) }
+                <MenuItem value="">
+                  <em>Выбрать</em>
+                </MenuItem>
+              </Select>
+            </FormControl>
           </AccordionDetails>
           <AccordionActions>
             <Button
@@ -123,9 +141,30 @@ export default function DocOneAccordion({ type, content }) {
           display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2,
         }}
         >
-          <Typography>
-            { content || 'Информация отсутствует'}
-          </Typography>
+          <Box sx={{
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          }}
+          >
+            {(content?.map((el, index) => (
+              <Box
+                sx={{
+                  backgroundColor: neutral,
+                  width: 'max-content',
+                  padding: '3px',
+                  borderRadius: '6px',
+                  marginRight: '.5rem',
+                  p: 1,
+                  alignItems: 'center',
+                  display: 'flex',
+                }}
+                key={`${index}-${el.id}`}
+              >
+                <Typography variant="body1" sx={{ display: 'inline-block' }}>{el.name}</Typography>
+                <ClearIcon sx={{ cursor: 'pointer' }} onClick={() => removeHandler(el)} />
+              </Box>
+            ))) || 'Информация отсутствует'}
+
+          </Box>
           <AccordionActions>
             <Button
               onClick={editButtonHandler}
@@ -134,7 +173,7 @@ export default function DocOneAccordion({ type, content }) {
                 backgroundColor: primary, color: 'black', borderRadius: '9px', p: '0.5rem',
               }}
             >
-              Редактировать
+              Добавить
             </Button>
           </AccordionActions>
         </AccordionDetails>

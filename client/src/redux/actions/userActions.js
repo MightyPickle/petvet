@@ -1,10 +1,11 @@
+import store from '../store';
 import { errorShowAC } from './errorAction';
 
 export const userLoginAC = (form) => ({ type: 'USER_LOG_IN', payload: form });
 export const userLogoutAC = () => ({ type: 'USER_LOG_OUT' });
 
 export const userLoginThunk = (form) => async (dispatch) => {
-  const response = await fetch('http://localhost:3010/auth/signin', {
+  const response = await fetch('http://localhost:3010/api/v1/users/signin', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -20,7 +21,7 @@ export const userLoginThunk = (form) => async (dispatch) => {
 };
 
 export const userSignupThunk = (form) => async (dispatch) => {
-  const response = await fetch('http://localhost:3010/auth/signup', {
+  const response = await fetch('http://localhost:3010/api/v1/users/signup', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
@@ -36,7 +37,7 @@ export const userSignupThunk = (form) => async (dispatch) => {
 };
 
 export const userLogoutThunk = () => async (dispatch) => {
-  const response = await fetch('http://localhost:3010/auth/signout', {
+  const response = await fetch('http://localhost:3010/api/v1/users/signout', {
     method: 'GET',
     credentials: 'include',
   });
@@ -53,7 +54,7 @@ export const docUpdateAC = (payload) => ({ type: 'DOC_UPDATE', payload });
 
 export const docUpdateThunk = (payload) => async (dispatch) => {
   const { type, input } = payload;
-  console.log(input);
+  console.log(payload);
   const response = await fetch('http://localhost:3010/api/v1/doctors', {
     method: 'POST',
     credentials: 'include',
@@ -62,6 +63,21 @@ export const docUpdateThunk = (payload) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    docUpdateAC({ type, data });
+    dispatch(docUpdateAC({ type, input: data }));
   }
+};
+
+export const getUserThunk = () => async (dispatch) => {
+  const response = await fetch('http://localhost:3010/api/v1/users', {
+    method: 'GET',
+    credentials: 'include',
+  });
+  if (response.ok) {
+    const data = await response.json();
+    window.localStorage.setItem('user', JSON.stringify(data));
+    return dispatch(userLoginAC(data));
+  }
+  const { errorMessage } = await response.json();
+  console.log(errorMessage);
+  return dispatch(errorShowAC(errorMessage));
 };
