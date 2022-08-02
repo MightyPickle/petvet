@@ -13,8 +13,14 @@ function DocFind() {
     setInput(event.target.value);
   };
 
-  const getData = async (one = '', two = '', doctorName = '') => {
-    const response = await fetch(`http://localhost:3010/api/v1/doctors?profile=${one?.name}&category=${two?.name}&doctorname=${doctorName}`);
+  const getData = async (one = '', two = '') => {
+    const response = await fetch(`http://localhost:3010/api/v1/doctors?profile=${one?.name}&category=${two?.name}`);
+    const data = await response.json();
+    setVetinfo(data);
+  };
+
+  const getDataByName = async (doctorName = '') => {
+    const response = await fetch(`http://localhost:3010/api/v1/doctors/name?doctorname=${doctorName}`);
     const data = await response.json();
     setVetinfo(data);
   };
@@ -24,7 +30,7 @@ function DocFind() {
     <Box sx={{ display: 'flex', mt: 10 }}>
       <FindSelectors setVetinfo={setVetinfo} getData={getData} />
       <Box sx={{ ml: 10 }}>
-        <SearchInput getData={getData} />
+        <SearchInput getData={getDataByName} />
         <Box sx={{ mt: 10 }}>
           {vetinfo.length > 0 && vetinfo.map((vet, index) => (
             <UserCard

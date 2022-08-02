@@ -59,9 +59,11 @@ export default function FindSelectors({ setVetinfo, getData }) {
           id="controlled-demo"
           clearOnEscape
           value={selectProfile}
-          onChange={(event, newValue) => {
-            setSelectProfile(newValue);
-            getData(selectCategory, selectCategory);
+          onChange={async (event, newValue) => {
+            setSelectProfile((prev) => {
+              getData(newValue, selectCategory);
+              return newValue;
+            });
           }}
           renderInput={(params) => (
             <TextField
@@ -80,8 +82,10 @@ export default function FindSelectors({ setVetinfo, getData }) {
           name="category"
           value={selectCategory}
           onChange={(event, newValue) => {
-            setSelectCategory(newValue);
-            getData(selectCategory, selectCategory);
+            setSelectCategory(() => {
+              getData(selectProfile, newValue);
+              return newValue;
+            });
           }}
           clearOnEscape
           renderInput={(params) => (

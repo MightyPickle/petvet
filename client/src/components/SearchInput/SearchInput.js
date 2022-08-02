@@ -7,7 +7,7 @@ function SearchInput({ getData }) {
   const [input, setInput] = useState('');
   const debounced = useDebounce(input, 2000);
   useEffect(() => {
-    getData(undefined, undefined, debounced);
+    getData(debounced);
   }, [debounced]);
   const handleChange = (event) => {
     setInput(event.target.value);
