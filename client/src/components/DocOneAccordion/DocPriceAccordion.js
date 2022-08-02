@@ -111,9 +111,9 @@ export default function DocPriceAccordion({ type, content }) {
             >
               <Table stickyHeader sx={{ minWidth: 500 }} aria-label="simple table">
                 <TableHead>
-                  <TableRow sx={{ backgroundColor: neutral }}>
-                    <TableCell>Услуга</TableCell>
-                    <TableCell align="right">Цена</TableCell>
+                  <TableRow>
+                    <TableCell sx={{ fontWeight: 'bold' }}>Услуга</TableCell>
+                    <TableCell align="right" sx={{ fontWeight: 'bold' }}>Цена</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
