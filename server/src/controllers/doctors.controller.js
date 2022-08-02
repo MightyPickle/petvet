@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 const {
-  User, Doc_schedule, Pet, Doc_info, Profile, Category, Price_list,
+  User, Doc_schedule, Pet, Doc_info, Profile, Category, Price_list, Docs_Category, Docs_Profile,
 } = require('../../db/models');
 
 const getDocSchedule = async (req, res) => {
@@ -69,7 +69,7 @@ const getAllDocs = async (req, res) => {
 const editDocInfo = async (req, res) => {
   const { type, data } = req.body;
   const { id } = req.session.user;
-  console.log(data);
+  console.log(data, 'this is data from req.body');
   if (type === 'experience') {
     try {
       const [foundDocInfo, created] = await Doc_info.findOrCreate({
@@ -82,13 +82,65 @@ const editDocInfo = async (req, res) => {
         foundDocInfo.experience = data;
         foundDocInfo.save();
       }
-      return res.json(foundDocInfo);
+      return res.json(foundDocInfo.experience);
     } catch (error) {
       return res.status(500).json({ errorMessage: error.message });
     }
   }
-  if (type === 'categories') {
-    const foundDocCategories = await Category.findAll({ where: { doc_id: req.session.user.id } });
+  if (type === 'Categories_add') {
+    console.log('in cat add');
+    try {
+      const newCategory = await Docs_Category.create({
+        doc_id: id,
+        category_id: data,
+      });
+      const category = await Category.findByPk(newCategory.category_id);
+      return res.json(category).status(200);
+    } catch (error) {
+      return res.status(500).json({ errorMessage: error.message });
+    }
+  }
+  if (type === 'Categories_remove') {
+    console.log('in cat remove');
+    try {
+      await Docs_Category.destroy({
+        where: {
+          doc_id: id, category_id: data,
+        },
+      });
+      return res.status(200).json(data);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ errorMessage: error.message });
+    }
+  }
+  if (type === 'Profiles_add') {
+    console.log('in prof add');
+    try {
+      const newProfile = await Docs_Profile.create({
+        doc_id: id,
+        profile_id: data,
+      });
+      const profile = await Profile.findByPk(newProfile.profile_id);
+      console.log(profile);
+      return res.json(profile).status(200);
+    } catch (error) {
+      return res.status(500).json({ errorMessage: error.message });
+    }
+  }
+  if (type === 'Profiles_remove') {
+    console.log('in prof remove');
+    try {
+      await Docs_Profile.destroy({
+        where: {
+          doc_id: id, profile_id: data,
+        },
+      });
+      return res.status(200).json(data);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ errorMessage: error.message });
+    }
   }
 };
 

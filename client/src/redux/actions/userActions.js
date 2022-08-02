@@ -54,7 +54,7 @@ export const docUpdateAC = (payload) => ({ type: 'DOC_UPDATE', payload });
 
 export const docUpdateThunk = (payload) => async (dispatch) => {
   const { type, input } = payload;
-  console.log(input);
+  console.log(payload);
   const response = await fetch('http://localhost:3010/api/v1/doctors', {
     method: 'POST',
     credentials: 'include',
@@ -63,7 +63,7 @@ export const docUpdateThunk = (payload) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    dispatch(docUpdateAC({ type, data }));
+    dispatch(docUpdateAC({ type, input: data }));
   }
 };
 
@@ -74,6 +74,10 @@ export const getUserThunk = () => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    dispatch(userLoginAC(data));
+    window.localStorage.setItem('user', JSON.stringify(data));
+    return dispatch(userLoginAC(data));
   }
+  const { errorMessage } = await response.json();
+  console.log(errorMessage);
+  return dispatch(errorShowAC(errorMessage));
 };

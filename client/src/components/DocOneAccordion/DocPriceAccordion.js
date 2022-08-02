@@ -46,7 +46,7 @@ export default function DocPriceAccordion({ type, content }) {
       expanded={expanded === type}
       onChange={handleChange(type)}
       sx={!expanded ? {
-        backgroundColor: 'white', p: 2, m: '.5rem', borderRadius: '9px',
+        backgroundColor: neutral, p: 2, m: '.5rem', borderRadius: '9px',
       } : {
         backgroundColor: 'white', p: 2, m: '.5rem', borderRadius: '9px', border: `.5px solid ${primary}`,
       }}
@@ -55,7 +55,7 @@ export default function DocPriceAccordion({ type, content }) {
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1bh-content"
         id="panel1bh-header"
-        sx={{ height: '5rem' }}
+        sx={{ height: '4rem' }}
       >
         <Typography sx={{ width: '33%', flexShrink: 0 }}>
           Прайс-лист
