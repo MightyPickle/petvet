@@ -3,7 +3,6 @@ import Container from '@mui/material/Container';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
 import PetCard from '../PetCard/PetCard';
 
 export default function AllPetCards() {
@@ -14,10 +13,10 @@ export default function AllPetCards() {
         <NavLink to="/pets/new" style={{ textDecoration: 'none', color: 'inherit' }}>Добавить питомца</NavLink>
       </Button>
       <Container sx={{
-        display: 'flex', flexDirection: 'row', justifyContent: 'space-between',
+        display: 'flex', flexDirection: 'row', justifyContent: 'space-around',
       }}
       >
-        {pets && pets.map((pet) => <PetCard key={uuidv4()} pet={pet} />)}
+        {pets && pets.map((pet) => <PetCard key={pet.id} pet={pet} />)}
       </Container>
     </Container>
   );
