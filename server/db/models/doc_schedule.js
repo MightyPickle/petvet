@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     user_id: DataTypes.INTEGER,
     pet_id: DataTypes.INTEGER,
     date_of_receipt: DataTypes.DATE,
+    is_close: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'Doc_schedule',
