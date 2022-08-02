@@ -26,7 +26,6 @@ function DoctorPublic() {
   React.useEffect(() => {
     dispatch(getInfoCardThunk(id));
   }, []);
-  console.log(vetinfo);
   return (
     <Container
       sx={{ max_width: '1000px', py: 3 }}
@@ -44,7 +43,6 @@ function DoctorPublic() {
         </Grid>
       </Grid>
     </Container>
-
   );
 }
 

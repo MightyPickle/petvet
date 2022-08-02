@@ -78,15 +78,15 @@ function ButtonOne({ vetinfo }) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {vetinfo?.Price_lists.map((el) => (
+                  {vetinfo?.Price_lists?.map((el) => (
                     <TableRow
-                      key={el.service}
+                      key={el?.service}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
-                        {el.service}
+                        {el?.service}
                       </TableCell>
-                      <TableCell align="right">{el.price}</TableCell>
+                      <TableCell align="right">{el?.price}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
