@@ -92,9 +92,25 @@ const checkAuth = async (req, res) => {
   }
 };
 
+const getUser = async (req, res) => {
+  try {
+    const user = await User.findByPk(req.session.user.id, {
+      include: [Doc_info, Price_list, Category, Profile, Pet],
+    });
+    const userWithoutPass = JSON.parse(JSON.stringify(user));
+    delete userWithoutPass.password;
+    delete userWithoutPass.createdAt;
+    delete userWithoutPass.updatedAt;
+    return res.json(userWithoutPass);
+  } catch (error) {
+    return res.sendStatus(500);
+  }
+};
+
 module.exports = {
   signIn,
   signOut,
   signUp,
   checkAuth,
+  getUser,
 };

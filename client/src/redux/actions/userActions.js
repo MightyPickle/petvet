@@ -1,3 +1,4 @@
+import store from '../store';
 import { errorShowAC } from './errorAction';
 
 export const userLoginAC = (form) => ({ type: 'USER_LOG_IN', payload: form });
@@ -62,6 +63,17 @@ export const docUpdateThunk = (payload) => async (dispatch) => {
   });
   if (response.ok) {
     const data = await response.json();
-    docUpdateAC({ type, data });
+    dispatch(docUpdateAC({ type, data }));
+  }
+};
+
+export const getUserThunk = () => async (dispatch) => {
+  const response = await fetch('http://localhost:3010/api/v1/users', {
+    method: 'GET',
+    credentials: 'include',
+  });
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(userLoginAC(data));
   }
 };

@@ -75,7 +75,6 @@ const editDocInfo = async (req, res) => {
       const [foundDocInfo, created] = await Doc_info.findOrCreate({
         where: { doc_id: id },
         defaults: {
-          clinic_address: 'here shall be address',
           experience: data,
         },
       });

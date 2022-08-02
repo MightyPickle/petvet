@@ -7,5 +7,6 @@ const userRouter = Router();
 userRouter.post('/signup', usersController.signUp);
 userRouter.post('/signin', usersController.signIn);
 userRouter.get('/signout', usersController.signOut);
+userRouter.get('/', usersController.getUser);
 
 module.exports = userRouter;
