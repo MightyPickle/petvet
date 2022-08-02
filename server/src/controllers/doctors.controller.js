@@ -35,11 +35,23 @@ const getDocSchedule = async (req, res) => {
 
 const getAllDocs = async (req, res) => {
   const { profile, category } = req.query;
-  console.log(req.query);
+
+  console.log('query>>>', profile, category);
+
+  const queryFilter = {
+    category: {},
+    profile: {},
+  };
+
+  if (profile !== 'undefined') queryFilter.profile.name = profile;
+  if (category !== 'undefined') queryFilter.category.name = category;
+
   try {
     const result = await User.findAll({
       where:
-        { user_group: 1 },
+        {
+          user_group: 1,
+        },
       attributes: ['first_name', 'last_name', 'phone', 'email'],
       include: [
         {
@@ -49,12 +61,63 @@ const getAllDocs = async (req, res) => {
         {
           model: Profile,
           attributes: ['name'],
-          where: { name: profile },
+          where: queryFilter.profile,
         },
         {
           model: Category,
           attributes: ['name'],
-          where: { name: category },
+          where: queryFilter.category,
+        },
+      ],
+    });
+    // console.log(result);
+    res.json(result);
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ error });
+  }
+};
+
+const getDocByName = async (req, res) => {
+  const { doctorname } = req.query;
+
+  const [partOne, partTwo] = doctorname.split(' ');
+
+  const queryFilter = {
+    doctorname: {},
+  };
+
+  if (doctorname !== 'undefined' && doctorname) {
+    queryFilter.doctorname = {
+      [Op.or]: [
+        { first_name: { [Op.like]: `%${partOne.split('')[0].toUpperCase()}${partOne.split('').slice(1).join('').toLowerCase()}%` } },
+        { last_name: { [Op.like]: `%${partOne.split('')[0].toUpperCase()}${partOne.split('').slice(1).join('').toLowerCase()}%` } },
+        { first_name: { [Op.like]: `%${partTwo?.split('')[0]?.toUpperCase()}${partTwo?.split('')?.slice(1)?.join('')?.toLowerCase()}%` } },
+        { last_name: { [Op.like]: `%${partTwo?.split('')[0]?.toUpperCase()}${partTwo?.split('')?.slice(1)?.join('')?.toLowerCase()}%` } },
+      ],
+    };
+  }
+
+  try {
+    const result = await User.findAll({
+      where:
+        {
+          user_group: 1,
+          ...queryFilter.doctorname,
+        },
+      attributes: ['first_name', 'last_name', 'phone', 'email'],
+      include: [
+        {
+          model: Doc_info,
+          attributes: ['clinic_address', 'experience'],
+        },
+        {
+          model: Profile,
+          attributes: ['name'],
+        },
+        {
+          model: Category,
+          attributes: ['name'],
         },
       ],
     });
@@ -97,7 +160,7 @@ const getOneDoctor = async (req, res) => {
   try {
     const result = await User.findOne({
       where:
-        { id: req.params.id },
+        { id: req.params.id, user_group: 1 },
       attributes: ['first_name', 'last_name', 'phone', 'email'],
       include: [
         {
@@ -145,5 +208,11 @@ const getAllDocsCategories = async (req, res) => {
 };
 
 module.exports = {
-  getDocSchedule, getAllDocs, editDocInfo, getOneDoctor, getAllDocsProfiles, getAllDocsCategories,
+  getDocSchedule,
+  getAllDocs,
+  editDocInfo,
+  getOneDoctor,
+  getAllDocsProfiles,
+  getAllDocsCategories,
+  getDocByName,
 };

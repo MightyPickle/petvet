@@ -10,7 +10,9 @@ import { useSelector } from 'react-redux';
 import ButtonMailTo from '../ButtonMailTo/ButtonMailTo';
 import ButtonPhoneTo from '../ButtonPhoneTo/ButtonPhoneTo';
 
-export default function UserCard({ rating, address, guest, user }) {
+export default function UserCard({
+  rating, address, guest, user,
+}) {
   const iconStyles = { mx: 2, alignSelf: 'bottom' };
   const [edit, setEdit] = useState({
     name: false,
