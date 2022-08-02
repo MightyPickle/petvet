@@ -8,6 +8,6 @@ router.post('/', doctorController.editDocInfo);
 router.get('/profiles', doctorController.getAllDocsProfiles);
 router.get('/categories', doctorController.getAllDocsCategories);
 router.get('/:id', doctorController.getOneDoctor);
-router.get('/:id/schedule', doctorController.getDocSchedule);
+router.get('/:id/schedule/', doctorController.getDocSchedule);
 
 module.exports = router;

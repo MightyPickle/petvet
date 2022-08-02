@@ -5,14 +5,29 @@ const {
 
 const getDocSchedule = async (req, res) => {
   const { id: docId } = req.params;
-  const todayDate = new Date();
-  const dateFilter = new Date(todayDate.getFullYear(), todayDate.getMonth(), todayDate.getDate());
+  const { year, month, date } = req.query;
+  const startDate = new Date(
+    Number.parseInt(year, 10),
+    Number.parseInt(month, 10),
+    Number.parseInt(date, 10),
+    1,
+    1,
+  );
+  const endDate = new Date(
+    startDate.getFullYear(),
+    startDate.getMonth(),
+    startDate.getDate() + 1,
+  );
+
   try {
     const schedule = await Doc_schedule.findAll({
       where:
         {
           doc_id: Number.parseInt(docId, 10),
-          date_of_receipt: { [Op.gte]: dateFilter },
+          [Op.and]: [
+            { date_of_receipt: { [Op.gte]: startDate } },
+            { date_of_receipt: { [Op.lt]: endDate } },
+          ],
         },
       include: [
         {
