@@ -39,9 +39,9 @@ const editUserImg = async (req, res) => {
   }
 };
 const editPetImg = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
   try {
-    const { img } = req.files;
+    const img = req.files.files;
     const fileName = `${uuid.v4()}.jpg`;
     img.mv(path.resolve(__dirname, '..', '..', 'images', fileName));
     const updated = await Pet.update(

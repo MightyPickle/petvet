@@ -13,10 +13,10 @@ import { useSelector } from 'react-redux';
 //   color: theme.palette.text.secondary,
 // }));
 
-export default function QuestComponent({ pet }) {
+export default function QuestComponent({ pet, handleOpenImgModal }) {
   const theme = useTheme();
   const primary = theme.palette.primary.main;
-
+  const avatarUrl = `${process.env.REACT_APP_HOST}${pet.img}`;
   return (
     <Box
       className="container"
@@ -36,14 +36,15 @@ export default function QuestComponent({ pet }) {
           {` ${pet.name}`}
         </Typography>
         <Avatar
-          alt="{pet.avatar}"
-          src="https://loremflickr.com/320/240/animal"
+          alt="П"
+          src={avatarUrl}
           sx={{
             width: 185,
             height: 185,
             m: 2,
             border: `1px solid ${primary}`,
           }}
+          onClick={handleOpenImgModal}
         />
       </Box>
 

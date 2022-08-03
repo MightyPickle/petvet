@@ -1,7 +1,9 @@
+/* eslint-disable comma-dangle */
 import { Box, Button, Container } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import AddAvatarModal from '../../components/AddAvatarModal/AddAvatarModal';
 import AddModal from '../../components/AddModal/AddModal';
 import DoctorVisitsButtons from '../../components/DoctorVisitsButtons/DoctorVisitsButtons';
 import HistoryVisits from '../../components/HistoryVisits/HistoryVisits';
@@ -115,7 +117,7 @@ export default function PagesDoctorVisits() {
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
           body: JSON.stringify(chronic),
-        },
+        }
       );
     }
     if (allergy.length > 0) {
@@ -126,7 +128,7 @@ export default function PagesDoctorVisits() {
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
           body: JSON.stringify(allergy),
-        },
+        }
       );
     }
     if (vaccine.length > 0) {
@@ -137,7 +139,7 @@ export default function PagesDoctorVisits() {
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
           body: JSON.stringify(vaccine),
-        },
+        }
       );
     }
     const closeSchedules = await fetch(
@@ -147,17 +149,39 @@ export default function PagesDoctorVisits() {
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
         body: JSON.stringify({ id: scheduleInfo.id }),
-      },
+      }
     );
   };
   // console.log(allergy, '<<<<allergy');
   // console.log(chronic, '<<<< chronic');
   // console.log(vaccine, '<<<< vaccine');
+  const { id } = useParams();
+  const newAvatarFetch = async (form) => {
+    const response = await fetch(`http://localhost:3010/api/v1/img/pet/${id}`, {
+      method: 'PUT',
+      // headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: form,
+    });
+    if (response.ok) {
+      const data = await response.json();
+      // dispatch(userLoginAC(data));
+    }
+  };
+  const [openImgModal, setOpenImgModal] = React.useState(false);
+  const handleOpenImgModal = () => setOpenImgModal(true);
+  const handleCloseImgModal = () => setOpenImgModal(false);
   return (
     <Container sx={{ display: 'flex', marginTop: '1rem' }}>
       {petPatient.length > 0 && (
         <>
-          {visible.quest && <QuestComponent name="quest" pet={petPatient[0]} />}
+          {visible.quest && (
+            <QuestComponent
+              name="quest"
+              pet={petPatient[0]}
+              handleOpenImgModal={handleOpenImgModal}
+            />
+          )}
           {visible.history && (
             <HistoryVisits name="history" pet={petPatient[0]} />
           )}
@@ -202,6 +226,11 @@ export default function PagesDoctorVisits() {
             handleClose={handleCloseVac}
             handleAdd={handleAddVaccine}
             open={openVac}
+          />
+          <AddAvatarModal
+            submitHandler={newAvatarFetch}
+            handleClose={handleCloseImgModal}
+            open={openImgModal}
           />
         </>
       )}
