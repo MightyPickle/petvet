@@ -5,6 +5,7 @@ const scheduleController = require('../controllers/schedule.controller');
 const scheduleRouter = Router();
 
 scheduleRouter.route('/')
+  .post(scheduleController.addScheduleEntry)
   .put(scheduleController.editSchedules);
 
 module.exports = scheduleRouter;
