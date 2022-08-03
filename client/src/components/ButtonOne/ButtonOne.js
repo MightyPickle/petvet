@@ -6,7 +6,7 @@ import { borderRadius, flexbox } from '@mui/system';
 import Paper from '@mui/material/Paper';
 import React from 'react';
 
-function ButtonOne({ vetinfo }) {
+function ButtonOne({ vetinfo, handleOpenSchedule }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -19,7 +19,7 @@ function ButtonOne({ vetinfo }) {
     transform: 'translate(-50%, -50%)',
     width: 700,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: '1px solid rgba(0,0,0,0.4)',
     boxShadow: 24,
     p: 4,
     borderRadius: '19px',
@@ -41,6 +41,7 @@ function ButtonOne({ vetinfo }) {
     <div className="buttons" style={{ display: flexbox }}>
       <div>
         <Button
+          onClick={handleOpenSchedule}
           style={{
             backgroundColor: '#fecd45', color: 'black', borderRadius: '9px', position: 'static',
           }}

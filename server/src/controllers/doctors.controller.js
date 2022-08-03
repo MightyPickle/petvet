@@ -262,7 +262,7 @@ const getOneDoctor = async (req, res) => {
     const result = await User.findOne({
       where:
         { id: req.params.id, user_group: 1 },
-      attributes: ['first_name', 'last_name', 'phone', 'email'],
+      attributes: ['id', 'first_name', 'last_name', 'phone', 'email'],
       include: [
         {
           model: Doc_info,
@@ -279,6 +279,12 @@ const getOneDoctor = async (req, res) => {
         {
           model: Category,
           attributes: ['name'],
+        },
+        {
+          model: Doc_schedule,
+          as: 'doctor',
+          attributes: ['date_of_receipt'],
+          where: { date_of_receipt: { [Op.gte]: new Date() } },
         },
       ],
     });
