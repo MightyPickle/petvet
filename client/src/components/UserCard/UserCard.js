@@ -129,18 +129,31 @@ export default function UserCard({
           </div>
         )}
 
-        {address && (
-          <div style={{ display: 'flex', alignItems: 'baseline' }}>
-            <Typography variant="h6" component="h2">
-              Адрес клиники
-            </Typography>
-            <Typography variant="h6" component="h2" sx={dataStyles}>
-              {address}
-            </Typography>
-            {!guest
-            && <EditIcon sx={iconStyles} color="primary">edit_profile</EditIcon>}
-          </div>
-        )}
+        {address
+          && (
+            edit.address ? (
+              <div style={{ display: 'flex', alignItems: 'baseline' }}>
+                <Typography variant="h6" component="h2">
+                  Адрес клиники
+                </Typography>
+                <Typography variant="h5" component="div" sx={dataStyles}>
+                  <TextField variant="standard" defaultValue={address} />
+                </Typography>
+                <DoneIcon color="secondary" sx={iconStyles} onClick={(e) => doneButtonHandler(e, 'address')} />
+              </div>
+            ) : (
+              <div style={{ display: 'flex', alignItems: 'baseline' }}>
+                <Typography variant="h6" component="h2">
+                  Адрес клиники
+                </Typography>
+                <Typography variant="h6" component="h2" sx={dataStyles}>
+                  {address}
+                </Typography>
+                {!guest
+            && <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'address')}>edit_profile</EditIcon>}
+              </div>
+            )
+          )}
       </CardContent>
     </Card>
   );
