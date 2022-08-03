@@ -284,7 +284,7 @@ const getOneDoctor = async (req, res) => {
           model: Doc_schedule,
           as: 'doctor',
           attributes: ['date_of_receipt'],
-          where: { date_of_receipt: { [Op.gte]: new Date() } },
+          // where: { date_of_receipt: { [Op.gte]: new Date() } },
         },
       ],
     });
