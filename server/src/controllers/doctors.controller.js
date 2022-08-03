@@ -35,6 +35,7 @@ const getDocSchedule = async (req, res) => {
           { date_of_receipt: { [Op.gte]: startDate } },
           { date_of_receipt: { [Op.lt]: endDate } },
         ],
+        is_close: false,
       },
       include: [
         {
@@ -52,6 +53,7 @@ const getDocSchedule = async (req, res) => {
       where: {
         doc_id: Number.parseInt(docId, 10),
         date_of_receipt: { [Op.gte]: new Date() },
+        is_close: false,
       },
       attributes: ['date_of_receipt'],
     });

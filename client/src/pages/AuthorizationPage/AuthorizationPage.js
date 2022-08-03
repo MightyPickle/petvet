@@ -40,9 +40,9 @@ export default function AuthorizationPage() {
     <main>
       <Box sx={{ width: '40%', margin: 'auto', marginTop: '3rem' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={value} onChange={handleChange} aria-label="login-signup" sx={{ justifyContent: 'center' }}>
-            <Tab label="Log In" />
-            <Tab label="Sign up" />
+          <Tabs value={value} onChange={handleChange} aria-label="login-signup">
+            <Tab label="Войти" />
+            <Tab label="Зарегистрироваться" />
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>

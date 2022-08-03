@@ -38,7 +38,7 @@ function Login({ submitHandler }) {
           onChange={inputHandler}
           required
         />
-        <Button variant="contained" sx={{ marginTop: '1rem' }} type="submit">Log in</Button>
+        <Button variant="contained" sx={{ marginTop: '1rem' }} type="submit">Войти</Button>
       </form>
     </Box>
   );

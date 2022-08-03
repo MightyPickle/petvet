@@ -146,6 +146,7 @@ export default function ActionBarComponent({ date, setDate, busyDays }) {
     }
     return <PickersDay {...DayProps}>{day.getDate()}</PickersDay>;
   };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <StaticDatePicker

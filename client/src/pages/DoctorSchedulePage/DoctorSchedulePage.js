@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
-import { Box, Button, Typography } from '@mui/material';
+import {
+  Box, Button, Divider, Typography,
+} from '@mui/material';
 import { errorShowAC } from '../../redux/actions/errorAction';
 import { getPetThunk } from '../../redux/actions/petActions';
 import { scheduleAddCurrentAC } from '../../redux/actions/scheduleAction';
@@ -52,6 +54,12 @@ function DoctorSchedulePage() {
     <Container sx={{ padding: '1rem', display: 'flex' }}>
       <ActionBarComponent date={date} setDate={setDate} busyDays={busyDays} />
       <Container>
+        <Typography variant="h2" sx={{ textAlign: 'center' }}>
+          Визиты на
+          {' '}
+          {date.toDateString()}
+        </Typography>
+        <Divider variant="middle" />
         {schedule.length > 0
           && schedule.map(
             (el, index) => !el.is_close && (
@@ -60,12 +68,13 @@ function DoctorSchedulePage() {
               sx={{
                 height: 'max-content',
                 padding: '1rem',
-                border: '1px solid rgba(0,0,0,0.3)',
+                boxShadow: '4px 4px 8px rgba(0,0,0,0.4)',
                 borderRadius: '10px',
                 marginBottom: '0.7rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
+                marginTop: '1rem',
               }}
             >
               <Box>
@@ -78,6 +87,7 @@ function DoctorSchedulePage() {
               </Box>
               <Box>
                 <Button
+                  variant="contained"
                   onClick={() => {
                     startVisithandler(el.Pet.id, el);
                   }}

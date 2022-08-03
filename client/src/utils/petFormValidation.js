@@ -1,4 +1,4 @@
-const pageOneValidation = (state) => {
+export const pageOneValidation = (state) => {
   if (
     state.name === ''
    || state.specie === ''
@@ -13,4 +13,12 @@ const pageOneValidation = (state) => {
   return true;
 };
 
-export default pageOneValidation;
+export const pageTwoValidation = (state) => {
+  if (state.sterilized === '') {
+    return false;
+  }
+  if (state.sterilized !== '' && state.sterilized_date === '') {
+    return false;
+  }
+  return true;
+};
