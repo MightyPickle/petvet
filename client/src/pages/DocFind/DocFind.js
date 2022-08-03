@@ -34,7 +34,12 @@ function DocFind() {
         <SearchInput getData={getDataByName} />
         <Box sx={{ mt: 10 }}>
           {vetinfo.length > 0 && vetinfo.map((vet, index) => (
-            <Box key={index} onClick={() => (navigate(`/doctors/${vet.id}`))}>
+            <Box
+              key={index}
+              onClick={() => {
+                navigate(`/doctors/${vet.id}`);
+              }}
+            >
               <UserCard
                 user={vet}
                 address={vet.Doc_info?.clinic_address || 'Отсутствует'}
