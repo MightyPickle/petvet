@@ -9,13 +9,13 @@ export default function DocAccordionsAll({ doc }) {
   const profiles = useSelector((state) => state.profiles);
   const categories = useSelector((state) => state.categories);
 
-  const filteredProfiles = profiles.filter((profile) => {
+  const filteredProfiles = profiles?.filter((profile) => {
     const compare = doc.Profiles.find((el) => el.id === profile.id);
     return !compare;
   });
 
-  const filteredCategories = categories.filter((category) => {
-    const compare = doc.Categories.find((el) => el.id === category.id);
+  const filteredCategories = categories?.filter((category) => {
+    const compare = doc.Categories?.find((el) => el.id === category.id);
     return !compare;
   });
 
