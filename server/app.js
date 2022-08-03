@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
 const FileStore = require('session-file-store')(session);
+const nodemailer = require('nodemailer');
 
 const petInfoRouter = require('./src/routes/pet.router');
 const visitRouter = require('./src/routes/visit.router');
