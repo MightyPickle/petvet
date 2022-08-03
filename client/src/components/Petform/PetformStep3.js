@@ -35,14 +35,15 @@ function PetformStep3({ petForm, inputHandler }) {
     <Box sx={{
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       gap: '1rem',
       width: '80%',
       margin: 'auto',
-      border: '1px solid rgba(0, 0, 0, 0.2)',
+      border: '1px solid rgba(0, 0, 0, 0.1)',
       borderRadius: '10px',
-      boxShadow: '8px 8px 10px rgba(0, 0, 0, 0.2)',
-      padding: '1rem',
+      boxShadow: '8px 8px 10px rgba(0, 0, 0, 0.5)',
+      padding: '2rem 2rem 0 2rem',
+      minHeight: '60vh',
     }}
     >
       <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Прививки и обработки</Typography>
@@ -55,7 +56,7 @@ function PetformStep3({ petForm, inputHandler }) {
             deleteCardHandler={() => inputHandler.removeFromArray('vaccinations', index)}
           />
         ))}
-      <form style={{ width: '70%', margin: 'auto' }} onSubmit={submitHanlder}>
+      <form style={{ width: '80%', margin: '2rem auto' }} onSubmit={submitHanlder}>
         <div>
           <TextField
             name="description"
@@ -92,7 +93,7 @@ function PetformStep3({ petForm, inputHandler }) {
             sx={{ width: '100%' }}
           />
         </div>
-        <Button type="submit" sx={{ marginTop: '0.7rem', marginLeft: 'auto' }}>Добавить</Button>
+        <Button type="submit" variant="contained" sx={{ marginTop: '0.7rem', marginLeft: 'auto' }}>Добавить</Button>
       </form>
     </Box>
   );

@@ -90,7 +90,7 @@ function Signup({ submitHandler }) {
           sx={{ marginTop: '1rem' }}
           type="submit"
         >
-          Sign up
+          Зарегистрироваться
         </Button>
       </form>
     </Box>
