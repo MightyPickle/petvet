@@ -300,7 +300,7 @@ const getOneDoctor = async (req, res) => {
   try {
     const result = await User.findOne({
       where: { id: req.params.id, user_group: 1 },
-      attributes: ['first_name', 'last_name', 'phone', 'email', 'img'],
+      attributes: ['id', 'first_name', 'last_name', 'phone', 'email', 'img'],
       include: [
         {
           model: Doc_info,
