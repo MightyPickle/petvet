@@ -17,7 +17,7 @@ export default function PetCard({ pet }) {
   const navigateMoreHandler = (link) => {
     navigate(link);
   };
-
+  // const avatarUrl = `${process.env.REACT_APP_HOST}${pet.img}`;
   return (
     <div>
       <Card sx={{

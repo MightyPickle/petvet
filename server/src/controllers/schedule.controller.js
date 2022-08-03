@@ -1,8 +1,6 @@
 const { Doc_schedule } = require('../../db/models');
 
 const editSchedules = async (req, res) => {
-  console.log(req.body, '<<<<<<<<<<<<<<<<<<<<<<<');
-  console.log(Doc_schedule, '<<<<<<<<<<<<<<<<<<<<<<<');
   const { id } = req.body;
   try {
     const updated = await Doc_schedule.update(
@@ -13,7 +11,6 @@ const editSchedules = async (req, res) => {
         where: { id },
       }
     );
-    console.log(updated, '<<<<< updated');
     if (updated) {
       return res.sendStatus(200);
     }

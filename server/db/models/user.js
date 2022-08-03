@@ -36,6 +36,7 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING,
     password: DataTypes.TEXT,
     user_group: DataTypes.INTEGER,
+    img: DataTypes.TEXT,
   }, {
     sequelize,
     modelName: 'User',
