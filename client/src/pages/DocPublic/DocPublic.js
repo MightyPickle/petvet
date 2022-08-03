@@ -113,7 +113,7 @@ function DoctorPublic() {
       <Grid container spacing={2} sx={{ marginTop: '1.5rem' }}>
         <Grid item xs={8}>
           <Item>
-            <UserCard guest user={vetinfo} />
+            <UserCard guest user={vetinfo} address={vetinfo.Doc_info?.clinic_address || 'Отсутствует'} />
             <DocProfSpecialization vetinfo={vetinfo} />
             <DocExperience vetinfo={vetinfo} />
           </Item>
