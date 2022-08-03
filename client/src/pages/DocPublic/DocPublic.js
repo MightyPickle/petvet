@@ -56,12 +56,7 @@ function DoctorPublic() {
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
-  const [newSchedule, setNewSchedule] = useState({
-    docId: vetinfo.id,
-    petId: '',
-    userId: user.id,
-    dateOfreceipt: '',
-  });
+  const [newSchedule, setNewSchedule] = useState({});
   const [scheduleDate, setScheduleDate] = useState('');
 
   const handleOpenSchedule = () => setOpen(true);
@@ -106,6 +101,18 @@ function DoctorPublic() {
     dispatch(getInfoCardThunk(id));
     getTimeWindows(new Date());
   }, []);
+
+  useEffect(() => {
+    setNewSchedule(
+      {
+        docId: vetinfo.id,
+        petId: '',
+        userId: user.id,
+        dateOfreceipt: '',
+      },
+    );
+  }, [vetinfo]);
+
   return (
     <Container
       sx={{ max_width: '1000px', py: 3 }}
