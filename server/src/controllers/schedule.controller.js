@@ -52,6 +52,7 @@ const addScheduleEntry = async (req, res) => {
     mailToOwner(owner.email, `${doc.first_name} ${doc.last_name}`, new Date(dateOfreceipt).toLocaleString());
     return res.sendStatus(200);
   } catch (error) {
+    console.log(error.message);
     return res.status(500).json({ errorMessage: error.message });
   }
 };
