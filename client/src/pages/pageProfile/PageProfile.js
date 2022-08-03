@@ -26,7 +26,7 @@ export default function PageProfile() {
       )}
       {user.user_group === 1 && (
         <>
-          <UserCard user={user} />
+          <UserCard user={user} address={user.Doc_info?.clinic_address || 'Введите адрес'} />
           <PageDocProfile />
         </>
       )}

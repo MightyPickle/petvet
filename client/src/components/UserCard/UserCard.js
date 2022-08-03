@@ -12,7 +12,7 @@ import ButtonMailTo from '../ButtonMailTo/ButtonMailTo';
 import ButtonPhoneTo from '../ButtonPhoneTo/ButtonPhoneTo';
 
 export default function UserCard({
-  rating, guest, user,
+  rating, guest, user, address,
 }) {
   const iconStyles = { mx: 2, alignSelf: 'bottom' };
   const [edit, setEdit] = useState({
@@ -129,15 +129,16 @@ export default function UserCard({
           </div>
         )}
 
-        {user.user_group === 1 && (
+        {address && (
           <div style={{ display: 'flex', alignItems: 'baseline' }}>
             <Typography variant="h6" component="h2">
               Адрес клиники
             </Typography>
             <Typography variant="h6" component="h2" sx={dataStyles}>
-              {user.Doc_info?.clinic_address || 'Введите адрес'}
+              {address}
             </Typography>
-            <EditIcon sx={iconStyles} color="primary">edit_profile</EditIcon>
+            {!guest
+            && <EditIcon sx={iconStyles} color="primary">edit_profile</EditIcon>}
           </div>
         )}
       </CardContent>

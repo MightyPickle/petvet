@@ -39,7 +39,7 @@ function DocFind() {
               <UserCard
                 key={index}
                 user={vet}
-                address={vet.Doc_info?.clinic_address}
+                address={vet.Doc_info?.clinic_address || 'Отсутствует'}
                 guest
               />
             </Box>
