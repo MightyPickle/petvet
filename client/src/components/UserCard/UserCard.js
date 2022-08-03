@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 import React, { useState } from 'react';
 import CardContent from '@mui/material/CardContent';
 import {
@@ -11,7 +12,7 @@ import ButtonMailTo from '../ButtonMailTo/ButtonMailTo';
 import ButtonPhoneTo from '../ButtonPhoneTo/ButtonPhoneTo';
 
 export default function UserCard({
-  rating, address, guest, user,
+  rating, guest, user, address,
 }) {
   const iconStyles = { mx: 2, alignSelf: 'bottom' };
   const [edit, setEdit] = useState({
@@ -88,7 +89,7 @@ export default function UserCard({
               Почта
             </Typography>
             <Typography variant="h5" component="div" sx={dataStyles}>
-              <TextField variant="standard" defaultValue="no-reply@example.com" />
+              <TextField variant="standard" defaultValue={user.email} />
             </Typography>
             <DoneIcon color="secondary" sx={iconStyles} onClick={(e) => doneButtonHandler(e, 'email')} />
           </div>
@@ -128,29 +129,31 @@ export default function UserCard({
           </div>
         )}
 
-        {address ? (
-          <div style={{ display: 'flex', alignItems: 'baseline' }}>
-            <Typography variant="h6" component="h2">
-              Адрес клиники
-            </Typography>
-            <Typography variant="h6" component="h2" sx={dataStyles}>
-              {address}
-            </Typography>
-            <EditIcon sx={iconStyles} color="primary">edit_profile</EditIcon>
-          </div>
-        ) : (
-          <div style={{ display: 'flex', alignItems: 'baseline' }}>
-            <Typography variant="h6" component="h2">
-              Адрес клиники
-            </Typography>
-            <Typography variant="h6" component="h2" sx={dataStyles}>
-              {/* make a link */}
-              Введите адрес
-            </Typography>
-            {!guest
+        {address
+          && (
+            edit.address ? (
+              <div style={{ display: 'flex', alignItems: 'baseline' }}>
+                <Typography variant="h6" component="h2">
+                  Адрес клиники
+                </Typography>
+                <Typography variant="h5" component="div" sx={dataStyles}>
+                  <TextField variant="standard" defaultValue={address} />
+                </Typography>
+                <DoneIcon color="secondary" sx={iconStyles} onClick={(e) => doneButtonHandler(e, 'address')} />
+              </div>
+            ) : (
+              <div style={{ display: 'flex', alignItems: 'baseline' }}>
+                <Typography variant="h6" component="h2">
+                  Адрес клиники
+                </Typography>
+                <Typography variant="h6" component="h2" sx={dataStyles}>
+                  {address}
+                </Typography>
+                {!guest
             && <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'address')}>edit_profile</EditIcon>}
-          </div>
-        )}
+              </div>
+            )
+          )}
       </CardContent>
     </Card>
   );

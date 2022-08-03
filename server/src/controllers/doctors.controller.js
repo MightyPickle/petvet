@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 const {
-  User, Doc_schedule, Pet, Doc_info, Profile, Category, Price_list,
+  User, Doc_schedule, Pet, Doc_info, Profile, Category, Price_list, Docs_Category, Docs_Profile,
 } = require('../../db/models');
 
 const getDocSchedule = async (req, res) => {
@@ -10,9 +10,9 @@ const getDocSchedule = async (req, res) => {
     Number.parseInt(year, 10),
     Number.parseInt(month, 10),
     Number.parseInt(date, 10),
-    1,
-    1,
+    0,
   );
+
   const endDate = new Date(
     startDate.getFullYear(),
     startDate.getMonth(),
@@ -41,8 +41,14 @@ const getDocSchedule = async (req, res) => {
         },
       ],
     });
-    console.log(schedule);
-    return res.json(schedule);
+    const daysWithVisits = await Doc_schedule.findAll({
+      where: {
+        doc_id: Number.parseInt(docId, 10),
+        date_of_receipt: { [Op.gte]: new Date() },
+      },
+      attributes: ['date_of_receipt'],
+    });
+    return res.json({ schedule, daysWithVisits });
   } catch (error) {
     return res.status(500).json({ errorMessage: error.message });
   }
@@ -67,7 +73,7 @@ const getAllDocs = async (req, res) => {
         {
           user_group: 1,
         },
-      attributes: ['first_name', 'last_name', 'phone', 'email'],
+      attributes: ['id', 'first_name', 'last_name', 'phone', 'email'],
       include: [
         {
           model: Doc_info,
@@ -120,7 +126,7 @@ const getDocByName = async (req, res) => {
           user_group: 1,
           ...queryFilter.doctorname,
         },
-      attributes: ['first_name', 'last_name', 'phone', 'email'],
+      attributes: ['id', 'first_name', 'last_name', 'phone', 'email'],
       include: [
         {
           model: Doc_info,
@@ -147,13 +153,12 @@ const getDocByName = async (req, res) => {
 const editDocInfo = async (req, res) => {
   const { type, data } = req.body;
   const { id } = req.session.user;
-  console.log(data);
+  console.log(data, 'this is data from req.body');
   if (type === 'experience') {
     try {
       const [foundDocInfo, created] = await Doc_info.findOrCreate({
         where: { doc_id: id },
         defaults: {
-          clinic_address: 'here shall be address',
           experience: data,
         },
       });
@@ -161,13 +166,94 @@ const editDocInfo = async (req, res) => {
         foundDocInfo.experience = data;
         foundDocInfo.save();
       }
-      return res.json(foundDocInfo);
+      return res.json(foundDocInfo.experience);
     } catch (error) {
       return res.status(500).json({ errorMessage: error.message });
     }
   }
-  if (type === 'categories') {
-    const foundDocCategories = await Category.findAll({ where: { doc_id: req.session.user.id } });
+  if (type === 'Categories_add') {
+    console.log('in cat add');
+    try {
+      const newCategory = await Docs_Category.create({
+        doc_id: id,
+        category_id: data,
+      });
+      const category = await Category.findByPk(newCategory.category_id);
+      return res.json(category).status(200);
+    } catch (error) {
+      return res.status(500).json({ errorMessage: error.message });
+    }
+  }
+  if (type === 'Categories_remove') {
+    console.log('in cat remove');
+    try {
+      await Docs_Category.destroy({
+        where: {
+          doc_id: id, category_id: data,
+        },
+      });
+      return res.status(200).json(data);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ errorMessage: error.message });
+    }
+  }
+  if (type === 'Profiles_add') {
+    console.log('in prof add');
+    try {
+      const newProfile = await Docs_Profile.create({
+        doc_id: id,
+        profile_id: data,
+      });
+      const profile = await Profile.findByPk(newProfile.profile_id);
+      console.log(profile);
+      return res.json(profile).status(200);
+    } catch (error) {
+      return res.status(500).json({ errorMessage: error.message });
+    }
+  }
+  if (type === 'Profiles_remove') {
+    console.log('in prof remove');
+    try {
+      await Docs_Profile.destroy({
+        where: {
+          doc_id: id, profile_id: data,
+        },
+      });
+      return res.status(200).json(data);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ errorMessage: error.message });
+    }
+  }
+
+  if (type === 'Price_lists_add') {
+    console.log('in price add');
+    try {
+      const newService = await Price_list.create({
+        doc_id: id,
+        service: data.service,
+        price: data.price,
+      });
+      return res.json(newService).status(200);
+    } catch (error) {
+      return res.status(500).json({ errorMessage: error.message });
+    }
+  }
+
+  if (type === 'Price_lists_remove') {
+    console.log('in price remove');
+    try {
+      await Price_list.destroy({
+        where: {
+          id: data,
+        },
+      });
+      return res.status(200).json(data);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ errorMessage: error.message });
+    }
   }
 };
 
@@ -176,7 +262,7 @@ const getOneDoctor = async (req, res) => {
     const result = await User.findOne({
       where:
         { id: req.params.id, user_group: 1 },
-      attributes: ['first_name', 'last_name', 'phone', 'email'],
+      attributes: ['id', 'first_name', 'last_name', 'phone', 'email'],
       include: [
         {
           model: Doc_info,
@@ -193,6 +279,12 @@ const getOneDoctor = async (req, res) => {
         {
           model: Category,
           attributes: ['name'],
+        },
+        {
+          model: Doc_schedule,
+          as: 'doctor',
+          attributes: ['date_of_receipt'],
+          where: { date_of_receipt: { [Op.gte]: new Date() } },
         },
       ],
     });

@@ -7,8 +7,8 @@ module.exports = {
         pet_id: 1,
         date_of_receipt: new Date(2022, 8, 1, 15, 40),
         is_close: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: new Date(Date.parse('2022-08-01 00:00')),
+        updatedAt: new Date(Date.parse('2022-08-01 00:00')),
       },
       {
         doc_id: 2,
@@ -16,8 +16,8 @@ module.exports = {
         pet_id: 1,
         date_of_receipt: new Date(2022, 8, 1, 16, 0),
         is_close: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: new Date(Date.parse('2022-08-01 00:00')),
+        updatedAt: new Date(Date.parse('2022-08-01 00:00')),
       },
     ], {});
   },

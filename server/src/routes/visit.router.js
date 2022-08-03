@@ -2,9 +2,9 @@ const { Router } = require('express');
 const visitController = require('../controllers/visit.controller');
 // const checkAuth = require('../middlewares/checkAuth');
 
-const petRouter = Router();
+const visitRouter = Router();
 
-petRouter.route('/')
+visitRouter.route('/')
   .post(visitController.addVisit);
 
-module.exports = petRouter;
+module.exports = visitRouter;
