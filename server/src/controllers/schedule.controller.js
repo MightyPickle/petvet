@@ -1,4 +1,5 @@
-const { Doc_schedule } = require('../../db/models');
+const { Doc_schedule, User } = require('../../db/models');
+const { mailToOwner, mailToDoctor } = require('../utils/mailer');
 
 const editSchedules = async (req, res) => {
   const { id } = req.body;
@@ -32,7 +33,23 @@ const addScheduleEntry = async (req, res) => {
         is_close: false,
       },
     );
+
+    const doc = await User.findOne({
+      where: {
+        user_id: Number.parseInt(docId, 10),
+      },
+      attributes: ['email'],
+    });
+
+    const owner = await User.findOne({
+      where: {
+        user_id: Number.parseInt(docId, 10),
+      },
+      attributes: ['email'],
+    });
     if (!newSchedule) return res.status(500).json({ errorMessage: 'что то пошло не так' });
+    mailToDoctor(doc.email, `${owner.first_name} ${owner.last_name}`, new Date(dateOfreceipt).toLocaleString());
+    mailToOwner(owner.email, `${doc.first_name} ${doc.last_name}`, new Date(dateOfreceipt).toLocaleString());
     return res.sendStatus(200);
   } catch (error) {
     return res.status(500).json({ errorMessage: error.message });

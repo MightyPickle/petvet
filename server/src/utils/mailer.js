@@ -11,17 +11,16 @@ async function mailToOwner(email, doctor, date) {
   const mailOptions = {
     from: 'mypetvet2022@gmail.com',
     to: `${email}`,
-    subject: 'Petvet',
+    subject: 'Запись на прием - PetVet',
     text: `Вы записаны к доктору ${doctor}, дата и время приёма: ${date}`,
   };
-  const result = await transporter.sendMail(mailOptions, (err, success) => {
+  transporter.sendMail(mailOptions, (err, success) => {
     if (err) {
       console.log(err);
     } else {
       console.log('success');
     }
   });
-  return result;
 }
 
 async function mailToDoctor(email, owner, date) {
@@ -35,17 +34,16 @@ async function mailToDoctor(email, owner, date) {
   const mailOptions = {
     from: 'mypetvet2022@gmail.com',
     to: `${email}`,
-    subject: 'Petvet',
+    subject: 'Запись на прием - PetVet',
     text: `К вам записан(а) на прием ${owner}, дата и время приёма: ${date}`,
   };
-  const result = await transporter.sendMail(mailOptions, (err, success) => {
+  transporter.sendMail(mailOptions, (err, success) => {
     if (err) {
       console.log(err);
     } else {
       console.log('success');
     }
   });
-  return result;
 }
 
 module.exports = { mailToOwner, mailToDoctor };
