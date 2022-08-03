@@ -9,6 +9,7 @@ import DoctorVisitsButtons from '../../components/DoctorVisitsButtons/DoctorVisi
 import HistoryVisits from '../../components/HistoryVisits/HistoryVisits';
 import NewVisitFormComponent from '../../components/NewVisitFormComponent/NewVisitFormComponent';
 import QuestComponent from '../../components/QuestComponent/QuestComponent';
+import { getOnePetAC, getPetAC } from '../../redux/actions/petActions';
 
 export default function PagesDoctorVisits() {
   const dispatch = useDispatch();
@@ -165,7 +166,8 @@ export default function PagesDoctorVisits() {
     });
     if (response.ok) {
       const data = await response.json();
-      // dispatch(userLoginAC(data));
+      // console.log(data, '<<<<<<');
+      dispatch(getOnePetAC(data));
     }
   };
   const [openImgModal, setOpenImgModal] = React.useState(false);

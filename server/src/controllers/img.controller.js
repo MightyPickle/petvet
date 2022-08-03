@@ -7,6 +7,10 @@ const {
   Price_list,
   Category,
   Profile,
+  Allergy,
+  Chronic_disease,
+  Vaccination,
+  Visit,
 } = require('../../db/models');
 
 const editUserImg = async (req, res) => {
@@ -44,17 +48,39 @@ const editPetImg = async (req, res) => {
     const img = req.files.files;
     const fileName = `${uuid.v4()}.jpg`;
     img.mv(path.resolve(__dirname, '..', '..', 'images', fileName));
-    const updated = await Pet.update(
+    await Pet.update(
       {
         img: fileName,
       },
       {
         where: { id },
-      }
+      },
     );
-    if (updated) {
-      return res.sendStatus(200);
-    }
+    const petInfo = await Pet.findOne({
+      where: { id },
+      include: [
+        {
+          model: Allergy,
+        },
+        {
+          model: Chronic_disease,
+        },
+        {
+          model: Vaccination,
+        },
+        {
+          model: Visit,
+          include: [
+            {
+              model: User,
+              as: 'doctor',
+              attributes: ['id', 'first_name', 'last_name'],
+            },
+          ],
+        },
+      ],
+    });
+    return res.json(petInfo);
   } catch (error) {
     return res.status(500).json({ errorMessage: error.message });
   }
