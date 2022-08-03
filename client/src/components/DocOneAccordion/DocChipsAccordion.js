@@ -54,10 +54,6 @@ export default function DocChipsAccordion({ type, content, options }) {
     console.log(content);
     console.log(el);
     dispatch(docUpdateThunk({ type: `${type}_remove`, input: el.id }));
-
-    // // eslint-disable-next-line no-param-reassign
-    // content = content.filter((e) => e !== el);
-    // console.log(content);
   };
 
   return (

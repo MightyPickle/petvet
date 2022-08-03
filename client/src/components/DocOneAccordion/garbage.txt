@@ -1,0 +1,8 @@
+/* {content?.map((el) => (
+ <Container sx={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center' }}>
+ // eslint-disable-next-line max-len
+ <TextField id="outlined-basic" variant="outlined" value={el.service || ''} sx={{ width: '100%', backgroundColor: 'white' }} />
+ // eslint-disable-next-line max-len
+ <TextField id="outlined-basic" variant="outlined" value={el.price || ''} sx={{ width: '30%', backgroundColor: 'white' }} />
+ </Container>
+            ))} */

@@ -86,7 +86,7 @@ export default function DocOneAccordion({ type, content }) {
               name={type}
               value={input}
               sx={{
-                width: '100%', backgroundColor: 'white', border: `.5px solid ${secondary}`, borderRadius: '5px',
+                width: '100%', backgroundColor: 'white', borderRadius: '5px',
               }}
               onChange={(e) => setInput(e.target.value)}
             />

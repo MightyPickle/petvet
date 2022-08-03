@@ -24,7 +24,7 @@ export default function DocAccordionsAll({ doc }) {
       <DocOneAccordion type="experience" content={doc.Doc_info?.experience} />
       <DocChipsAccordion type="Profiles" content={doc.Profiles?.length > 0 ? doc.Profiles : null} options={filteredProfiles} />
       <DocChipsAccordion type="Categories" content={doc.Categories?.length > 0 ? doc.Categories : null} options={filteredCategories} />
-      <DocPriceAccordion type="Price_list" content={doc.Price_lists?.length > 0 ? doc.Price_lists : null} />
+      <DocPriceAccordion type="Price_lists" content={doc.Price_lists?.length > 0 ? doc.Price_lists : null} />
     </Container>
   );
 }

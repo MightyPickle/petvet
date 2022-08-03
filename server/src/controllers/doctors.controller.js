@@ -220,6 +220,35 @@ const editDocInfo = async (req, res) => {
       return res.status(500).json({ errorMessage: error.message });
     }
   }
+
+  if (type === 'Price_lists_add') {
+    console.log('in price add');
+    try {
+      const newService = await Price_list.create({
+        doc_id: id,
+        service: data.service,
+        price: data.price,
+      });
+      return res.json(newService).status(200);
+    } catch (error) {
+      return res.status(500).json({ errorMessage: error.message });
+    }
+  }
+
+  if (type === 'Price_lists_remove') {
+    console.log('in price remove');
+    try {
+      await Price_list.destroy({
+        where: {
+          id: data,
+        },
+      });
+      return res.status(200).json(data);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ errorMessage: error.message });
+    }
+  }
 };
 
 const getOneDoctor = async (req, res) => {
