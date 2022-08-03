@@ -36,16 +36,16 @@ const addScheduleEntry = async (req, res) => {
 
     const doc = await User.findOne({
       where: {
-        user_id: Number.parseInt(docId, 10),
+        id: Number.parseInt(docId, 10),
       },
-      attributes: ['email'],
+      attributes: ['first_name', 'last_name', 'email'],
     });
 
     const owner = await User.findOne({
       where: {
-        user_id: Number.parseInt(docId, 10),
+        id: Number.parseInt(userId, 10),
       },
-      attributes: ['email'],
+      attributes: ['first_name', 'last_name', 'email'],
     });
     if (!newSchedule) return res.status(500).json({ errorMessage: 'что то пошло не так' });
     mailToDoctor(doc.email, `${owner.first_name} ${owner.last_name}`, new Date(dateOfreceipt).toLocaleString());
