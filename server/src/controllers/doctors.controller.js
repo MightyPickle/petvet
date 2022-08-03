@@ -18,13 +18,13 @@ const getDocSchedule = async (req, res) => {
     Number.parseInt(year, 10),
     Number.parseInt(month, 10),
     Number.parseInt(date, 10),
-    1,
-    1
+    0,
   );
+
   const endDate = new Date(
     startDate.getFullYear(),
     startDate.getMonth(),
-    startDate.getDate() + 1
+    startDate.getDate() + 1,
   );
 
   try {
@@ -48,8 +48,14 @@ const getDocSchedule = async (req, res) => {
         },
       ],
     });
-    console.log(schedule);
-    return res.json(schedule);
+    const daysWithVisits = await Doc_schedule.findAll({
+      where: {
+        doc_id: Number.parseInt(docId, 10),
+        date_of_receipt: { [Op.gte]: new Date() },
+      },
+      attributes: ['date_of_receipt'],
+    });
+    return res.json({ schedule, daysWithVisits });
   } catch (error) {
     return res.status(500).json({ errorMessage: error.message });
   }
@@ -259,6 +265,35 @@ const editDocInfo = async (req, res) => {
       return res.status(500).json({ errorMessage: error.message });
     }
   }
+
+  if (type === 'Price_lists_add') {
+    console.log('in price add');
+    try {
+      const newService = await Price_list.create({
+        doc_id: id,
+        service: data.service,
+        price: data.price,
+      });
+      return res.json(newService).status(200);
+    } catch (error) {
+      return res.status(500).json({ errorMessage: error.message });
+    }
+  }
+
+  if (type === 'Price_lists_remove') {
+    console.log('in price remove');
+    try {
+      await Price_list.destroy({
+        where: {
+          id: data,
+        },
+      });
+      return res.status(200).json(data);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({ errorMessage: error.message });
+    }
+  }
 };
 
 const getOneDoctor = async (req, res) => {
@@ -282,6 +317,12 @@ const getOneDoctor = async (req, res) => {
         {
           model: Category,
           attributes: ['name'],
+        },
+        {
+          model: Doc_schedule,
+          as: 'doctor',
+          attributes: ['date_of_receipt'],
+          // where: { date_of_receipt: { [Op.gte]: new Date() } },
         },
       ],
     });

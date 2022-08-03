@@ -1,5 +1,5 @@
 import { TextField } from '@mui/material';
-import { Box } from '@mui/system';
+import { Box, Container } from '@mui/system';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FindSelectors from '../../components/FindSelectors/FindSelectors';
@@ -27,7 +27,6 @@ function DocFind() {
     setVetinfo(data);
   };
 
-  console.log(input);
   return (
     <Box sx={{ display: 'flex', mt: 10 }}>
       <FindSelectors setVetinfo={setVetinfo} getData={getData} />
@@ -35,11 +34,10 @@ function DocFind() {
         <SearchInput getData={getDataByName} />
         <Box sx={{ mt: 10 }}>
           {vetinfo.length > 0 && vetinfo.map((vet, index) => (
-            <Box onClick={() => (navigate(`/doctors/${vet.id}`))}>
+            <Box key={index} onClick={() => (navigate(`/doctors/${vet.id}`))}>
               <UserCard
-                key={index}
                 user={vet}
-                address={vet.Doc_info?.clinic_address}
+                address={vet.Doc_info?.clinic_address || 'Отсутствует'}
                 guest
               />
             </Box>

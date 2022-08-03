@@ -15,6 +15,7 @@ function SearchInput({ getData }) {
 
   return (
     <TextField
+      sx={{ width: '110%' }}
       id="standard-search"
       label="Поиск врача по имени"
       type="search"

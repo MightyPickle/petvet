@@ -4,11 +4,30 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import DialogActions from '@mui/material/DialogActions';
+import { PickersDay } from '@mui/x-date-pickers';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 
 import { useLocaleText, WrapperVariantContext } from '@mui/x-date-pickers/internals';
+
+const styles = {
+  dayWithDotContainer: {
+    position: 'relative',
+  },
+  dayWithDot: {
+    position: 'absolute',
+    backgroundColor: 'black',
+    height: 0,
+    width: 0,
+    border: '2px solid',
+    borderRadius: 4,
+    borderColor: 'rgba(0,0,0,0.5)',
+    right: '50%',
+    transform: 'translateX(1px)',
+    top: '80%',
+  },
+};
 
 function CustomActionBar(props) {
   const {
@@ -113,11 +132,25 @@ function CustomActionBar(props) {
   );
 }
 
-export default function ActionBarComponent({ date, setDate }) {
+export default function ActionBarComponent({ date, setDate, busyDays }) {
+  const renderDots = (day, selected, DayProps) => {
+    const isVisit = busyDays
+      .some((el) => new Date(el.date_of_receipt).toLocaleDateString() === day.toLocaleDateString());
+    if (isVisit) {
+      return (
+        <PickersDay {...DayProps} style={styles.dayWithDotContainer}>
+          {day.getDate()}
+          <div style={styles.dayWithDot} />
+        </PickersDay>
+      );
+    }
+    return <PickersDay {...DayProps}>{day.getDate()}</PickersDay>;
+  };
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <StaticDatePicker
         onChange={(newValue) => setDate(newValue)}
+        renderDay={renderDots}
         value={date}
         renderInput={(params) => <TextField {...params} />}
         components={{

@@ -5,6 +5,7 @@ const filesUpload = require('express-fileupload');
 const path = require('path');
 const cors = require('cors');
 const FileStore = require('session-file-store')(session);
+const nodemailer = require('nodemailer');
 
 const petInfoRouter = require('./src/routes/pet.router');
 const visitRouter = require('./src/routes/visit.router');

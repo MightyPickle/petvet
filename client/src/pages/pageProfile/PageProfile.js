@@ -39,7 +39,11 @@ export default function PageProfile() {
       )}
       {user.user_group === 1 && (
         <>
-          <UserCard user={user} handleOpenImgModal={handleOpenImgModal} />
+          <UserCard
+            user={user}
+            address={user.Doc_info?.clinic_address || 'Введите адрес'}
+            handleOpenImgModal={handleOpenImgModal}
+          />
           <PageDocProfile />
         </>
       )}

@@ -9,13 +9,11 @@ import { scheduleAddCurrentAC } from '../../redux/actions/scheduleAction';
 import ActionBarComponent from '../../components/Calendar/Calendar';
 
 const fetchDocVisits = async (id, date) => {
-  console.log(date.toString());
-  const response = await fetch(
-    `http://localhost:3010/api/v1/doctors/${id}/schedule/?year=${date.getFullYear()}&month=${date.getMonth()}&date=${date.getDate()}`,
-  );
+  const response = await fetch(`http://localhost:3010/api/v1/doctors/${id}/schedule/?year=${date.getFullYear()}&month=${date.getMonth()}&date=${date.getDate()}`);
   if (response.ok) {
-    const schedule = await response.json();
-    return { success: true, schedule };
+    const data = await response.json();
+
+    return { success: true, data };
   }
   const { errorMessage } = await response.json();
   return { success: false, errorMessage };
@@ -28,13 +26,15 @@ function DoctorSchedulePage() {
   const navigate = useNavigate();
 
   const [schedule, setSchedule] = useState([]);
+  const [busyDays, setBusyDays] = useState([]);
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
     fetchDocVisits(doctor.id, date)
       .then((res) => {
         if (res.success) {
-          setSchedule(res.schedule);
+          setSchedule(res.data.schedule);
+          setBusyDays(res.data.daysWithVisits);
         } else {
           dispatch(errorShowAC(res.errorMessage));
         }
@@ -50,7 +50,7 @@ function DoctorSchedulePage() {
 
   return (
     <Container sx={{ padding: '1rem', display: 'flex' }}>
-      <ActionBarComponent date={date} setDate={setDate} />
+      <ActionBarComponent date={date} setDate={setDate} busyDays={busyDays} />
       <Container>
         {schedule.length > 0
           && schedule.map(

@@ -54,7 +54,6 @@ export const docUpdateAC = (payload) => ({ type: 'DOC_UPDATE', payload });
 
 export const docUpdateThunk = (payload) => async (dispatch) => {
   const { type, input } = payload;
-  console.log(payload);
   const response = await fetch('http://localhost:3010/api/v1/doctors', {
     method: 'POST',
     credentials: 'include',

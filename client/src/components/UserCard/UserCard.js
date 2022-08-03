@@ -19,7 +19,7 @@ import { useSelector } from 'react-redux';
 import ButtonMailTo from '../ButtonMailTo/ButtonMailTo';
 import ButtonPhoneTo from '../ButtonPhoneTo/ButtonPhoneTo';
 
-export default function UserCard({ rating, guest, user, handleOpenImgModal }) {
+export default function UserCard({ rating, guest, user, address, handleOpenImgModal }) {
   const iconStyles = { mx: 2, alignSelf: 'bottom' };
   const [edit, setEdit] = useState({
     name: false,
@@ -184,19 +184,31 @@ export default function UserCard({ rating, guest, user, handleOpenImgModal }) {
           </div>
         )}
 
-        {user.user_group === 1 && (
-          <div style={{ display: 'flex', alignItems: 'baseline' }}>
-            <Typography variant="h6" component="h2">
-              Адрес клиники
-            </Typography>
-            <Typography variant="h6" component="h2" sx={dataStyles}>
-              {user.Doc_info?.clinic_address || 'Введите адрес'}
-            </Typography>
-            <EditIcon sx={iconStyles} color="primary">
-              edit_profile
-            </EditIcon>
-          </div>
-        )}
+        {address
+          && (
+            edit.address ? (
+              <div style={{ display: 'flex', alignItems: 'baseline' }}>
+                <Typography variant="h6" component="h2">
+                  Адрес клиники
+                </Typography>
+                <Typography variant="h5" component="div" sx={dataStyles}>
+                  <TextField variant="standard" defaultValue={address} />
+                </Typography>
+                <DoneIcon color="secondary" sx={iconStyles} onClick={(e) => doneButtonHandler(e, 'address')} />
+              </div>
+            ) : (
+              <div style={{ display: 'flex', alignItems: 'baseline' }}>
+                <Typography variant="h6" component="h2">
+                  Адрес клиники
+                </Typography>
+                <Typography variant="h6" component="h2" sx={dataStyles}>
+                  {address}
+                </Typography>
+                {!guest
+            && <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'address')}>edit_profile</EditIcon>}
+              </div>
+            )
+          )}
       </CardContent>
     </Card>
   );
