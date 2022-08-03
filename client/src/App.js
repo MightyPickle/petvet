@@ -31,6 +31,7 @@ function App() {
         <Route path="/auth" element={<AuthorizationPage />} />
         <Route path="/users/patients/:id" element={<PageProfile />} />
         <Route path="/pets/new" element={<PetfromPage />} />
+        <Route path="/pets/:id" element={<PagesDoctorVisits />} />
         <Route path="/schedule" element={<PrivateRoute condition={user?.user_group !== 1} conditionRoute="/profile"><DoctorSchedulePage /></PrivateRoute>} />
         <Route path="/visits/new" element={<PagesDoctorVisits />} />
         <Route path="/profile" element={<PrivateRoute condition={!user?.first_name} conditionRoute="/auth"><PageProfile /></PrivateRoute>} />

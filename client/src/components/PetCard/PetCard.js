@@ -7,15 +7,19 @@ import {
 import React from 'react';
 import { useTheme } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getPetThunk } from '../../redux/actions/petActions';
 
 export default function PetCard({ pet }) {
+  const dispatch = useDispatch();
   const theme = useTheme();
   const primary = theme.palette.primary.main;
   const neutral = theme.palette.neutral.main;
 
   const navigate = useNavigate();
-  const navigateMoreHandler = (link) => {
-    navigate(link);
+  const navigateMoreHandler = async (id) => {
+    await dispatch(getPetThunk(id));
+    navigate(`/pets/${id}`);
   };
 
   return (
@@ -24,7 +28,7 @@ export default function PetCard({ pet }) {
     }}
     >
       <CardActionArea
-        onClick={(e) => navigateMoreHandler(`/pets/${pet.id}`)}
+        onClick={(e) => navigateMoreHandler(pet.id)}
         sx={{
           height: '20rem',
           width: '17rem',
@@ -48,7 +52,7 @@ export default function PetCard({ pet }) {
       </CardActionArea>
       <CardActions>
         <Button
-          onClick={(e) => navigateMoreHandler(`/pets/${pet.id}`)}
+          onClick={(e) => navigateMoreHandler(pet.id)}
           size="small"
           sx={{
             backgroundColor: primary, color: 'black', m: 'auto', borderRadius: '9px', p: '1rem',
