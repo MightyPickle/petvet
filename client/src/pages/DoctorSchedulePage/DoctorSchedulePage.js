@@ -54,7 +54,7 @@ function DoctorSchedulePage() {
     <Container sx={{ padding: '1rem', display: 'flex' }}>
       <ActionBarComponent date={date} setDate={setDate} busyDays={busyDays} />
       <Container>
-        <Typography variant="h2" sx={{ textAlign: 'center' }}>
+        <Typography variant="h4" sx={{ textAlign: 'center' }}>
           Визиты на
           {' '}
           {date.toDateString()}
@@ -62,42 +62,52 @@ function DoctorSchedulePage() {
         <Divider variant="middle" />
         {schedule.length > 0
           && schedule.map(
-            (el, index) => !el.is_close && (
-            <Box
-              key={index}
-              sx={{
-                height: 'max-content',
-                padding: '1rem',
-                boxShadow: '4px 4px 8px rgba(0,0,0,0.4)',
-                borderRadius: '10px',
-                marginBottom: '0.7rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                marginTop: '1rem',
-              }}
-            >
-              <Box>
-                <Typography variant="h5">
-                  {`${el.patient.first_name} ${el.patient.last_name}`}
-                </Typography>
-                <Typography variant="h6">
-                  {`${el.Pet.name} ${el.Pet.specie}`}
-                </Typography>
+            (el, index) => (
+              <Box
+                key={index}
+                sx={{
+                  height: 'max-content',
+                  padding: '1rem',
+                  boxShadow: '4px 4px 8px rgba(0,0,0,0.4)',
+                  borderRadius: '10px',
+                  marginBottom: '0.7rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  marginTop: '1rem',
+                  transition: 'all .7s ease-in-out',
+                  '&:hover': {
+                    transform: 'scale(1.1)',
+                  },
+                }}
+              >
+                <Box>
+                  <Typography variant="h5">
+                    {`В ${new Date(el.date_of_receipt).toLocaleTimeString().slice(0, 5)}`}
+                  </Typography>
+                  <Typography variant="h5">
+                    {`${el.patient.first_name} ${el.patient.last_name}`}
+                  </Typography>
+                  <Typography variant="h6">
+                    {`Питомец ${el.Pet.name} вида ${el.Pet.specie}`}
+                  </Typography>
+                </Box>
+                <Box>
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      startVisithandler(el.Pet.id, el);
+                    }}
+                  >
+                    Начать прием
+                  </Button>
+                </Box>
               </Box>
-              <Box>
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    startVisithandler(el.Pet.id, el);
-                  }}
-                >
-                  Начать прием
-                </Button>
-              </Box>
-            </Box>
             ),
+
           )}
+        {schedule.length === 0
+          && <Typography variant="h3" sx={{ textAlign: 'center', marginTop: '4rem' }}>Приемов на сегодня нет🐣</Typography>}
       </Container>
     </Container>
   );
