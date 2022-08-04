@@ -103,7 +103,7 @@ function LandingPage() {
             ...firstAnimation,
           }}
         >
-          <img alt="pic1" src={`${process.env.PUBLIC_URL}landingimg/Logo6.png`} height="300px" width="300px" style={{ objectFit: 'fill' }} />
+          <img alt="pic1" src={`${process.env.PUBLIC_URL}landingimg/logo6.png`} height="300px" width="300px" style={{ objectFit: 'fill' }} />
           <Box sx={{ minHeight: '100%' }}>
             <Typography variant="h6" sx={{ justifySelf: 'flex-start' }}>Храните историю болезни питомца у себя</Typography>
             <Button variant="contained" sx={{ margin: '10px auto 0 auto', display: 'block' }}>
@@ -126,7 +126,7 @@ function LandingPage() {
             ...secondAnimation,
           }}
         >
-          <img alt="pic1" src={`${process.env.PUBLIC_URL}landingimg/Logo2.png`} height="300px" width="300px" />
+          <img alt="pic1" src={`${process.env.PUBLIC_URL}landingimg/logo2.png`} height="300px" width="300px" />
           <Box sx={{ minHeight: '100%' }}>
             <Typography variant="h6" sx={{ justifySelf: 'flex-start' }}>Поиск ветеринаров и записи на прием</Typography>
             <Button variant="contained" sx={{ margin: '10px auto 0 auto', display: 'block' }}>
@@ -152,7 +152,7 @@ function LandingPage() {
             ...firstAnimation,
           }}
         >
-          <img alt="pic1" src={`${process.env.PUBLIC_URL}landingimg/Logo8.png`} height="300px" style={{ objectFit: 'fill' }} />
+          <img alt="pic1" src={`${process.env.PUBLIC_URL}landingimg/logo8.png`} height="300px" style={{ objectFit: 'fill' }} />
           <Box sx={{ minHeight: '100%' }}>
             <Typography variant="h6" sx={{ justifySelf: 'flex-start' }}>Ведите прием онлайн</Typography>
             <Button variant="contained" sx={{ margin: '10px auto 0 auto', display: 'block' }}>
@@ -175,7 +175,7 @@ function LandingPage() {
             ...secondAnimation,
           }}
         >
-          <img alt="pic1" src={`${process.env.PUBLIC_URL}landingimg/Logo1.png`} height="300px" />
+          <img alt="pic1" src={`${process.env.PUBLIC_URL}landingimg/logo1.png`} height="300px" />
           <Box sx={{ minHeight: '100%' }}>
             <Typography variant="h6" sx={{ justifySelf: 'flex-start' }}>Управляйте своим расписанием</Typography>
             <Button variant="contained" sx={{ margin: '10px auto 0 auto', display: 'block' }}>
