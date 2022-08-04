@@ -7,7 +7,7 @@ const imgRouter = Router();
 imgRouter.route('/user')
   .put(imgController.editUserImg);
 
-imgRouter.route('/pet')
+imgRouter.route('/pet/:id')
   .put(imgController.editPetImg);
 
 module.exports = imgRouter;

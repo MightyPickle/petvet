@@ -50,6 +50,10 @@ module.exports = {
           key: 'id',
         },
       },
+      img: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
