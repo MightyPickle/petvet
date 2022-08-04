@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable object-curly-newline */
 import React, { useState } from 'react';
 import CardContent from '@mui/material/CardContent';
@@ -25,17 +26,17 @@ import docInputController from '../../utils/docInputController';
 export default function UserCard({ rating, guest, user, address, handleOpenImgModal }) {
   const iconStyles = { mx: 2, alignSelf: 'bottom', cursor: 'pointer' };
   const [edit, setEdit] = useState({
-    name: false,
+    fullName: false,
     email: false,
     phone: false,
     address: false,
   });
 
   const [editInput, setEditInput] = useState({
-    fullName: {
-      first_name: user.first_name,
-      last_name: user.last_name,
-    },
+    // fullName: {
+    first_name: user.first_name,
+    last_name: user.last_name,
+    // },
     email: user.email,
     phone: user.phone,
     address,
@@ -58,12 +59,12 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
   const dispatch = useDispatch();
   const doneButtonHandler = (e, field) => {
     // updates user.name state
-    console.log(editInput[field]);
     if (field === 'address') {
       dispatch(docUpdateThunk(docInputController(field, editInput[field])));
-    // } else if (field === 'fullName') {
-    //   const { first_name, last_name } = editInput.field;
-    //   dispatch(userUpdateThunk({ type: field, input: editInput[field] }));
+    } else if (field === 'fullName') {
+      const { first_name, last_name } = editInput;
+      dispatch(userUpdateThunk({ type: 'first_name', input: first_name }));
+      dispatch(userUpdateThunk({ type: 'last_name', input: last_name }));
     } else {
       dispatch(userUpdateThunk({ type: field, input: editInput[field] }));
     }
@@ -99,7 +100,7 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
           justifyContent: 'center',
         }}
       >
-        {edit.name ? (
+        {edit.fullName ? (
           <div style={{ display: 'flex', alignItems: 'end' }}>
             <FormGroup variant="standard" sx={{ display: 'flex', flexDirection: 'row' }} name="fullName">
               <TextField
@@ -132,7 +133,7 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
               <EditIcon
                 color="primary"
                 sx={iconStyles}
-                onClick={(e) => editButtonHandler(e, 'name')}
+                onClick={(e) => editButtonHandler(e, 'fullName')}
               >
                 edit_profile
               </EditIcon>

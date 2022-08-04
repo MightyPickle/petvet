@@ -75,9 +75,9 @@ function DoctorSchedulePage() {
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   marginTop: '1rem',
-                  transition: 'all .7s ease-in-out',
+                  transition: 'all .4s ease-in-out',
                   '&:hover': {
-                    transform: 'scale(1.1)',
+                    transform: 'scale(1.05)',
                   },
                 }}
               >
