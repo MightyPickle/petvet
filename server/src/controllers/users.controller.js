@@ -95,6 +95,7 @@ const checkAuth = async (req, res) => {
 const getUser = async (req, res) => {
   try {
     console.log(req.session);
+    if (!req.session?.user?.id) return res.sendStatus(401);
     const user = await User.findByPk(req.session.user.id, {
       include: [Doc_info, Price_list, Category, Profile, Pet],
     });
