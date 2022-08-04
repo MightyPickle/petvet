@@ -110,10 +110,25 @@ const getUser = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {
+  const { type, data } = req.body;
+  const { id } = req.session.user;
+  try {
+    const user = await User.findByPk(id);
+    user[type] = data;
+    user.save();
+    console.log(user[type]);
+    return res.json(user[type]);
+  } catch (error) {
+    return res.status(500).json({ errorMessage: error.message });
+  }
+};
+
 module.exports = {
   signIn,
   signOut,
   signUp,
   checkAuth,
   getUser,
+  updateUser,
 };
