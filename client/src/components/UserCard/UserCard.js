@@ -100,7 +100,7 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
       >
         {edit.fullName ? (
           <div style={{ display: 'flex', alignItems: 'end' }}>
-            <FormGroup variant="standard" sx={{ display: 'flex', flexDirection: 'row' }} name="fullName">
+            <FormGroup variant="standard" sx={{ display: 'flex', flexDirection: 'row' }} name="fullName" onBlur={(e) => cancelButtonHandler(e, 'fullName')}>
               <TextField
                 variant="standard"
                 sx={{ width: 'fit-content' }}
