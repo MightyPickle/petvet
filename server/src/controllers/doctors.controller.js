@@ -1,6 +1,14 @@
 const { Op } = require('sequelize');
 const {
-  User, Doc_schedule, Pet, Doc_info, Profile, Category, Price_list, Docs_Category, Docs_Profile,
+  User,
+  Doc_schedule,
+  Pet,
+  Doc_info,
+  Profile,
+  Category,
+  Price_list,
+  Docs_Category,
+  Docs_Profile,
 } = require('../../db/models');
 
 const getDocSchedule = async (req, res) => {
@@ -21,14 +29,14 @@ const getDocSchedule = async (req, res) => {
 
   try {
     const schedule = await Doc_schedule.findAll({
-      where:
-        {
-          doc_id: Number.parseInt(docId, 10),
-          [Op.and]: [
-            { date_of_receipt: { [Op.gte]: startDate } },
-            { date_of_receipt: { [Op.lt]: endDate } },
-          ],
-        },
+      where: {
+        doc_id: Number.parseInt(docId, 10),
+        [Op.and]: [
+          { date_of_receipt: { [Op.gte]: startDate } },
+          { date_of_receipt: { [Op.lt]: endDate } },
+        ],
+        is_close: false,
+      },
       include: [
         {
           model: User,
@@ -45,6 +53,7 @@ const getDocSchedule = async (req, res) => {
       where: {
         doc_id: Number.parseInt(docId, 10),
         date_of_receipt: { [Op.gte]: new Date() },
+        is_close: false,
       },
       attributes: ['date_of_receipt'],
     });
@@ -69,11 +78,10 @@ const getAllDocs = async (req, res) => {
 
   try {
     const result = await User.findAll({
-      where:
-        {
-          user_group: 1,
-        },
-      attributes: ['id', 'first_name', 'last_name', 'phone', 'email'],
+      where: {
+        user_group: 1,
+      },
+      attributes: ['id', 'first_name', 'last_name', 'phone', 'email', 'img'],
       include: [
         {
           model: Doc_info,
@@ -111,22 +119,53 @@ const getDocByName = async (req, res) => {
   if (doctorname !== 'undefined' && doctorname) {
     queryFilter.doctorname = {
       [Op.or]: [
-        { first_name: { [Op.like]: `%${partOne.split('')[0].toUpperCase()}${partOne.split('').slice(1).join('').toLowerCase()}%` } },
-        { last_name: { [Op.like]: `%${partOne.split('')[0].toUpperCase()}${partOne.split('').slice(1).join('').toLowerCase()}%` } },
-        { first_name: { [Op.like]: `%${partTwo?.split('')[0]?.toUpperCase()}${partTwo?.split('')?.slice(1)?.join('')?.toLowerCase()}%` } },
-        { last_name: { [Op.like]: `%${partTwo?.split('')[0]?.toUpperCase()}${partTwo?.split('')?.slice(1)?.join('')?.toLowerCase()}%` } },
+        {
+          first_name: {
+            [Op.like]: `%${partOne.split('')[0].toUpperCase()}${partOne
+              .split('')
+              .slice(1)
+              .join('')
+              .toLowerCase()}%`,
+          },
+        },
+        {
+          last_name: {
+            [Op.like]: `%${partOne.split('')[0].toUpperCase()}${partOne
+              .split('')
+              .slice(1)
+              .join('')
+              .toLowerCase()}%`,
+          },
+        },
+        {
+          first_name: {
+            [Op.like]: `%${partTwo?.split('')[0]?.toUpperCase()}${partTwo
+              ?.split('')
+              ?.slice(1)
+              ?.join('')
+              ?.toLowerCase()}%`,
+          },
+        },
+        {
+          last_name: {
+            [Op.like]: `%${partTwo?.split('')[0]?.toUpperCase()}${partTwo
+              ?.split('')
+              ?.slice(1)
+              ?.join('')
+              ?.toLowerCase()}%`,
+          },
+        },
       ],
     };
   }
 
   try {
     const result = await User.findAll({
-      where:
-        {
-          user_group: 1,
-          ...queryFilter.doctorname,
-        },
-      attributes: ['id', 'first_name', 'last_name', 'phone', 'email'],
+      where: {
+        user_group: 1,
+        ...queryFilter.doctorname,
+      },
+      attributes: ['id', 'first_name', 'last_name', 'phone', 'email', 'img'],
       include: [
         {
           model: Doc_info,
@@ -206,7 +245,8 @@ const editDocInfo = async (req, res) => {
     try {
       await Docs_Category.destroy({
         where: {
-          doc_id: id, category_id: data,
+          doc_id: id,
+          category_id: data,
         },
       });
       return res.status(200).json(data);
@@ -234,7 +274,8 @@ const editDocInfo = async (req, res) => {
     try {
       await Docs_Profile.destroy({
         where: {
-          doc_id: id, profile_id: data,
+          doc_id: id,
+          profile_id: data,
         },
       });
       return res.status(200).json(data);
@@ -277,9 +318,8 @@ const editDocInfo = async (req, res) => {
 const getOneDoctor = async (req, res) => {
   try {
     const result = await User.findOne({
-      where:
-        { id: req.params.id, user_group: 1 },
-      attributes: ['id', 'first_name', 'last_name', 'phone', 'email'],
+      where: { id: req.params.id, user_group: 1 },
+      attributes: ['id', 'first_name', 'last_name', 'phone', 'email', 'img'],
       include: [
         {
           model: Doc_info,
@@ -301,7 +341,7 @@ const getOneDoctor = async (req, res) => {
           model: Doc_schedule,
           as: 'doctor',
           attributes: ['date_of_receipt'],
-          where: { date_of_receipt: { [Op.gte]: new Date() } },
+          // where: { date_of_receipt: { [Op.gte]: new Date() } },
         },
       ],
     });

@@ -1,0 +1,70 @@
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import { Button, TextField } from '@mui/material';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+  display: 'flex',
+};
+
+export default function AddAvatarModal({ submitHandler, handleClose, open }) {
+  const [file, setFile] = React.useState(null);
+  const formData = new FormData();
+  const selectFile = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  return (
+    <div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+            sx={{ display: 'block' }}
+          >
+            Загрузите фотографию профиля:
+          </Typography>
+          <form
+            onChange={selectFile}
+            onSubmit={(e) => {
+              e.preventDefault();
+              formData.append('files', file);
+              console.log(formData, 'formData');
+              submitHandler(formData);
+              handleClose();
+            }}
+          >
+            <Button variant="contained" component="label">
+              Загрузить файл
+              <input name="img" type="file" hidden />
+            </Button>
+            <Button
+              variant="contained"
+              sx={{ marginTop: '1rem' }}
+              type="submit"
+            >
+              Отправить
+            </Button>
+          </form>
+        </Box>
+      </Modal>
+    </div>
+  );
+}

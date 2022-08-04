@@ -21,7 +21,7 @@ export default function PetCard({ pet }) {
     await dispatch(getPetThunk(id));
     navigate(`/pets/${id}`);
   };
-
+  // const avatarUrl = `${process.env.REACT_APP_HOST}${pet.img}`;
   return (
     <Card sx={{
       minWidth: 150, backgroundColor: neutral, borderRadius: '9px',
