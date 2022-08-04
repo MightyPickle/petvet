@@ -30,11 +30,11 @@ export default function PetCard({ pet }) {
       <CardActionArea
         onClick={(e) => navigateMoreHandler(pet.id)}
         sx={{
-          height: '20rem',
+          height: '24rem',
           width: '17rem',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
+          justifyContent: 'space-evenly',
         }}
       >
         <Avatar
@@ -50,17 +50,6 @@ export default function PetCard({ pet }) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button
-          onClick={(e) => navigateMoreHandler(pet.id)}
-          size="small"
-          sx={{
-            backgroundColor: primary, color: 'black', m: 'auto', borderRadius: '9px', p: '1rem',
-          }}
-        >
-          Подробнее
-        </Button>
-      </CardActions>
     </Card>
   );
 }

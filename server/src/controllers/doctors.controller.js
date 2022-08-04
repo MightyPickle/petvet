@@ -210,6 +210,23 @@ const editDocInfo = async (req, res) => {
       return res.status(500).json({ errorMessage: error.message });
     }
   }
+  if (type === 'clinic_address') {
+    try {
+      const [foundDocInfo, created] = await Doc_info.findOrCreate({
+        where: { doc_id: id },
+        defaults: {
+          clinic_address: data,
+        },
+      });
+      if (!created) {
+        foundDocInfo.clinic_address = data;
+        foundDocInfo.save();
+      }
+      return res.json(foundDocInfo.clinic_address);
+    } catch (error) {
+      return res.status(500).json({ errorMessage: error.message });
+    }
+  }
   if (type === 'Categories_add') {
     console.log('in cat add');
     try {

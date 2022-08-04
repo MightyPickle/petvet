@@ -11,16 +11,19 @@ import {
   Container,
   FormControl,
   InputLabel,
+  FormGroup,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import { useTheme } from '@emotion/react';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import ButtonMailTo from '../ButtonMailTo/ButtonMailTo';
 import ButtonPhoneTo from '../ButtonPhoneTo/ButtonPhoneTo';
+import { docUpdateThunk, userUpdateThunk } from '../../redux/actions/userActions';
+import docInputController from '../../utils/docInputController';
 
 export default function UserCard({ rating, guest, user, address, handleOpenImgModal }) {
-  const iconStyles = { mx: 2, alignSelf: 'bottom' };
+  const iconStyles = { mx: 2, alignSelf: 'bottom', cursor: 'pointer' };
   const [edit, setEdit] = useState({
     name: false,
     email: false,
@@ -29,10 +32,18 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
   });
 
   const [editInput, setEditInput] = useState({
-    name: '',
-    email: false,
-    phone: false,
+    fullName: {
+      first_name: user.first_name,
+      last_name: user.last_name,
+    },
+    email: user.email,
+    phone: user.phone,
+    address,
   });
+
+  const inputHandler = (e) => {
+    setEditInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   const theme = useTheme();
   const primary = theme.palette.primary.main;
@@ -40,8 +51,22 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
   const editButtonHandler = (e, field) => {
     setEdit({ ...edit, [field]: true });
   };
+  const cancelButtonHandler = (e, field) => {
+    setEdit({ ...edit, [field]: false });
+  };
+
+  const dispatch = useDispatch();
   const doneButtonHandler = (e, field) => {
     // updates user.name state
+    console.log(editInput[field]);
+    if (field === 'address') {
+      dispatch(docUpdateThunk(docInputController(field, editInput[field])));
+    // } else if (field === 'fullName') {
+    //   const { first_name, last_name } = editInput.field;
+    //   dispatch(userUpdateThunk({ type: field, input: editInput[field] }));
+    } else {
+      dispatch(userUpdateThunk({ type: field, input: editInput[field] }));
+    }
     setEdit({ ...edit, [field]: false });
   };
 
@@ -76,25 +101,27 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
       >
         {edit.name ? (
           <div style={{ display: 'flex', alignItems: 'end' }}>
-            {/* <Typography variant="h5" component="div">
+            <FormGroup variant="standard" sx={{ display: 'flex', flexDirection: 'row' }} name="fullName">
               <TextField
                 variant="standard"
-                defaultValue={`${user.first_name} ${user.last_name}`}
-                // onSubmit={(e) => doneButtonHandler(e, 'name')}
+                sx={{ width: 'fit-content' }}
+                name="first_name"
+                value={editInput.first_name}
+                onChange={(e) => inputHandler(e)}
+                placeholder="Имя"
               />
-            </Typography> */}
-            <FormControl variant="standard">
-              <Input
-                id="component-simple"
-                defaultValue={`${user.first_name} ${user.last_name}`}
+              <TextField
+                variant="standard"
+                sx={{ width: 'fit-content', ml: '.3rem' }}
+                name="last_name"
+                value={editInput.last_name}
+                onChange={(e) => inputHandler(e)}
+                placeholder="Фамилия"
               />
-            </FormControl>
 
-            <DoneIcon
-              color="secondary"
-              sx={iconStyles}
-              onClick={(e) => doneButtonHandler(e, 'name')}
-            />
+            </FormGroup>
+
+            <DoneIcon color="secondary" sx={iconStyles} onClick={(e) => doneButtonHandler(e, 'fullName')} />
           </div>
         ) : (
           <div style={{ display: 'flex', alignItems: 'baseline' }}>
@@ -119,7 +146,13 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
               Почта
             </Typography>
             <Typography variant="h5" component="div" sx={dataStyles}>
-              <TextField variant="standard" defaultValue={user.email} />
+              <TextField
+                variant="standard"
+                value={editInput.email}
+                name="email"
+                onChange={(e) => inputHandler(e)}
+                onBlur={(e) => cancelButtonHandler(e, 'email')}
+              />
             </Typography>
             <DoneIcon
               color="secondary"
@@ -156,7 +189,13 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
               Телефон
             </Typography>
             <Typography variant="h5" component="div" sx={dataStyles}>
-              <TextField variant="standard" defaultValue={user.phone} />
+              <TextField
+                variant="standard"
+                name="phone"
+                onChange={(e) => inputHandler(e)}
+                value={editInput.phone}
+                onBlur={(e) => cancelButtonHandler(e, 'phone')}
+              />
             </Typography>
             <DoneIcon
               color="secondary"
@@ -187,12 +226,18 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
         {address
           && (
             edit.address ? (
-              <div style={{ display: 'flex', alignItems: 'baseline' }}>
+              <div style={{ display: 'flex', alignItems: 'end' }}>
                 <Typography variant="h6" component="h2">
                   Адрес клиники
                 </Typography>
                 <Typography variant="h5" component="div" sx={dataStyles}>
-                  <TextField variant="standard" defaultValue={address} />
+                  <TextField
+                    variant="standard"
+                    name="address"
+                    onChange={(e) => inputHandler(e)}
+                    value={editInput.address}
+                    onBlur={(e) => cancelButtonHandler(e, 'address')}
+                  />
                 </Typography>
                 <DoneIcon color="secondary" sx={iconStyles} onClick={(e) => doneButtonHandler(e, 'address')} />
               </div>
