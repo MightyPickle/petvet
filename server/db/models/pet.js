@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     sterilized: DataTypes.BOOLEAN,
     sterilized_date: DataTypes.DATE,
     owner_id: DataTypes.INTEGER,
+    img: DataTypes.TEXT,
 
   }, {
     sequelize,

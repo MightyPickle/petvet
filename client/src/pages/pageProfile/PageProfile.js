@@ -48,7 +48,6 @@ export default function PageProfile() {
         </>
       )}
       <AddAvatarModal
-        id={user.id}
         submitHandler={newAvatarFetch}
         handleOpen={handleOpenImgModal}
         handleClose={handleCloseImgModal}

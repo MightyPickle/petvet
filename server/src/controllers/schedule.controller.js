@@ -27,8 +27,8 @@ const addScheduleEntry = async (req, res) => {
     const newSchedule = await Doc_schedule.create(
       {
         doc_id: Number.parseInt(docId, 10),
-        user_id: Number.parseInt(petId, 10),
-        pet_id: Number.parseInt(userId, 10),
+        user_id: Number.parseInt(userId, 10),
+        pet_id: Number.parseInt(petId, 10),
         date_of_receipt: new Date(dateOfreceipt),
         is_close: false,
       },

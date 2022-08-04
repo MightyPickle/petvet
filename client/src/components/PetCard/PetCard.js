@@ -21,7 +21,7 @@ export default function PetCard({ pet }) {
     await dispatch(getPetThunk(id));
     navigate(`/pets/${id}`);
   };
-  // const avatarUrl = `${process.env.REACT_APP_HOST}${pet.img}`;
+  const avatarUrl = `${process.env.REACT_APP_HOST}${pet.img}`;
   return (
     <Card sx={{
       minWidth: 150, backgroundColor: neutral, borderRadius: '9px',
@@ -38,8 +38,8 @@ export default function PetCard({ pet }) {
         }}
       >
         <Avatar
-          alt="{pet.avatar}"
-          src="https://loremflickr.com/320/240/dog"
+          alt="П"
+          src={avatarUrl}
           sx={{
             width: 185, height: 185, m: 2, border: `1px solid ${primary}`,
           }}
