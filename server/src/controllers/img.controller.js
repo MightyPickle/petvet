@@ -67,6 +67,7 @@ const editPetImg = async (req, res) => {
         },
         {
           model: Vaccination,
+          order: ['id', 'DESC'],
         },
         {
           model: Visit,
@@ -75,6 +76,7 @@ const editPetImg = async (req, res) => {
               model: User,
               as: 'doctor',
               attributes: ['id', 'first_name', 'last_name'],
+              order: ['id', 'DESC'],
             },
           ],
         },

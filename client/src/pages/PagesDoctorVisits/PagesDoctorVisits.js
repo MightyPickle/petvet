@@ -153,9 +153,6 @@ export default function PagesDoctorVisits() {
       }
     );
   };
-  // console.log(allergy, '<<<<allergy');
-  // console.log(chronic, '<<<< chronic');
-  // console.log(vaccine, '<<<< vaccine');
   const { id } = useParams();
   const newAvatarFetch = async (form) => {
     const response = await fetch(`http://localhost:3010/api/v1/img/pet/${id}`, {
@@ -166,12 +163,15 @@ export default function PagesDoctorVisits() {
     });
     if (response.ok) {
       const data = await response.json();
-      // console.log(data, '<<<<<<');
       dispatch(getOnePetAC(data));
     }
   };
   const [openImgModal, setOpenImgModal] = React.useState(false);
-  const handleOpenImgModal = () => setOpenImgModal(true);
+  const handleOpenImgModal = () => {
+    if (user.user_group === 2) {
+      setOpenImgModal(true);
+    }
+  };
   const handleCloseImgModal = () => setOpenImgModal(false);
   return (
     <Container sx={{ display: 'flex', marginTop: '1rem' }}>
