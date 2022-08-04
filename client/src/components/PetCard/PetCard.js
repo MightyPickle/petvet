@@ -24,24 +24,32 @@ export default function PetCard({ pet }) {
   const avatarUrl = `${process.env.REACT_APP_HOST}${pet.img}`;
   return (
     <Card sx={{
-      minWidth: 150, backgroundColor: neutral, borderRadius: '9px',
+      minWidth: 'fit-content',
+      width: '15rem',
+      backgroundColor: neutral,
+      borderRadius: '9px',
+      boxShadow: 3,
+      transition: 'all .3s ease-in-out',
+      '&:hover': {
+        transform: 'scale(1.03)',
+      },
     }}
     >
       <CardActionArea
         onClick={(e) => navigateMoreHandler(pet.id)}
         sx={{
-          height: '24rem',
-          width: '17rem',
+          height: '23rem',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-evenly',
+          alignItems: 'center',
         }}
       >
         <Avatar
-          alt="П"
+          alt={pet.name}
           src={avatarUrl}
           sx={{
-            width: 185, height: 185, m: 2, border: `1px solid ${primary}`,
+            width: '11rem', height: '11rem', m: 2, border: `1px solid ${primary}`,
           }}
         />
         <CardContent>

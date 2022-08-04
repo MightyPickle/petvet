@@ -86,12 +86,16 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
     >
       <CardActionArea onClick={handleOpenImgModal} sx={{ width: 'fit-content', borderRadius: '50%' }}>
         <Avatar
-          alt=""
+          alt={user.name}
           src={avatarUrl}
           sx={{
             width: (small ? '10rem' : '12rem'),
             height: (small ? '10rem' : '12rem'),
             border: `1px solid ${primary}`,
+            transition: 'all .3s ease-in-out',
+            '&:hover': {
+              transform: 'scale(1.01)',
+            },
           }}
         />
       </CardActionArea>

@@ -18,14 +18,14 @@ export default function PagesDoctorVisits() {
   const scheduleInfo = useSelector((store) => store.schedule);
 
   const btnStyles = {
+    boxShadow: 2,
     color: 'black',
-    borderRadius: '9px',
-    marginBottom: '1rem',
-    paddingTop: '1rem',
-    paddingBottom: '1rem',
-    border: '1px solid',
-    borderColor: 'black',
-    width: '250px',
+    borderRadius: '6px',
+    position: 'static',
+    transition: 'all .3s ease-in-out',
+    '&:hover': {
+      transform: 'scale(1.01)',
+    },
   };
 
   const [visible, setVisible] = useState({
@@ -47,7 +47,7 @@ export default function PagesDoctorVisits() {
     <Button
       onClick={visibleButtonHandler}
       name="quest"
-      style={
+      sx={
         visible.quest
           ? { ...btnStyles, backgroundColor: '#fecd45' }
           : { ...btnStyles, backgroundColor: 'white' }
@@ -59,7 +59,7 @@ export default function PagesDoctorVisits() {
     <Button
       onClick={visibleButtonHandler}
       name="history"
-      style={
+      sx={
         visible.history
           ? { ...btnStyles, backgroundColor: '#fecd45' }
           : { ...btnStyles, backgroundColor: 'white' }
@@ -72,7 +72,7 @@ export default function PagesDoctorVisits() {
       <Button
         onClick={visibleButtonHandler}
         name="newVisit"
-        style={
+        sx={
           visible.newVisit
             ? { ...btnStyles, backgroundColor: '#fecd45' }
             : { ...btnStyles, backgroundColor: 'white' }
@@ -174,7 +174,7 @@ export default function PagesDoctorVisits() {
   };
   const handleCloseImgModal = () => setOpenImgModal(false);
   return (
-    <Container sx={{ display: 'flex', marginTop: '1rem' }}>
+    <Container sx={{ display: 'flex', marginTop: '4rem', justifyContent: 'center' }}>
       {petPatient.length > 0 && (
         <>
           {visible.quest && (

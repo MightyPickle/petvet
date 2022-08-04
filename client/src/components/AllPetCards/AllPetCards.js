@@ -13,11 +13,14 @@ export default function AllPetCards() {
   const primary = theme.palette.primary.main;
   return (
     <Container sx={{ py: 3 }}>
-      <Button sx={{ backgroundColor: primary, px: 1.5 }}>
+      <Button sx={{
+        backgroundColor: primary, px: 1.5, boxShadow: 2, borderRadius: '9px',
+      }}
+      >
         <NavLink to="/pets/new" style={{ textDecoration: 'none', color: 'black' }}>Добавить питомца</NavLink>
       </Button>
       <Box sx={{
-        display: 'flex', flex: 'row wrap', justifyContent: 'start', gap: '3rem',
+        display: 'flex', flexFlow: 'row wrap', justifyContent: 'start', gap: '2rem', mt: '1rem',
       }}
       >
         {pets && pets.map((pet) => <PetCard key={pet.id} pet={pet} />)}
