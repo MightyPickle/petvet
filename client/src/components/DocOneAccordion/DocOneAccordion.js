@@ -21,7 +21,6 @@ export default function DocOneAccordion({ type, content }) {
   // colors
   const theme = useTheme();
   const primary = theme.palette.primary.main;
-  const secondary = theme.palette.secondary.main;
   const neutral = theme.palette.neutral.main;
 
   // input control

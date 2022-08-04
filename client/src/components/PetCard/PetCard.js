@@ -21,7 +21,7 @@ export default function PetCard({ pet }) {
     await dispatch(getPetThunk(id));
     navigate(`/pets/${id}`);
   };
-
+  const avatarUrl = `${process.env.REACT_APP_HOST}${pet.img}`;
   return (
     <Card sx={{
       minWidth: 150, backgroundColor: neutral, borderRadius: '9px',
@@ -30,16 +30,16 @@ export default function PetCard({ pet }) {
       <CardActionArea
         onClick={(e) => navigateMoreHandler(pet.id)}
         sx={{
-          height: '20rem',
+          height: '24rem',
           width: '17rem',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
+          justifyContent: 'space-evenly',
         }}
       >
         <Avatar
-          alt="{pet.avatar}"
-          src="https://loremflickr.com/320/240/dog"
+          alt="П"
+          src={avatarUrl}
           sx={{
             width: 185, height: 185, m: 2, border: `1px solid ${primary}`,
           }}
@@ -50,17 +50,6 @@ export default function PetCard({ pet }) {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button
-          onClick={(e) => navigateMoreHandler(pet.id)}
-          size="small"
-          sx={{
-            backgroundColor: primary, color: 'black', m: 'auto', borderRadius: '9px', p: '1rem',
-          }}
-        >
-          Подробнее
-        </Button>
-      </CardActions>
     </Card>
   );
 }

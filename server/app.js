@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
+const filesUpload = require('express-fileupload');
+const path = require('path');
 const cors = require('cors');
 const FileStore = require('session-file-store')(session);
 const nodemailer = require('nodemailer');
@@ -13,6 +15,7 @@ const allergyRouter = require('./src/routes/allergy.router');
 const chronicRouter = require('./src/routes/chronic.router');
 const vaccineRouter = require('./src/routes/vaccine.router');
 const scheduleRouter = require('./src/routes/schedule.router');
+const imgRouter = require('./src/routes/img.router');
 
 const app = express();
 const PORT = process.env.PORT || 3010;
@@ -37,6 +40,8 @@ app.use(
 );
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(path.resolve(__dirname, 'images')));
+app.use(filesUpload({}));
 app.use(session(sessionConfig));
 
 app.use('/api/v1/users', userRouter);
@@ -47,6 +52,7 @@ app.use('/api/v1/chronic', chronicRouter);
 app.use('/api/v1/vaccine', vaccineRouter);
 app.use('/api/v1/schedule', scheduleRouter);
 app.use('/api/v1/visits', visitRouter);
+app.use('/api/v1/img', imgRouter);
 
 app.listen(PORT, () => {
   console.log(`server started PORT: http://localhost:${PORT}`);
