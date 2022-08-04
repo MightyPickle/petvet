@@ -6,13 +6,9 @@ import {
   Avatar,
   Typography,
   Card,
-  Rating,
-  Input,
   TextField,
-  Container,
-  FormControl,
-  InputLabel,
   FormGroup,
+  CardActionArea,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
@@ -23,7 +19,7 @@ import ButtonPhoneTo from '../ButtonPhoneTo/ButtonPhoneTo';
 import { docUpdateThunk, userUpdateThunk } from '../../redux/actions/userActions';
 import docInputController from '../../utils/docInputController';
 
-export default function UserCard({ rating, guest, user, address, handleOpenImgModal }) {
+export default function UserCard({ rating, guest, user, address, handleOpenImgModal, small }) {
   const iconStyles = { mx: 2, alignSelf: 'bottom', cursor: 'pointer' };
   const [edit, setEdit] = useState({
     fullName: false,
@@ -80,18 +76,20 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
         display: 'flex',
         boxShadow: 0,
         p: 3,
+        borderRadius: '15px',
       }}
     >
-      <Avatar
-        onClick={handleOpenImgModal}
-        alt=""
-        src={avatarUrl}
-        sx={{
-          width: '12rem',
-          height: '12rem',
-          border: `1px solid ${primary}`,
-        }}
-      />
+      <CardActionArea onClick={handleOpenImgModal} sx={{ width: 'fit-content', borderRadius: '50%' }}>
+        <Avatar
+          alt=""
+          src={avatarUrl}
+          sx={{
+            width: (small ? '10rem' : '12rem'),
+            height: (small ? '10rem' : '12rem'),
+            border: `1px solid ${primary}`,
+          }}
+        />
+      </CardActionArea>
       <CardContent
         sx={{
           p: '1.5rem',
