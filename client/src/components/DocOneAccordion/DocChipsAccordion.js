@@ -84,7 +84,7 @@ export default function DocChipsAccordion({ type, content, options }) {
             display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2,
           }}
           >
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <FormControl sx={{ m: 1, minWidth: 120, width: '20rem' }}>
               <Select
                 value={input}
                 onChange={(e) => setInput(e.target.value)}

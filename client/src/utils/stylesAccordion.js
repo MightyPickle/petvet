@@ -7,6 +7,7 @@ export const collapsedAccordionStyle = {
   '&:hover': {
     transform: 'scale(1.01)',
   },
+  boxShadow: 3,
 };
 
 export const expandedAccordionStyle = {
