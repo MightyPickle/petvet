@@ -36,6 +36,7 @@ function DocFind() {
           {vetinfo.length > 0 && vetinfo.map((vet, index) => (
             <Box
               sx={{
+                mt: 2,
                 borderRadius: '15px',
                 boxShadow: 3,
                 transition: 'all .3s ease-in-out',

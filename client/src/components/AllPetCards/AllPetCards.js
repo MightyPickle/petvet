@@ -13,7 +13,7 @@ export default function AllPetCards() {
   const primary = theme.palette.primary.main;
   return (
     <Container sx={{ py: 3 }}>
-      <Button sx={{ backgroundColor: primary, px: 1.5 }}>
+      <Button sx={{ backgroundColor: primary, px: 1.5, mb: 1.5 }}>
         <NavLink to="/pets/new" style={{ textDecoration: 'none', color: 'black' }}>Добавить питомца</NavLink>
       </Button>
       <Box sx={{
