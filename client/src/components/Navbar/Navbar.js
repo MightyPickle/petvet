@@ -54,7 +54,17 @@ function Navbar() {
                 </Button>
               </>
             )
-            : <Button color="inherit"><NavLink to="auth" style={{ textDecoration: 'none', color: 'inherit' }}>Авторизация</NavLink></Button>}
+            : (
+              <Button color="inherit" sx={{ marginLeft: 'auto' }}>
+                <NavLink
+                  to="auth"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  Авторизация
+
+                </NavLink>
+              </Button>
+            )}
         </Box>
       </Toolbar>
     </AppBar>
