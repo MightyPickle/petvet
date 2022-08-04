@@ -1,0 +1,70 @@
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.bulkInsert(
+      'Pets',
+      [
+        {
+          name: 'Марс',
+          specie: 'кот',
+          breed: 'Без породы',
+          sex: 1,
+          birthday: new Date(Date.parse('2013-04-05 00:00')),
+          weight: 4.3,
+          color: 'Черный',
+          sterilized: true,
+          sterilized_date: new Date(Date.parse('2014-02-14 00:00')),
+          owner_id: 13,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: 'Рубик',
+          specie: 'Амфибия',
+          breed: 'Без породы',
+          sex: 1,
+          birthday: new Date(Date.parse('2020-07-16 00:00')),
+          weight: 0.2,
+          color: 'Черный',
+          sterilized: false,
+          sterilized_date: null,
+          owner_id: 13,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: 'Акра',
+          specie: 'собака',
+          breed: 'колли',
+          sex: 0,
+          birthday: new Date(Date.parse('2018-02-10 00:00')),
+          weight: 6.84,
+          color: 'Коричневый',
+          sterilized: true,
+          sterilized_date: new Date(Date.parse('2019-02-23 00:00')),
+          owner_id: 14,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+        {
+          name: 'Посейдон',
+          specie: 'Аквариумная рыбка',
+          breed: 'гуппи',
+          sex: 0,
+          birthday: new Date(Date.parse('2021-07-12 00:00')),
+          weight: 0.08,
+          color: 'Красный',
+          sterilized: false,
+          sterilized_date: null,
+          owner_id: 14,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      {},
+    );
+  },
+
+  async down(queryInterface, Sequelize) {
+    await queryInterface.bulkDelete('Pets', null, {});
+  },
+};

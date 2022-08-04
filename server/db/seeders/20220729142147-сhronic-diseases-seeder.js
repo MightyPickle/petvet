@@ -3,7 +3,7 @@ module.exports = {
     await queryInterface.bulkInsert('Chronic_diseases', [
       {
         pet_id: 1,
-        disease: 'Насморк',
+        disease: 'Ринит',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
