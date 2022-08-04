@@ -15,7 +15,9 @@ function Navbar() {
     <AppBar position="static">
       <Toolbar>
         <div style={{ padding: '5px', marginRight: '5px' }}>
-          <img src="/LOGO5.png" alt="logo" style={{ width: '4rem', height: '4rem' }} />
+          <NavLink to="/">
+            <img src="/LOGO5.png" alt="logo" style={{ width: '4rem', height: '4rem' }} />
+          </NavLink>
         </div>
         <Box sx={{
           display: 'flex', alignItems: 'center', gap: '1rem', marginLeft: '1rem', width: '100%',
@@ -54,7 +56,17 @@ function Navbar() {
                 </Button>
               </>
             )
-            : <Button color="inherit"><NavLink to="auth" style={{ textDecoration: 'none', color: 'inherit' }}>Авторизация</NavLink></Button>}
+            : (
+              <Button color="inherit" sx={{ marginLeft: 'auto' }}>
+                <NavLink
+                  to="auth"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  Авторизация
+
+                </NavLink>
+              </Button>
+            )}
         </Box>
       </Toolbar>
     </AppBar>

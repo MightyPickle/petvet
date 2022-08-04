@@ -20,7 +20,7 @@ export default function DocAccordionsAll({ doc }) {
   });
 
   return (
-    <Container>
+    <Container sx={{ py: 3, minWidth: '35rem' }}>
       <DocOneAccordion type="experience" content={doc.Doc_info?.experience} />
       <DocChipsAccordion type="Profiles" content={doc.Profiles?.length > 0 ? doc.Profiles : null} options={filteredProfiles} />
       <DocChipsAccordion type="Categories" content={doc.Categories?.length > 0 ? doc.Categories : null} options={filteredCategories} />

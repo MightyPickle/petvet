@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import sx from '@mui/system/sx';
 import docInputController from '../../utils/docInputController';
 import { docUpdateAC, docUpdateThunk } from '../../redux/actions/userActions';
+import { collapsedAccordionStyle, expandedAccordionStyle } from '../../utils/stylesAccordion';
 
 export default function DocOneAccordion({ type, content }) {
   // for accordion
@@ -53,11 +54,7 @@ export default function DocOneAccordion({ type, content }) {
       // className="MuiAccordion"
       expanded={expanded === type}
       onChange={handleChange(type)}
-      sx={!expanded ? {
-        backgroundColor: neutral, p: 2, m: '.5rem', borderRadius: '9px',
-      } : {
-        backgroundColor: 'white', p: 2, m: '.5rem', borderRadius: '9px', border: `.5px solid ${primary}`,
-      }}
+      sx={!expanded ? collapsedAccordionStyle : expandedAccordionStyle}
     >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}

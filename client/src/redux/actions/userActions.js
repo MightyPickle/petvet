@@ -68,6 +68,7 @@ export const userUpdateAC = (payload) => ({ type: 'USER_UPDATE', payload });
 
 export const userUpdateThunk = (payload) => async (dispatch) => {
   const { type, input } = payload;
+  console.log(payload);
   const response = await fetch('http://localhost:3010/api/v1/users', {
     method: 'PUT',
     credentials: 'include',
