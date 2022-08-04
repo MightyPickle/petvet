@@ -11,6 +11,7 @@ import { useTheme } from '@emotion/react';
 import { useDispatch } from 'react-redux';
 import { red } from '@mui/material/colors';
 import { docUpdateThunk } from '../../redux/actions/userActions';
+import { collapsedAccordionStyle, expandedAccordionStyle } from '../../utils/stylesAccordion';
 
 export default function DocPriceAccordion({ type, content }) {
   const dispatch = useDispatch();
@@ -66,11 +67,7 @@ export default function DocPriceAccordion({ type, content }) {
     <Accordion
       expanded={expanded === type}
       onChange={handleChange(type)}
-      sx={!expanded ? {
-        backgroundColor: neutral, p: 2, m: '.5rem', borderRadius: '9px',
-      } : {
-        backgroundColor: 'white', p: 2, m: '.5rem', borderRadius: '9px', border: `.5px solid ${primary}`,
-      }}
+      sx={!expanded ? collapsedAccordionStyle : expandedAccordionStyle}
     >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}

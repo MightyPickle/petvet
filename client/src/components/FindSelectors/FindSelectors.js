@@ -44,10 +44,10 @@ export default function FindSelectors({ setVetinfo, getData }) {
 
   return (
     <Box sx={{
-      minWidth: 500, minHeight: 600, border: '1px solid grey', borderRadius: '19px', backgroundColor: 'grey', ml: 10,
+      width: '23rem', minWidth: '15rem', minHeight: 600, border: '1px solid grey', borderRadius: '19px', backgroundColor: 'grey',
     }}
     >
-      <Stack spacing={1} sx={{ width: 300, m: 'auto' }}>
+      <Stack spacing={1} sx={{ width: '80%', m: 'auto' }}>
         <Typography sx={{ mt: 10, fontWeight: 'bold' }}>
           Поиск врача по параметрам
         </Typography>
