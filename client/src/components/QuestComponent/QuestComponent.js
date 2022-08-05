@@ -5,14 +5,6 @@ import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 import { useSelector } from 'react-redux';
 
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-//   ...theme.typography.body2,
-//   padding: theme.spacing(1),
-//   textAlign: 'center',
-//   color: theme.palette.text.secondary,
-// }));
-
 export default function QuestComponent({ pet, handleOpenImgModal }) {
   const theme = useTheme();
   const primary = theme.palette.primary.main;
@@ -20,91 +12,120 @@ export default function QuestComponent({ pet, handleOpenImgModal }) {
   return (
     <Box
       className="container"
-      style={{
-        backgroundColor: '#d9d9d9',
-        width: '700px',
-        height: '700px',
+      sx={{
+        backgroundColor: 'paper',
+        minWidth: '32rem',
+        width: '43rem',
+        height: '70vh',
         borderRadius: '19px',
         display: 'flex',
-        flexWrap: 'wrap',
+        flexFlow: 'column',
+        padding: '1.5rem',
+        boxShadow: 4,
+        boxSizing: 'border-box',
+        alignItems: 'start',
+        gap: 1,
       }}
     >
-      {/* с позиционировать аватар и имя */}
-      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Typography variant="h6" component="span" sx={{ fontWeight: 'bold' }}>
-          Имя:
-          {` ${pet.name}`}
-        </Typography>
+      {/* спозиционировать аватар и имя */}
+      <Box sx={{ display: 'flex', justifyContent: 'start', height: 'fit-content', gap: 2 }}>
         <Avatar
-          alt="П"
+          alt={pet.name}
           src={avatarUrl}
           sx={{
-            width: 185,
-            height: 185,
+            width: '10rem',
+            height: '10rem',
             m: 2,
             border: `1px solid ${primary}`,
           }}
           onClick={handleOpenImgModal}
         />
+        <Typography variant="h6" component="span" sx={{ fontWeight: 'bold', alignSelf: 'center' }}>
+          Имя:
+          {` ${pet.name}`}
+        </Typography>
       </Box>
 
       <Grid
-        style={{ marginTop: '1rem', marginLeft: '1rem' }}
+        style={{ marginTop: '1rem', marginLeft: '.5rem', baclgroundColor: 'white' }}
         container
-        spacing={2}
+        spacing={3}
+        alignItems="center"
       >
         <Grid item xs={12}>
           <Typography variant="h6" component="span" sx={{ fontWeight: 'bold' }}>
             Дата рождения:
+          </Typography>
+          <Typography variant="h6" component="span">
             {` ${new Date(pet.birthday).toLocaleDateString()}`}
           </Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={5}>
           <Typography variant="h6" component="span" sx={{ fontWeight: 'bold' }}>
             Вид:
+          </Typography>
+          <Typography variant="h6" component="span">
             {` ${pet.specie}`}
           </Typography>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={7}>
           <Typography variant="h6" component="span" sx={{ fontWeight: 'bold' }}>
             Порода:
+          </Typography>
+          <Typography variant="h6" component="span">
             {` ${pet.breed}`}
           </Typography>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={2}>
           <Typography variant="h6" component="span" sx={{ fontWeight: 'bold' }}>
             Пол:
+          </Typography>
+          <Typography variant="h6" component="span" sx={{ fontWeight: 'bold' }}>
             {pet.sex === 1 ? ' М' : ' Ж'}
           </Typography>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
           <Typography variant="h6" component="span" sx={{ fontWeight: 'bold' }}>
             Вес:
-            {` ${pet.weight}`}
           </Typography>
-        </Grid>
-        <Grid item xs={4}>
-          <Typography variant="h6" component="span" sx={{ fontWeight: 'bold' }}>
-            Окрас:
-            {` ${pet.color}`}
+          <Typography variant="h6" component="span">
+            {` ${pet.weight}`}
           </Typography>
         </Grid>
         <Grid item xs={6}>
           <Typography variant="h6" component="span" sx={{ fontWeight: 'bold' }}>
+            Окрас:
+          </Typography>
+          <Typography variant="h6" component="span" sx={{ fontWeight: 'bold' }}>
+            {` ${pet.color}`}
+          </Typography>
+
+        </Grid>
+        <Grid item xs={4}>
+          <Typography variant="h6" component="span" sx={{ fontWeight: 'bold' }}>
             {pet.sex === 1 ? 'Кастрирован:' : 'Стерелизована:'}
+          </Typography>
+          <Typography variant="h6" component="span">
             {pet.sterilized === true ? ' да' : ' нет'}
           </Typography>
+
         </Grid>
         {pet.sterilized === true ? (
-          <Grid item xs={6}>
+          <Grid item xs={8}>
             <Typography
               variant="h6"
               component="span"
               sx={{ fontWeight: 'bold' }}
             >
               Дата:
+            </Typography>
+            <Typography
+              variant="h6"
+              component="span"
+            >
               {` ${new Date(pet.sterilized_date).toLocaleDateString()}`}
             </Typography>
+
           </Grid>
         ) : null}
         <Grid item xs={12}>
