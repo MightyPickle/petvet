@@ -16,15 +16,14 @@ export default function QuestComponent({ pet, handleOpenImgModal }) {
         backgroundColor: 'paper',
         minWidth: '32rem',
         width: '43rem',
-        height: '70vh',
+        height: 'max-content',
         borderRadius: '19px',
         display: 'flex',
         flexFlow: 'column',
-        padding: '1.5rem',
+        padding: '1.5rem 1.5rem 3.5rem 1.5rem',
         boxShadow: 4,
         boxSizing: 'border-box',
         alignItems: 'start',
-        gap: 1,
       }}
     >
       {/* спозиционировать аватар и имя */}
