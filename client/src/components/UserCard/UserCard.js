@@ -82,6 +82,7 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
         boxShadow: 0,
         p: 3,
         borderRadius: '15px',
+        alignItems: 'center',
       }}
     >
 
@@ -296,11 +297,11 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
                 <DoneIcon color="secondary" sx={iconStyles} onClick={(e) => doneButtonHandler(e, 'address')} />
               </div>
             ) : (
-              <div style={{ display: 'flex', alignItems: 'baseline' }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', flexFlow: 'column' }}>
                 <Typography variant="h6" component="h2">
-                  Адрес клиники
+                  Адрес клиники:
                 </Typography>
-                <Typography variant="h6" component="h2" sx={dataStyles}>
+                <Typography variant="h6" component="h2">
                   {address}
                 </Typography>
                 {!guest
