@@ -32,16 +32,18 @@ function DoctorSchedulePage() {
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
-    fetchDocVisits(doctor.id, date)
-      .then((res) => {
-        if (res.success) {
-          setSchedule(res.data.schedule);
-          setBusyDays(res.data.daysWithVisits);
-        } else {
-          dispatch(errorShowAC(res.errorMessage));
-        }
-      })
-      .catch((error) => dispatch(errorShowAC(error)));
+    setTimeout(() => {
+      fetchDocVisits(doctor.id, date)
+        .then((res) => {
+          if (res.success) {
+            setSchedule(res.data.schedule);
+            setBusyDays(res.data.daysWithVisits);
+          } else {
+            dispatch(errorShowAC(res.errorMessage));
+          }
+        })
+        .catch((error) => dispatch(errorShowAC(error)));
+    }, 500);
   }, [date]);
 
   const startVisithandler = async (petId, scheduleObj) => {
