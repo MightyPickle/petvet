@@ -44,7 +44,7 @@ export default function FindSelectors({ setVetinfo, getData }) {
 
   return (
     <Box sx={{
-      width: '23rem', minWidth: '15rem', minHeight: 600, border: '1px solid grey', borderRadius: '19px', backgroundColor: 'grey',
+      width: '23rem', minWidth: '15rem', height: 600, border: '1px solid grey', borderRadius: '19px', backgroundColor: 'grey',
     }}
     >
       <Stack spacing={1} sx={{ width: '80%', m: 'auto' }}>
