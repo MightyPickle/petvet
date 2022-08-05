@@ -10,7 +10,7 @@ function DocExperience({ vetinfo }) {
   const neutral = theme.palette.neutral.main;
   return (
     <Box sx={{
-      maxWidth: 700, minHeight: 150, margin: 1, borderRadius: '19px', bgcolor: neutral, p: 2,
+      maxWidth: 700, minHeight: 150, margin: 1, borderRadius: '15px', bgcolor: neutral, p: 3, boxShadow: 3,
     }}
     >
       <Typography sx={{
@@ -21,7 +21,7 @@ function DocExperience({ vetinfo }) {
       </Typography>
       <Typography
         sx={{
-          fontSize: 14, mt: 3, textAlign: 'left', ml: 1,
+          fontSize: 14, mt: 2, textAlign: 'left', ml: 1,
         }}
         color="text.secondary"
         gutterBottom
