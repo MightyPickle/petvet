@@ -40,9 +40,9 @@ function Navbar() {
           {user.first_name
             ? (
               <>
-                <NavLink to="profile" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <NavLink to="profile" style={{ textDecoration: 'none', color: 'inherit', marginLeft: 'auto' }}>
                   <Button
-                    sx={{ marginLeft: 'auto', width: 'max-content' }}
+                    sx={{ width: 'max-content' }}
                     color="inherit"
                   >
                     Личный кабинет
