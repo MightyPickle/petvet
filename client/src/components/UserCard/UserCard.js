@@ -72,7 +72,7 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
     setEdit({ ...edit, [field]: false });
   };
 
-  const dataStyles = { ml: '1rem' };
+  const dataStyles = { ml: '.5rem' };
   const avatarUrl = `${process.env.REACT_APP_HOST}${user.img}`;
   return (
     <Card
@@ -84,6 +84,9 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
         borderRadius: '15px',
       }}
     >
+
+      {!guest
+      && (
       <CardActionArea onClick={handleOpenImgModal} sx={{ width: 'fit-content', borderRadius: '50%' }}>
         <Avatar
           alt={user.name}
@@ -99,6 +102,23 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
           }}
         />
       </CardActionArea>
+      )}
+
+      <Avatar
+        alt={user.name}
+        src={avatarUrl}
+        sx={{
+          width: (small ? '10rem' : '12rem'),
+          height: (small ? '10rem' : '12rem'),
+          border: `1px solid ${primary}`,
+          transition: 'all .3s ease-in-out',
+          '&:hover': {
+            transform: 'scale(1.01)',
+          },
+          alignSelf: 'center',
+        }}
+      />
+
       <CardContent
         sx={{
           p: '1.5rem',
@@ -282,7 +302,7 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
                 <Typography variant="h6" component="h2">
                   Адрес клиники
                 </Typography>
-                <Typography variant="h5" component="div" sx={dataStyles}>
+                <Typography variant="h6" component="div" sx={dataStyles}>
                   <TextField
                     fullWidth
                     variant="standard"
