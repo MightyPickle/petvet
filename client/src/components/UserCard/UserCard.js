@@ -284,8 +284,6 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
               >
                 <Typography variant="h6" component="h2">
                   Адрес клиники
-                </Typography>
-                <Typography variant="h6" component="div" sx={dataStyles}>
                   <TextField
                     fullWidth
                     variant="standard"
