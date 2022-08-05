@@ -106,9 +106,11 @@ function LandingPage() {
           <img alt="pic1" src={`${process.env.PUBLIC_URL}landingimg/logo6.png`} height="300px" width="300px" style={{ objectFit: 'fill' }} />
           <Box sx={{ minHeight: '100%' }}>
             <Typography variant="h6" sx={{ justifySelf: 'flex-start' }}>Храните историю болезни питомца у себя</Typography>
-            <Button variant="contained" sx={{ margin: '10px auto 0 auto', display: 'block' }}>
-              <Link to="/auth" style={{ textDecoration: 'none', color: 'inherit' }}>Попробовать</Link>
-            </Button>
+            <Link to="/auth" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Button variant="contained" sx={{ margin: '10px auto 0 auto', display: 'block' }}>
+                Попробовать
+              </Button>
+            </Link>
           </Box>
         </Box>
         <Box
@@ -129,9 +131,11 @@ function LandingPage() {
           <img alt="pic1" src={`${process.env.PUBLIC_URL}landingimg/logo2.png`} height="300px" width="300px" />
           <Box sx={{ minHeight: '100%' }}>
             <Typography variant="h6" sx={{ justifySelf: 'flex-start' }}>Поиск ветеринаров и записи на прием</Typography>
-            <Button variant="contained" sx={{ margin: '10px auto 0 auto', display: 'block' }}>
-              <Link to="/auth" style={{ textDecoration: 'none', color: 'inherit' }}>Попробовать</Link>
-            </Button>
+            <Link to="/auth" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <Button variant="contained" sx={{ margin: '10px auto 0 auto', display: 'block' }}>
+                Попробовать
+              </Button>
+            </Link>
           </Box>
         </Box>
       </TabPanel>

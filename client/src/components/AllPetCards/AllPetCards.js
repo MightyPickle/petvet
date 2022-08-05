@@ -12,7 +12,7 @@ export default function AllPetCards() {
   const theme = useTheme();
   const primary = theme.palette.primary.main;
   return (
-    <Container sx={{ py: 3 }}>
+    <Container sx={{ py: 3, width: 'max-content', m: 0 }}>
       <Button sx={{
         backgroundColor: primary, px: 1.5, boxShadow: 2, borderRadius: '9px',
       }}
