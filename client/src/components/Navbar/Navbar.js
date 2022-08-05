@@ -24,25 +24,30 @@ function Navbar() {
         }}
         >
           {user?.user_group === 2 && (
-          <Typography variant="h6" component="div" sx={{ width: 'max-content' }}>
-            <NavLink to="/vets" style={{ textDecoration: 'none', color: 'inherit', width: 'inherit' }}>Поиск ветеринара</NavLink>
-          </Typography>
+          <NavLink to="/vets" style={{ textDecoration: 'none', color: 'inherit', width: 'inherit' }}>
+            <Typography variant="h6" component="div" sx={{ width: 'max-content' }}>
+              Поиск ветеринара
+            </Typography>
+          </NavLink>
           )}
           {user?.user_group === 1 && (
-          <Typography variant="h6" component="div">
-            <NavLink to="/schedule" style={{ textDecoration: 'none', color: 'inherit' }}>Приемы</NavLink>
-          </Typography>
+          <NavLink to="/schedule" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Typography variant="h6" component="div">
+              Приемы
+            </Typography>
+          </NavLink>
           ) }
           {user.first_name
             ? (
               <>
-                <Button
-                  sx={{ marginLeft: 'auto' }}
-                  color="inherit"
-                >
-                  <NavLink to="profile" style={{ textDecoration: 'none', color: 'inherit' }}>Личный кабинет</NavLink>
-
-                </Button>
+                <NavLink to="profile" style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <Button
+                    sx={{ marginLeft: 'auto', width: 'max-content' }}
+                    color="inherit"
+                  >
+                    Личный кабинет
+                  </Button>
+                </NavLink>
                 <Button
                   sx={{ alignSelf: 'flex-end' }}
                   color="inherit"
