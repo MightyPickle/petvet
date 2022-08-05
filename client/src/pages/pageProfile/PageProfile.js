@@ -30,7 +30,10 @@ export default function PageProfile() {
   const handleOpenImgModal = () => setOpenImgModal(true);
   const handleCloseImgModal = () => setOpenImgModal(false);
   return (
-    <Container sx={{ max_width: '1000px', py: 2 }}>
+    <Container sx={{
+      py: 2, minWidth: '50vw', maxWidth: '50vw',
+    }}
+    >
       {user.user_group === 2 && (
         <>
           <UserCard user={user} handleOpenImgModal={handleOpenImgModal} />

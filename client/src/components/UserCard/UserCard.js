@@ -77,7 +77,7 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
   return (
     <Card
       sx={{
-        minWidth: 275,
+        minWidth: '30rem',
         display: 'flex',
         boxShadow: 0,
         p: 3,
@@ -303,9 +303,9 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
                 </Typography>
                 <Typography variant="h6" component="h2">
                   {address}
-                </Typography>
-                {!guest
+                  {!guest
             && <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'address')}>edit_profile</EditIcon>}
+                </Typography>
               </div>
             )
           )}
