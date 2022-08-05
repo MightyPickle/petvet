@@ -5,7 +5,7 @@ import useDebounce from '../../utils/debounce';
 
 function SearchInput({ getData }) {
   const [input, setInput] = useState('');
-  const debounced = useDebounce(input, 2000);
+  const debounced = useDebounce(input, 1000);
   useEffect(() => {
     getData(debounced);
   }, [debounced]);
@@ -15,7 +15,7 @@ function SearchInput({ getData }) {
 
   return (
     <TextField
-      sx={{ width: '110%' }}
+      sx={{ width: '100%' }}
       id="standard-search"
       label="Поиск врача по имени"
       type="search"

@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/tabindex-no-positive */
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+/* eslint-disable camelcase */
 /* eslint-disable object-curly-newline */
 import React, { useState } from 'react';
 import CardContent from '@mui/material/CardContent';
@@ -5,37 +8,34 @@ import {
   Avatar,
   Typography,
   Card,
-  Rating,
-  Input,
   TextField,
-  Container,
-  FormControl,
-  InputLabel,
   FormGroup,
+  CardActionArea,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import { useTheme } from '@emotion/react';
 import { useDispatch } from 'react-redux';
+import { Box } from '@mui/system';
 import ButtonMailTo from '../ButtonMailTo/ButtonMailTo';
 import ButtonPhoneTo from '../ButtonPhoneTo/ButtonPhoneTo';
 import { docUpdateThunk, userUpdateThunk } from '../../redux/actions/userActions';
 import docInputController from '../../utils/docInputController';
 
-export default function UserCard({ rating, guest, user, address, handleOpenImgModal }) {
+export default function UserCard({ rating, guest, user, address, handleOpenImgModal, small }) {
   const iconStyles = { mx: 2, alignSelf: 'bottom', cursor: 'pointer' };
   const [edit, setEdit] = useState({
-    name: false,
+    fullName: false,
     email: false,
     phone: false,
     address: false,
   });
 
   const [editInput, setEditInput] = useState({
-    fullName: {
-      first_name: user.first_name,
-      last_name: user.last_name,
-    },
+    // fullName: {
+    first_name: user.first_name,
+    last_name: user.last_name,
+    // },
     email: user.email,
     phone: user.phone,
     address,
@@ -52,45 +52,56 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
     setEdit({ ...edit, [field]: true });
   };
   const cancelButtonHandler = (e, field) => {
+    console.log('cancelhandler');
     setEdit({ ...edit, [field]: false });
   };
 
   const dispatch = useDispatch();
-  const doneButtonHandler = (e, field) => {
+  const doneButtonHandler = async (e, field) => {
+    console.log('donehandler');
     // updates user.name state
-    console.log(editInput[field]);
     if (field === 'address') {
-      dispatch(docUpdateThunk(docInputController(field, editInput[field])));
-    // } else if (field === 'fullName') {
-    //   const { first_name, last_name } = editInput.field;
-    //   dispatch(userUpdateThunk({ type: field, input: editInput[field] }));
+      await dispatch(docUpdateThunk(docInputController(field, editInput[field])));
+    } else if (field === 'fullName') {
+      const { first_name, last_name } = editInput;
+      await dispatch(userUpdateThunk({ type: 'first_name', input: first_name }));
+      await dispatch(userUpdateThunk({ type: 'last_name', input: last_name }));
     } else {
-      dispatch(userUpdateThunk({ type: field, input: editInput[field] }));
+      await dispatch(userUpdateThunk({ type: field, input: editInput[field] }));
     }
     setEdit({ ...edit, [field]: false });
   };
 
-  const dataStyles = { ml: '1rem' };
+  const dataStyles = { ml: '.5rem' };
   const avatarUrl = `${process.env.REACT_APP_HOST}${user.img}`;
   return (
     <Card
       sx={{
-        minWidth: 275,
+        minWidth: '30rem',
         display: 'flex',
         boxShadow: 0,
         p: 3,
+        borderRadius: '15px',
+        alignItems: 'center',
       }}
     >
-      <Avatar
-        onClick={handleOpenImgModal}
-        alt=""
-        src={avatarUrl}
-        sx={{
-          width: '12rem',
-          height: '12rem',
-          border: `1px solid ${primary}`,
-        }}
-      />
+
+      <CardActionArea onClick={handleOpenImgModal} sx={{ width: 'fit-content', height: 'fit-content', borderRadius: '50%' }}>
+        <Avatar
+          alt={user.name}
+          src={avatarUrl}
+          sx={{
+            width: (small ? '10rem' : '12rem'),
+            height: (small ? '10rem' : '12rem'),
+            border: `1px solid ${primary}`,
+            transition: 'all .3s ease-in-out',
+            '&:hover': {
+              transform: 'scale(1.01)',
+            },
+          }}
+        />
+      </CardActionArea>
+
       <CardContent
         sx={{
           p: '1.5rem',
@@ -99,9 +110,23 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
           justifyContent: 'center',
         }}
       >
-        {edit.name ? (
-          <div style={{ display: 'flex', alignItems: 'end' }}>
-            <FormGroup variant="standard" sx={{ display: 'flex', flexDirection: 'row' }} name="fullName">
+        {edit.fullName ? (
+          <div
+            tabIndex={1}
+            style={{ display: 'flex', alignItems: 'end' }}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget)) {
+                cancelButtonHandler(e, 'fullName');
+              }
+            }}
+          >
+            <FormGroup
+              tabIndex={1}
+              variant="standard"
+              sx={{ display: 'flex', flexDirection: 'row' }}
+              name="fullName"
+
+            >
               <TextField
                 variant="standard"
                 sx={{ width: 'fit-content' }}
@@ -132,7 +157,7 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
               <EditIcon
                 color="primary"
                 sx={iconStyles}
-                onClick={(e) => editButtonHandler(e, 'name')}
+                onClick={(e) => editButtonHandler(e, 'fullName')}
               >
                 edit_profile
               </EditIcon>
@@ -141,7 +166,15 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
         )}
 
         {edit.email ? (
-          <div style={{ display: 'flex', alignItems: 'end' }}>
+          <div
+            tabIndex={1}
+            style={{ display: 'flex', alignItems: 'end' }}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget)) {
+                cancelButtonHandler(e, 'email');
+              }
+            }}
+          >
             <Typography variant="h6" component="h2">
               Почта
             </Typography>
@@ -151,14 +184,18 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
                 value={editInput.email}
                 name="email"
                 onChange={(e) => inputHandler(e)}
-                onBlur={(e) => cancelButtonHandler(e, 'email')}
+
               />
             </Typography>
-            <DoneIcon
-              color="secondary"
-              sx={iconStyles}
+            <Box
               onClick={(e) => doneButtonHandler(e, 'email')}
-            />
+            >
+              <DoneIcon
+                color="secondary"
+                sx={iconStyles}
+
+              />
+            </Box>
           </div>
         ) : (
           <div style={{ display: 'flex', alignItems: 'baseline' }}>
@@ -172,19 +209,30 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
               />
             </Typography>
             {!guest && (
-              <EditIcon
-                sx={iconStyles}
-                color="primary"
+              <Box
                 onClick={(e) => editButtonHandler(e, 'email')}
               >
-                edit_profile
-              </EditIcon>
+                <EditIcon
+                  sx={iconStyles}
+                  color="primary"
+                >
+                  edit_profile
+                </EditIcon>
+              </Box>
             )}
           </div>
         )}
 
         {edit.phone ? (
-          <div style={{ display: 'flex', alignItems: 'end' }}>
+          <div
+            tabIndex={1}
+            style={{ display: 'flex', alignItems: 'end' }}
+            onBlur={(e) => {
+              if (!e.currentTarget.contains(e.relatedTarget)) {
+                cancelButtonHandler(e, 'phone');
+              }
+            }}
+          >
             <Typography variant="h6" component="h2">
               Телефон
             </Typography>
@@ -194,7 +242,6 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
                 name="phone"
                 onChange={(e) => inputHandler(e)}
                 value={editInput.phone}
-                onBlur={(e) => cancelButtonHandler(e, 'phone')}
               />
             </Typography>
             <DoneIcon
@@ -226,31 +273,37 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
         {address
           && (
             edit.address ? (
-              <div style={{ display: 'flex', alignItems: 'end' }}>
+              <div
+                tabIndex={1}
+                style={{ display: 'flex', alignItems: 'end', width: 'fit-content' }}
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget)) {
+                    cancelButtonHandler(e, 'address');
+                  }
+                }}
+              >
                 <Typography variant="h6" component="h2">
                   Адрес клиники
-                </Typography>
-                <Typography variant="h5" component="div" sx={dataStyles}>
                   <TextField
+                    fullWidth
                     variant="standard"
                     name="address"
                     onChange={(e) => inputHandler(e)}
                     value={editInput.address}
-                    onBlur={(e) => cancelButtonHandler(e, 'address')}
                   />
                 </Typography>
                 <DoneIcon color="secondary" sx={iconStyles} onClick={(e) => doneButtonHandler(e, 'address')} />
               </div>
             ) : (
-              <div style={{ display: 'flex', alignItems: 'baseline' }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', flexFlow: 'column' }}>
                 <Typography variant="h6" component="h2">
-                  Адрес клиники
+                  Адрес клиники:
                 </Typography>
-                <Typography variant="h6" component="h2" sx={dataStyles}>
+                <Typography variant="h6" component="h2">
                   {address}
-                </Typography>
-                {!guest
+                  {!guest
             && <EditIcon sx={iconStyles} color="primary" onClick={(e) => editButtonHandler(e, 'address')}>edit_profile</EditIcon>}
+                </Typography>
               </div>
             )
           )}

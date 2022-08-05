@@ -15,32 +15,39 @@ function Navbar() {
     <AppBar position="static">
       <Toolbar>
         <div style={{ padding: '5px', marginRight: '5px' }}>
-          <img src="/LOGO5.png" alt="logo" style={{ width: '4rem', height: '4rem' }} />
+          <NavLink to="/">
+            <img src="/LOGO5.png" alt="logo" style={{ width: '4rem', height: '4rem' }} />
+          </NavLink>
         </div>
         <Box sx={{
           display: 'flex', alignItems: 'center', gap: '1rem', marginLeft: '1rem', width: '100%',
         }}
         >
           {user?.user_group === 2 && (
-          <Typography variant="h6" component="div" sx={{ width: 'max-content' }}>
-            <NavLink to="/vets" style={{ textDecoration: 'none', color: 'inherit', width: 'inherit' }}>Поиск ветеринара</NavLink>
-          </Typography>
+          <NavLink to="/vets" style={{ textDecoration: 'none', color: 'inherit', width: 'inherit' }}>
+            <Typography variant="h6" component="div" sx={{ width: 'max-content' }}>
+              Поиск ветеринара
+            </Typography>
+          </NavLink>
           )}
           {user?.user_group === 1 && (
-          <Typography variant="h6" component="div">
-            <NavLink to="/schedule" style={{ textDecoration: 'none', color: 'inherit' }}>Приемы</NavLink>
-          </Typography>
+          <NavLink to="/schedule" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Typography variant="h6" component="div">
+              Приемы
+            </Typography>
+          </NavLink>
           ) }
           {user.first_name
             ? (
               <>
-                <Button
-                  sx={{ marginLeft: 'auto' }}
-                  color="inherit"
-                >
-                  <NavLink to="profile" style={{ textDecoration: 'none', color: 'inherit' }}>Личный кабинет</NavLink>
-
-                </Button>
+                <NavLink to="profile" style={{ textDecoration: 'none', color: 'inherit', marginLeft: 'auto' }}>
+                  <Button
+                    sx={{ width: 'max-content' }}
+                    color="inherit"
+                  >
+                    Личный кабинет
+                  </Button>
+                </NavLink>
                 <Button
                   sx={{ alignSelf: 'flex-end' }}
                   color="inherit"
@@ -54,7 +61,17 @@ function Navbar() {
                 </Button>
               </>
             )
-            : <Button color="inherit"><NavLink to="auth" style={{ textDecoration: 'none', color: 'inherit' }}>Авторизация</NavLink></Button>}
+            : (
+              <Button color="inherit" sx={{ marginLeft: 'auto' }}>
+                <NavLink
+                  to="auth"
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  Авторизация
+
+                </NavLink>
+              </Button>
+            )}
         </Box>
       </Toolbar>
     </AppBar>

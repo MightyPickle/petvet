@@ -3,17 +3,17 @@ module.exports = {
     await queryInterface.bulkInsert('Vaccinations', [
       {
         pet_id: 1,
-        drug_name: 'SPUTNIK-V',
-        drug_date: new Date(),
-        description: 'вакцинация ковид',
+        drug_name: 'РАБИКС',
+        drug_date: new Date(Date.parse('2020-12-11 00:00')),
+        description: 'вакцинация против бешенства',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         pet_id: 1,
-        drug_name: 'SPUTNIK-X',
-        drug_date: new Date(),
-        description: 'Вакцинация бустер',
+        drug_name: 'МУЛЬТИКАН-8',
+        drug_date: new Date(Date.parse('2021-10-12 00:00')),
+        description: 'Вакцина против чумы',
         createdAt: new Date(),
         updatedAt: new Date(),
       },

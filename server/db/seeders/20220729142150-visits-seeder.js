@@ -7,7 +7,7 @@ module.exports = {
           doc_id: 2,
           user_id: 1,
           pet_id: 1,
-          visit_date: new Date(),
+          visit_date: new Date(Date.parse('2021-10-12 00:00')),
           description: 'Жалобы на тяжелое дыхание',
           diagnose: 'Хронический насморк',
           treatment:
@@ -19,7 +19,7 @@ module.exports = {
           doc_id: 2,
           user_id: 1,
           pet_id: 1,
-          visit_date: new Date(),
+          visit_date: new Date(Date.parse('2022-04-14 00:00')),
           description: 'Жалобы на выделения из глаз',
           diagnose: 'Инфекционное заражение слезных мешочков',
           treatment:

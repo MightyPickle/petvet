@@ -14,6 +14,7 @@ import { userLoginAC } from './redux/actions/userActions';
 import PetfromPage from './pages/PetformPage/PetfromPage';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import DoctorSchedulePage from './pages/DoctorSchedulePage/DoctorSchedulePage';
+import LandingPage from './pages/LandingPage/LandingPage';
 
 function App() {
   const user = useSelector((store) => store.user);
@@ -28,6 +29,7 @@ function App() {
     <>
       <Navbar />
       <Routes>
+        <Route path="/" element={<PrivateRoute condition={user?.first_name} conditionRoute="/profile"><LandingPage /></PrivateRoute>} />
         <Route path="/auth" element={<AuthorizationPage />} />
         <Route path="/users/patients/:id" element={<PageProfile />} />
         <Route path="/pets/new" element={<PetfromPage />} />

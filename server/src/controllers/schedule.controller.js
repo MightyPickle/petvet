@@ -13,7 +13,7 @@ const editSchedules = async (req, res) => {
       },
     );
     if (!updated) return res.status(500).json({ errorMessage: 'что то пошло не так' });
-    return res.sendStatus(200);
+    if (updated) return res.sendStatus(200);
   } catch (error) {
     return res.status(500).json({ errorMessage: error.message });
   }

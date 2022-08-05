@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import ClearIcon from '@mui/icons-material/Clear';
 import docInputController from '../../utils/docInputController';
 import { docUpdateThunk } from '../../redux/actions/userActions';
+import { collapsedAccordionStyle, expandedAccordionStyle } from '../../utils/stylesAccordion';
 
 export default function DocChipsAccordion({ type, content, options }) {
   // for accordion
@@ -61,11 +62,7 @@ export default function DocChipsAccordion({ type, content, options }) {
         // className="MuiAccordion"
       expanded={expanded === type}
       onChange={handleChange(type)}
-      sx={!expanded ? {
-        backgroundColor: neutral, p: 2, m: '.5rem', borderRadius: '9px',
-      } : {
-        backgroundColor: 'white', p: 2, m: '.5rem', borderRadius: '9px', border: `.5px solid ${primary}`,
-      }}
+      sx={!expanded ? collapsedAccordionStyle : expandedAccordionStyle}
     >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
@@ -87,7 +84,7 @@ export default function DocChipsAccordion({ type, content, options }) {
             display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2,
           }}
           >
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <FormControl sx={{ m: 1, minWidth: 120, width: '20rem' }}>
               <Select
                 value={input}
                 onChange={(e) => setInput(e.target.value)}

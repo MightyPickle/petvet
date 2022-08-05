@@ -33,15 +33,17 @@ export default function NewVisitFormComponent({
   return (
     <Box
       className="container"
-      style={{
-        backgroundColor: '#d9d9d9',
-        width: '700px',
-        height: '700px',
+      sx={{
+        backgroundColor: 'paper',
+        minWidth: '32rem',
+        width: '43rem',
+        height: '70vh',
         borderRadius: '19px',
         display: 'flex',
         flexWrap: 'wrap',
-        padding: '2rem',
+        padding: '3rem',
         boxSizing: 'border-box',
+        boxShadow: 4,
       }}
     >
       <form

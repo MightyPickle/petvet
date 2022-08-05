@@ -6,9 +6,7 @@ export default function DoctorVisitsButtons({ buttons }) {
     <div>
       <ButtonGroup
         sx={{
-          width: '200%',
-          height: '200%',
-          paddingLeft: '0.5rem',
+          m: '0.5rem',
         }}
         orientation="vertical"
       >
