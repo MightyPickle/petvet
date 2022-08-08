@@ -32,10 +32,8 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
   });
 
   const [editInput, setEditInput] = useState({
-    // fullName: {
     first_name: user.first_name,
     last_name: user.last_name,
-    // },
     email: user.email,
     phone: user.phone,
     address,
@@ -59,7 +57,6 @@ export default function UserCard({ rating, guest, user, address, handleOpenImgMo
   const dispatch = useDispatch();
   const doneButtonHandler = async (e, field) => {
     console.log('donehandler');
-    // updates user.name state
     if (field === 'address') {
       await dispatch(docUpdateThunk(docInputController(field, editInput[field])));
     } else if (field === 'fullName') {
