@@ -9,7 +9,6 @@ import profilesReducer from './profilesReducer';
 
 const rootReducer = combineReducers({
   user: userReducer,
-  // pets: petsReducer,
   error: errorReducer,
   vetinfo: infoCardReduser,
   categories: categoriesReducer,

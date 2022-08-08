@@ -66,8 +66,6 @@ const getDocSchedule = async (req, res) => {
 const getAllDocs = async (req, res) => {
   const { profile, category } = req.query;
 
-  console.log('query>>>', profile, category);
-
   const queryFilter = {
     category: {},
     profile: {},
@@ -99,7 +97,6 @@ const getAllDocs = async (req, res) => {
         },
       ],
     });
-    // console.log(result);
     res.json(result);
   } catch (error) {
     console.log(error.message);
@@ -181,7 +178,6 @@ const getDocByName = async (req, res) => {
         },
       ],
     });
-    console.log(result);
     res.json(result);
   } catch (error) {
     console.log(error.message);
@@ -192,7 +188,6 @@ const getDocByName = async (req, res) => {
 const editDocInfo = async (req, res) => {
   const { type, data } = req.body;
   const { id } = req.session.user;
-  console.log(data, 'this is data from req.body');
   if (type === 'experience') {
     try {
       const [foundDocInfo, created] = await Doc_info.findOrCreate({
@@ -228,7 +223,6 @@ const editDocInfo = async (req, res) => {
     }
   }
   if (type === 'Categories_add') {
-    console.log('in cat add');
     try {
       const newCategory = await Docs_Category.create({
         doc_id: id,
@@ -241,7 +235,6 @@ const editDocInfo = async (req, res) => {
     }
   }
   if (type === 'Categories_remove') {
-    console.log('in cat remove');
     try {
       await Docs_Category.destroy({
         where: {
@@ -251,26 +244,22 @@ const editDocInfo = async (req, res) => {
       });
       return res.status(200).json(data);
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ errorMessage: error.message });
     }
   }
   if (type === 'Profiles_add') {
-    console.log('in prof add');
     try {
       const newProfile = await Docs_Profile.create({
         doc_id: id,
         profile_id: data,
       });
       const profile = await Profile.findByPk(newProfile.profile_id);
-      console.log(profile);
       return res.json(profile).status(200);
     } catch (error) {
       return res.status(500).json({ errorMessage: error.message });
     }
   }
   if (type === 'Profiles_remove') {
-    console.log('in prof remove');
     try {
       await Docs_Profile.destroy({
         where: {
@@ -280,13 +269,10 @@ const editDocInfo = async (req, res) => {
       });
       return res.status(200).json(data);
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ errorMessage: error.message });
     }
   }
-
   if (type === 'Price_lists_add') {
-    console.log('in price add');
     try {
       const newService = await Price_list.create({
         doc_id: id,
@@ -298,9 +284,7 @@ const editDocInfo = async (req, res) => {
       return res.status(500).json({ errorMessage: error.message });
     }
   }
-
   if (type === 'Price_lists_remove') {
-    console.log('in price remove');
     try {
       await Price_list.destroy({
         where: {
@@ -313,6 +297,7 @@ const editDocInfo = async (req, res) => {
       return res.status(500).json({ errorMessage: error.message });
     }
   }
+  return res.status(500).json({ errorMessage: 'Такая операция не поддерживается' });
 };
 
 const getOneDoctor = async (req, res) => {
@@ -341,11 +326,9 @@ const getOneDoctor = async (req, res) => {
           model: Doc_schedule,
           as: 'doctor',
           attributes: ['date_of_receipt'],
-          // where: { date_of_receipt: { [Op.gte]: new Date() } },
         },
       ],
     });
-    console.log(result);
     res.json(result);
   } catch (error) {
     console.log(error.message);

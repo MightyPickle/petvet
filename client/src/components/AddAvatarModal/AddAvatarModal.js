@@ -50,7 +50,6 @@ export default function AddAvatarModal({ submitHandler, handleClose, open }) {
               onSubmit={(e) => {
                 e.preventDefault();
                 formData.append('files', file);
-                console.log(formData, 'formData');
                 submitHandler(formData);
                 handleClose();
               }}
