@@ -9,7 +9,7 @@ module.exports = {
         {
           first_name: 'Александр',
           last_name: 'Князев',
-          email: 'alexander.knyazev@elbrusboot.camp',
+          email: 'alexander.knyazev@testelbrusboot.camp',
           phone: '89953345214',
           password: hashedPass,
           user_group: 1,
@@ -20,7 +20,7 @@ module.exports = {
         {
           first_name: 'Артем',
           last_name: 'Оганесян',
-          email: 'artiom.oganesyan@elbrusboot.camp',
+          email: 'artiom.oganesyan@testelbrusboot.camp',
           phone: '85472319945',
           password: hashedPass,
           user_group: 1,
@@ -31,7 +31,7 @@ module.exports = {
         {
           first_name: 'Дарсен',
           last_name: 'Унгарлинов',
-          email: 'ungarlinov.darsen@elbrusboot.camp',
+          email: 'ungarlinov.darsen@testelbrusboot.camp',
           phone: '897654342213',
           password: hashedPass,
           user_group: 1,
@@ -42,7 +42,7 @@ module.exports = {
         {
           first_name: 'Мовсар',
           last_name: 'Махмутов',
-          email: 'mahmutov.movsar@elbrusboot.camp',
+          email: 'mahmutov.movsar@testelbrusboot.camp',
           phone: '89348729365',
           password: hashedPass,
           user_group: 1,
@@ -53,7 +53,7 @@ module.exports = {
         {
           first_name: 'Адам',
           last_name: 'Балкоев',
-          email: 'adam.balkoev@elbrusboot.camp',
+          email: 'adam.balkoev@testelbrusboot.camp',
           phone: '89784951156',
           password: hashedPass,
           user_group: 1,
@@ -64,7 +64,7 @@ module.exports = {
         {
           first_name: 'Антон',
           last_name: 'Панферов',
-          email: 'anton.panferov@elbrusboot.camp',
+          email: 'anton.panferov@testelbrusboot.camp',
           phone: '89657876331',
           password: hashedPass,
           user_group: 1,
@@ -75,7 +75,7 @@ module.exports = {
         {
           first_name: 'Кирилл',
           last_name: 'Кукулиев',
-          email: 'kirill.kukuliev@elbrusboot.camp',
+          email: 'kirill.kukuliev@testelbrusboot.camp',
           phone: '89842367745',
           password: hashedPass,
           user_group: 1,
@@ -86,7 +86,7 @@ module.exports = {
         {
           first_name: 'Сергей',
           last_name: 'Дочкин',
-          email: 'sergei.dochkin@elbrusboot.camp',
+          email: 'sergei.dochkin@testelbrusboot.camp',
           phone: '89764548852',
           password: hashedPass,
           user_group: 1,
@@ -97,7 +97,7 @@ module.exports = {
         {
           first_name: 'Юлия',
           last_name: 'Тарасова',
-          email: 'ju@elbrusboot.camp',
+          email: 'ju@testelbrusboot.camp',
           phone: '89836128843',
           password: hashedPass,
           user_group: 1,
@@ -108,7 +108,7 @@ module.exports = {
         {
           first_name: 'Георгий',
           last_name: 'Бабаян',
-          email: 'george@elbrusboot.camp',
+          email: 'george@testelbrusboot.camp',
           phone: '89175593411',
           password: hashedPass,
           user_group: 1,
